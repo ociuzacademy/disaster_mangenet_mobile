@@ -22,18 +22,18 @@ class volunteerCollectionReg extends StatefulWidget {
 
 class _volunteerCollectionRegState extends State<volunteerCollectionReg> {
   bool _isSecurePassword = true;
-  bool _isLoading = false; // Loading state
+  bool _isLoading = false;
 
   void _submitForm() async {
     setState(() {
-      _isLoading = true; // Show loading spinner
+      _isLoading = true;
     });
 
     // Simulate a network request (e.g., user registration)
     await Future.delayed(Duration(seconds: 2));
 
     setState(() {
-      _isLoading = false; // Hide loading spinner
+      _isLoading = false;
     });
 
     // Navigate to LoginPage after successful registration
@@ -50,7 +50,7 @@ class _volunteerCollectionRegState extends State<volunteerCollectionReg> {
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.only(left: 12,right: 12,top: 50,bottom: 20),
+            padding: EdgeInsets.only(left: 12, right: 12, top: 50, bottom: 20),
             child: Column(
               children: [
                 Text(

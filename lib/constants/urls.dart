@@ -10,6 +10,10 @@ class Urls {
   static const String SosMessage = "${baseUrl}sos/create/";
   static const String GetCollection = "${baseUrl}collection-centers/";
   static const String GetCampList = "${baseUrl}camps/";
-  static const String VoluntercampRegister = "${baseUrl}register/volunteer-camp/";
+  static const String VoluntercampRegister =
+      "${baseUrl}register/volunteer-camp/";
+  // comp section urls
   static const String VoluntercampCampList = "${baseUrl}camps-dropdown/";
+  static const String volunteerReg = "${baseUrl}register/volunteer-camp/";
+  static const String refugees = "${baseUrl}refugees/";
 }

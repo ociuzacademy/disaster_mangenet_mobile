@@ -1,36 +1,23 @@
+import 'package:cached_network_image/cached_network_image.dart'; // Import the package
+import 'package:disaster_management/CampModule/HomePage/bloc/user_list_bloc.dart';
 import 'package:disaster_management/CampModule/RefugeeaddPage/Pages/refugeeaddpage.dart';
 import 'package:disaster_management/CampModule/RequestPage/requestpage.dart';
+import 'package:disaster_management/constants/urls.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class UserListPage extends StatelessWidget {
-  // Dummy data
-  final List<Map<String, String>> userList = [
-    {
-      "name": "John Doe",
-      "number": "001",
-      "image": "https://via.placeholder.com/150"
-    },
-    {
-      "name": "Jane Smith",
-      "number": "002",
-      "image": "https://via.placeholder.com/150"
-    },
-    {
-      "name": "Sam Wilson",
-      "number": "003",
-      "image": "https://via.placeholder.com/150"
-    },
-    {
-      "name": "Emma Watson",
-      "number": "004",
-      "image": "https://via.placeholder.com/150"
-    },
-    {
-      "name": "Chris Evans",
-      "number": "005",
-      "image": "https://via.placeholder.com/150"
-    },
-  ];
+class UserListPage extends StatefulWidget {
+  @override
+  State<UserListPage> createState() => _UserListPageState();
+}
+
+class _UserListPageState extends State<UserListPage> {
+  @override
+  void initState() {
+    super.initState();
+    // Triggering API call to get user list
+    UserListAPI();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,27 +25,86 @@ class UserListPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Camp Refugee List'),
       ),
-      body: ListView.builder(
-        itemCount: userList.length,
-        itemBuilder: (context, index) {
-          final user = userList[index];
-          return Card(
-            margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            child: ListTile(
-              leading: CircleAvatar(
-                backgroundImage: NetworkImage(user['image']!),
-                radius: 25,
-              ),
-              title: Text(
-                user['name']!,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              subtitle: Text('ID: ${user['number']}'),
-              onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => RequestPage()));
-              },
-            ),
+      body: BlocBuilder<UserListBloc, UserListState>(
+        builder: (context, state) {
+          return state.when(
+            initial: () {
+              return SizedBox();
+            },
+            loading: () {
+              return Center(child: CircularProgressIndicator());
+            },
+            error: (error) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Error: $error', style: TextStyle(color: Colors.red)),
+                    ElevatedButton(
+                      onPressed: UserListAPI,
+                      child: Text('Retry'),
+                    ),
+                  ],
+                ),
+              );
+            },
+            success: (response) {
+              final userList = response;
+              return ListView.builder(
+                itemCount: userList.data.length,
+                itemBuilder: (context, index) {
+                  final user = userList.data[index];
+                  return Card(
+                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    child: ListTile(
+                      leading: CachedNetworkImage(
+                        imageUrl: ImageUrl + user.image!,
+                        imageBuilder: (context, imageProvider) => CircleAvatar(
+                          backgroundImage: imageProvider,
+                          radius: 25,
+                        ),
+                        placeholder: (context, url) =>
+                            CircularProgressIndicator(),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
+                      title: Text(
+                        user.name!,
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text('ID: ${user.gender}'),
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => RequestPage(
+                                  id: response.data[index].id.toString(),
+                                  name: response.data[index].name,
+                                  image: response.data[index].image,
+                                  age: response.data[index].age.toString(),
+                                  gender: response.data[index].gender,
+                                  medicines_used:
+                                      response.data[index].medicinesUsed,
+                                  address: response.data[index].address,
+                                  family_members:
+                                      response.data[index].familyMembers,
+                                  contact: response.data[index].contact,
+                                  no_of_people_missing:
+                                      response.data[index].noOfPeopleMissing,
+                                  missing_person_info:
+                                      response.data[index].missingPersonInfo,
+                                  additional_info:
+                                      response.data[index].additionalInfo,
+                                  //  date_of_entry: response
+                                  //    .data[index].dateOfEntry as String,
+                                  camp: response.data[index].camp.toString(),
+                                  volunteer:
+                                      response.data[index].volunteer.toString(),
+                                )));
+                      },
+                    ),
+                  );
+                },
+              );
+            },
           );
         },
       ),
@@ -66,14 +112,20 @@ class UserListPage extends StatelessWidget {
         onPressed: () {
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => RefugeeInfoPage()));
-        }, // Show the SOS dialog
+        },
         backgroundColor: Colors.red,
         child: const Icon(
           Icons.add,
-          color: Colors.white, // Icon color
+          color: Colors.white,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
+  }
+
+  // API Call to fetch user list
+  void UserListAPI() {
+    final userListBloc = BlocProvider.of<UserListBloc>(context);
+    userListBloc.add(UserListEvent.userList());
   }
 }

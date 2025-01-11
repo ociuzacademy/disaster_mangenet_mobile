@@ -120,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 LGBtn(
                     text: 'volunteer in relif camp',
-                    targetPage: volunteerRelifeCampReg()),
+                    targetPage: VolunteerRelifeCampReg()),
                 LGBtn(
                     text: 'volunteer in collection centre',
                     targetPage: volunteerCollectionReg()),

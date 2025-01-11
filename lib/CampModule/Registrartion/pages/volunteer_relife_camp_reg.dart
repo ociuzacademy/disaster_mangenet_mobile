@@ -1,19 +1,18 @@
-// pages/volunteer_relife_camp_reg.dart
-import 'package:disaster_management/CampModule/Registrartion/models/camplistmodel.dart';
-import 'package:disaster_management/CampModule/Registrartion/services/camplist.dart';
+import 'package:disaster_management/CampModule/Registrartion/bloc/camp_list_bloc.dart';
+import 'package:disaster_management/CampModule/Registrartion/bloc/volunteerRegBloc/bloc/volunteer_reg_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import '../../../widgets/dropdown.dart';
 import '../../../widgets/textfiled.dart';
 import '../../../widgets/textfiled_addres.dart';
 import '../../../modules/login/pages/login_page.dart';
 
-class volunteerRelifeCampReg extends StatefulWidget {
-  const volunteerRelifeCampReg({super.key});
+class VolunteerRelifeCampReg extends StatefulWidget {
+  const VolunteerRelifeCampReg({super.key});
 
   @override
-  State<volunteerRelifeCampReg> createState() => _volunteerRelifeCampRegState();
+  State<VolunteerRelifeCampReg> createState() => _VolunteerRelifeCampRegState();
 }
 
 TextEditingController namecontroller = TextEditingController();
@@ -21,31 +20,34 @@ TextEditingController emailcontroller = TextEditingController();
 TextEditingController phncontroller = TextEditingController();
 TextEditingController passcontroller = TextEditingController();
 TextEditingController aadharcontroller = TextEditingController();
+TextEditingController descriptioncontroller = TextEditingController();
 TextEditingController skillcontroller = TextEditingController();
 TextEditingController addresscontroller = TextEditingController();
 
-class _volunteerRelifeCampRegState extends State<volunteerRelifeCampReg> {
+class _VolunteerRelifeCampRegState extends State<VolunteerRelifeCampReg> {
   bool _isSecurePassword = true;
-  bool _isLoading = false; // Loading state
+  bool _isLoading = false;
 
-  void _submitForm() async {
-    setState(() {
-      _isLoading = true; // Show loading spinner
-    });
+  String? selectedDistrict;
+  String? selectedSubDistrict;
+  String? selectedId;
 
-    // Simulate a network request (e.g., user registration)
-    await Future.delayed(Duration(seconds: 2));
-
-    setState(() {
-      _isLoading = false; // Hide loading spinner
-    });
-
-    // Navigate to LoginPage after successful registration
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => LoginPage()));
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text("Registration Successful")));
-  }
+  List<String> districts = [
+    'Alappuzha',
+    'Ernakulam',
+    'Idukki',
+    'Kannur',
+    'Kasaragod',
+    'Kollam',
+    'Kottayam',
+    'Kozhikode',
+    'Malappuram',
+    'Palakkad',
+    'Pathanamthitta',
+    'Thiruvananthapuram',
+    'Thrissur',
+    'Wayanad',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -59,30 +61,19 @@ class _volunteerRelifeCampRegState extends State<volunteerRelifeCampReg> {
               children: [
                 Text(
                   textAlign: TextAlign.center,
-                  "volunteer \n Relife Camp Registration",
+                  "Volunteer \nRelife Camp Registration",
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 25.sp, // Responsive font size
+                    fontSize: 25.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 5.h), // Responsive height
-                Text(
-                  "On a Register / Sign Up form, what is the best copy for(Statistically proven if available)",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12.sp, // Responsive font size
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                SizedBox(height: 20.h), // Responsive height
+                SizedBox(height: 20.h),
                 TextFiledWidget(
                   controller: namecontroller,
                   labelText: 'Name',
                   suffix: Icon(Icons.person, size: 20.sp),
                   obscureText: false,
-                  // controller: namecontroller,
                 ),
                 SizedBox(height: 20.h),
                 TextFiledWidget(
@@ -90,7 +81,6 @@ class _volunteerRelifeCampRegState extends State<volunteerRelifeCampReg> {
                   labelText: 'Skills',
                   suffix: Icon(Icons.person, size: 20.sp),
                   obscureText: false,
-                  // controller: usernamecontroller,
                 ),
                 SizedBox(height: 20.h),
                 TextFiledWidget(
@@ -98,7 +88,6 @@ class _volunteerRelifeCampRegState extends State<volunteerRelifeCampReg> {
                   labelText: 'Email',
                   suffix: Icon(Icons.mail, size: 20.sp),
                   obscureText: false,
-                  // controller: emailcontroller,
                 ),
                 SizedBox(height: 20.h),
                 TextFiledWidget(
@@ -106,7 +95,6 @@ class _volunteerRelifeCampRegState extends State<volunteerRelifeCampReg> {
                   labelText: 'Password',
                   suffix: togglePassword(),
                   obscureText: _isSecurePassword,
-                  // controller: passcontroller,
                 ),
                 SizedBox(height: 20.h),
                 TextFiledWidget(
@@ -114,7 +102,6 @@ class _volunteerRelifeCampRegState extends State<volunteerRelifeCampReg> {
                   labelText: 'Phone Number',
                   suffix: Icon(Icons.phone, size: 20.sp),
                   obscureText: false,
-                  // controller: phncontroller,
                 ),
                 SizedBox(height: 20.h),
                 TextFiledAddres(
@@ -122,66 +109,131 @@ class _volunteerRelifeCampRegState extends State<volunteerRelifeCampReg> {
                   labelText: 'Address',
                   suffix: Icon(null, size: 20.sp),
                   obscureText: false,
-                  // controller: phncontroller,
                 ),
                 SizedBox(height: 20.h),
-                // FutureBuilder<CampslistModel>(
-                //   future: CampList(),
-                //   builder: (context, snapshot) {
-                //     if (snapshot.connectionState == ConnectionState.waiting) {
-                //       return CircularProgressIndicator(); // Show loader
-                //     } else if (snapshot.hasError) {
-                //       return Text("Error loading camps"); // Handle error
-                //     } else if (!snapshot.hasData) {
-                //       return Text("No camps available"); // Handle empty state
-                //     } else {
-                //       // return CustomDropdown(
-                //       //   hintText: 'Select a camp',
-                //       //   items:,
-                //       //   onChanged: (value) {
-                //       //     // Handle selected value
-                //       //     print("Selected camp: $value");
-                //       //   },
-                //       // );
-                //     }
-                //   },
-                // ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  child: DropdownButton<String>(
+                    value: selectedDistrict,
+                    hint: Text('Select District'),
+                    items: districts.map((String district) {
+                      return DropdownMenuItem<String>(
+                        value: district,
+                        child: Text(district),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedDistrict = newValue;
+                        districtAPI(selectedDistrict);
+                      });
+                    },
+                  ),
+                ),
+                SizedBox(height: 20.h),
+                BlocBuilder<CampListBloc, CampListState>(
+                  builder: (context, state) {
+                    return state.when(
+                      initial: () {
+                        return SizedBox();
+                      },
+                      loding: () {
+                        return Center(child: CircularProgressIndicator());
+                      },
+                      error: (error) {
+                        return Center(child: Text('Error: $error'));
+                      },
+                      success: (response) {
+                        // Create a map of sub-district names to IDs
+                        final Map<String, String> subDistrictMap = {
+                          for (var datum in response.data!)
+                            datum.name ?? '': datum.id?.toString() ?? ''
+                        };
 
+                        final List<String> subDistricts =
+                            subDistrictMap.keys.toList();
+
+                        return Container(
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          child: DropdownButton<String>(
+                            value: selectedSubDistrict,
+                            hint: Text('Select Camp'),
+                            items: subDistricts.map((String subDistrict) {
+                              return DropdownMenuItem<String>(
+                                value: subDistrict,
+                                child: Text(subDistrict),
+                              );
+                            }).toList(),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                selectedSubDistrict = newValue;
+
+                                // Get the ID of the selected sub-district
+                                selectedId =
+                                    subDistrictMap[selectedSubDistrict ?? ''];
+                                print('Selected Sub-District ID: $selectedId');
+                              });
+                            },
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
                 SizedBox(height: 20.h),
                 TextFiledWidget(
                   labelText: 'Aadhar card number',
+                  controller: aadharcontroller,
                   suffix: Icon(Icons.payment, size: 20.sp),
                   obscureText: false,
-                  // controller: phncontroller,
                 ),
                 SizedBox(height: 20.h),
                 TextFiledAddres(
                   labelText: 'Skills and Experience',
+                  controller: descriptioncontroller,
                   suffix: Icon(null, size: 20.sp),
                   obscureText: false,
-                  // controller: phncontroller,
                 ),
                 SizedBox(height: 20.h),
-                SizedBox(
-                  width: 1.sw * 0.8,
-                  child: ElevatedButton(
-                    onPressed: _isLoading
-                        ? null
-                        : _submitForm, // Disable button while loading
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 228, 12, 12),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 20.w, vertical: 20.h),
-                      textStyle: TextStyle(fontSize: 16.sp),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50.r),
+                BlocListener<VolunteerRegBloc, VolunteerRegState>(
+                  listener: (context, state) {
+                    state.when(
+                      initial: () {},
+                      loding: () => setState(() => _isLoading = true),
+                      error: (error) {
+                        setState(() => _isLoading = false);
+                      },
+                      success: (message) {
+                        setState(() => _isLoading = false);
+                        // showSnackBar('Registration Successful!');
+                      },
+                    );
+                  },
+                  child: SizedBox(
+                    width: 1.sw * 0.8,
+                    child: ElevatedButton(
+                      onPressed: _isLoading
+                          ? null
+                          : () {
+                              volunteerRegAPI();
+                            },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: _isLoading
+                            ? Colors.grey
+                            : const Color.fromARGB(255, 228, 12, 12),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 20.w, vertical: 20.h),
+                        textStyle: TextStyle(fontSize: 16.sp),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.r),
+                        ),
                       ),
+                      child: _isLoading
+                          ? SpinKitRotatingCircle(
+                              color: Colors.white, size: 24.sp)
+                          : Text('Submit',
+                              style: TextStyle(color: Colors.white)),
                     ),
-                    child: _isLoading
-                        ? SpinKitRotatingCircle(
-                            color: Colors.white, size: 24.sp) // Loading spinner
-                        : Text('Complete Profile',
-                            style: TextStyle(color: Colors.white)),
                   ),
                 ),
               ],
@@ -204,5 +256,27 @@ class _volunteerRelifeCampRegState extends State<volunteerRelifeCampReg> {
           : Icon(Icons.visibility_off, size: 20.sp),
       color: Colors.black,
     );
+  }
+
+  void districtAPI(String? selectedDistrict) {
+    final districtBloc = BlocProvider.of<CampListBloc>(context);
+    districtBloc.add(CampListEvent.campList(
+      district: selectedDistrict ?? '',
+    ));
+  }
+
+  void volunteerRegAPI() {
+    final volunteerRegBloc = BlocProvider.of<VolunteerRegBloc>(context);
+    volunteerRegBloc.add(VolunteerRegEvent.volunteerReg(
+      district: selectedDistrict ?? '',
+      aadhaar: aadharcontroller.text.trim(),
+      address: addresscontroller.text.trim(),
+      chooseCamp: selectedId ?? '',
+      email: emailcontroller.text.trim(),
+      name: namecontroller.text.trim(),
+      password: passcontroller.text.trim(),
+      phoneNumber: phncontroller.text.trim(),
+      skillsExp: skillcontroller.text.trim(),
+    ));
   }
 }

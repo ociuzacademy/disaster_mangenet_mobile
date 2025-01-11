@@ -1,4 +1,10 @@
+import 'dart:io';
+
+import 'package:disaster_management/CampModule/HomePage/Pages/homepage.dart';
+import 'package:disaster_management/CampModule/RefugeeaddPage/bloc/refugee_register_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RefugeeInfoPage extends StatefulWidget {
   @override
@@ -14,9 +20,27 @@ class _RefugeeInfoPageState extends State<RefugeeInfoPage> {
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _familyController = TextEditingController();
   final TextEditingController _contactController = TextEditingController();
-  final TextEditingController _missingPeopleController = TextEditingController();
+  final TextEditingController _missingPeopleController =
+      TextEditingController();
   final TextEditingController _missingInfoController = TextEditingController();
-  final TextEditingController _additionalInfoController = TextEditingController();
+  final TextEditingController _additionalInfoController =
+      TextEditingController();
+  final TextEditingController _ageController = TextEditingController();
+  final TextEditingController _genderController = TextEditingController();
+
+  File? _selectedImage;
+
+  Future<void> _pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? pickedImage =
+        await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      setState(() {
+        _selectedImage = File(pickedImage.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,31 +56,54 @@ class _RefugeeInfoPageState extends State<RefugeeInfoPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Refugee Name
+              Center(
+                child: GestureDetector(
+                  onTap: _pickImage,
+                  child: CircleAvatar(
+                    radius: 60,
+                    backgroundColor: Colors.grey.shade300,
+                    backgroundImage: _selectedImage != null
+                        ? FileImage(_selectedImage!)
+                        : null,
+                    child: _selectedImage == null
+                        ? Icon(Icons.camera_alt,
+                            size: 40, color: Colors.grey.shade700)
+                        : null,
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
               _buildTextField(
                 controller: _nameController,
                 label: "Name of Refugee",
                 hintText: "Enter refugee's name",
               ),
               SizedBox(height: 15),
-
-              // Medicines Used
+              _buildTextField(
+                controller: _ageController,
+                label: "Age",
+                hintText: "Enter Age",
+                keyboardType: TextInputType.number,
+              ),
+              SizedBox(height: 15),
+              _buildTextField(
+                controller: _genderController,
+                label: "Gender",
+                hintText: "Enter Gender",
+              ),
+              SizedBox(height: 15),
               _buildTextField(
                 controller: _medicineController,
                 label: "Medicines Used",
                 hintText: "Enter medicines used by the refugee",
               ),
               SizedBox(height: 15),
-
-              // Address
               _buildTextField(
                 controller: _addressController,
                 label: "Address",
                 hintText: "Enter refugee's address",
               ),
               SizedBox(height: 15),
-
-              // Family Members
               _buildTextField(
                 controller: _familyController,
                 label: "Family Members",
@@ -64,8 +111,6 @@ class _RefugeeInfoPageState extends State<RefugeeInfoPage> {
                 keyboardType: TextInputType.number,
               ),
               SizedBox(height: 15),
-
-              // Contact Details
               _buildTextField(
                 controller: _contactController,
                 label: "Contact",
@@ -73,8 +118,6 @@ class _RefugeeInfoPageState extends State<RefugeeInfoPage> {
                 keyboardType: TextInputType.phone,
               ),
               SizedBox(height: 15),
-
-              // Number of People Missing
               _buildTextField(
                 controller: _missingPeopleController,
                 label: "Number of People Missing",
@@ -82,8 +125,6 @@ class _RefugeeInfoPageState extends State<RefugeeInfoPage> {
                 keyboardType: TextInputType.number,
               ),
               SizedBox(height: 15),
-
-              // Information About Missing People
               _buildTextField(
                 controller: _missingInfoController,
                 label: "Missing Person Info",
@@ -91,8 +132,6 @@ class _RefugeeInfoPageState extends State<RefugeeInfoPage> {
                 maxLines: 3,
               ),
               SizedBox(height: 15),
-
-              // Additional Information
               _buildTextField(
                 controller: _additionalInfoController,
                 label: "Additional Information",
@@ -100,47 +139,48 @@ class _RefugeeInfoPageState extends State<RefugeeInfoPage> {
                 maxLines: 3,
               ),
               SizedBox(height: 30),
-
-              // Submit Button
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    // Collect data and handle submission
-                    final refugeeData = {
-                      "name": _nameController.text,
-                      "medicines": _medicineController.text,
-                      "address": _addressController.text,
-                      "familyMembers": _familyController.text,
-                      "contact": _contactController.text,
-                      "missingCount": _missingPeopleController.text,
-                      "missingInfo": _missingInfoController.text,
-                      "additionalInfo": _additionalInfoController.text,
-                    };
-
-                    // Clear form and show confirmation
-                    _formKey.currentState!.reset();
-                    _clearControllers();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text("Refugee information submitted successfully!"),
-                        backgroundColor: Colors.green,
-                      ),
-                    );
-                  }
+              BlocConsumer<RefugeeRegisterBloc, RefugeeRegisterState>(
+                listener: (context, state) {
+                  state.when(
+                    initial: () {},
+                    loading: () {},
+                    error: (message) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Error: $message')),
+                      );
+                    },
+                    success: (response) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Submission Successful!')),
+                      );
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => UserListPage()));
+                      _clearControllers();
+                    },
+                  );
                 },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  backgroundColor: Colors.teal,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                child: Center(
-                  child: Text(
-                    "Submit Information",
-                    style: TextStyle(fontSize: 18, color: Colors.white),
-                  ),
-                ),
+                builder: (context, state) {
+                  return ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        refugeeRegAPI();
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      backgroundColor: Colors.teal,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Submit Details",
+                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      ),
+                    ),
+                  );
+                },
               ),
             ],
           ),
@@ -149,7 +189,28 @@ class _RefugeeInfoPageState extends State<RefugeeInfoPage> {
     );
   }
 
-  // Helper method to build text fields
+  void refugeeRegAPI() {
+    final refugeeRegBloc = BlocProvider.of<RefugeeRegisterBloc>(context);
+    refugeeRegBloc.add(
+      RefugeeRegisterEvent.refugeeResgi(
+        name: _nameController.text.trim(),
+        image: _selectedImage?.path ?? '',
+        age: _ageController.text.trim(),
+        gender: _genderController.text.trim(),
+        camp: '9',
+        medicines_used: _medicineController.text.trim(),
+        address: _addressController.text.trim(),
+        family_members: _familyController.text.trim(),
+        contact: _contactController.text.trim(),
+        no_of_people_missing: _missingPeopleController.text.trim(),
+        missing_person_info: _missingInfoController.text.trim(),
+        additional_info: _additionalInfoController.text.trim(),
+        volunteer: '3',
+        date_of_entry: '',
+      ),
+    );
+  }
+
   Widget _buildTextField({
     required TextEditingController controller,
     required String label,
@@ -185,7 +246,6 @@ class _RefugeeInfoPageState extends State<RefugeeInfoPage> {
     );
   }
 
-  // Helper method to clear all controllers
   void _clearControllers() {
     _nameController.clear();
     _medicineController.clear();

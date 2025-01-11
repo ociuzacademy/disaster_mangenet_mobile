@@ -1,6 +1,40 @@
 import 'package:flutter/material.dart';
 
 class RequestPage extends StatefulWidget {
+  final String id;
+  final String name;
+  final String image;
+  final String age;
+  final String gender;
+  final String medicines_used;
+  final String address;
+  final String family_members;
+  final String contact;
+  final String no_of_people_missing;
+  final String missing_person_info;
+  final String additional_info;
+//  final String date_of_entry;
+  final String camp;
+  final String volunteer;
+
+  RequestPage({
+    required this.id,
+    required this.name,
+    required this.image,
+    required this.age,
+    required this.gender,
+    required this.medicines_used,
+    required this.address,
+    required this.family_members,
+    required this.contact,
+    required this.no_of_people_missing,
+    required this.missing_person_info,
+    required this.additional_info,
+    //  required this.date_of_entry,
+    required this.camp,
+    required this.volunteer,
+  });
+
   @override
   _RequestPageState createState() => _RequestPageState();
 }
@@ -32,7 +66,7 @@ class _RequestPageState extends State<RequestPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Dropdown
+                // Dropdown for selecting the need
                 Text(
                   "Select Your Need",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -64,7 +98,7 @@ class _RequestPageState extends State<RequestPage> {
                       value == null ? "Please select an option" : null,
                 ),
                 SizedBox(height: 20),
-                // Note Input
+                // Note Input field
                 Text(
                   "Add a Note",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -90,7 +124,7 @@ class _RequestPageState extends State<RequestPage> {
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // Handle form submission
+                      // Handle form submission logic here
                       final snackBar = SnackBar(
                         content: Text(
                           "Request Sent Successfully!",
@@ -100,7 +134,7 @@ class _RequestPageState extends State<RequestPage> {
                       );
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-                      // Clear form
+                      // Clear the form after submission
                       setState(() {
                         selectedNeed = null;
                         _noteController.clear();

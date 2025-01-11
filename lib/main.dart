@@ -1,11 +1,12 @@
-// main.dart
-import 'package:disaster_management/modules/HomePage/pages/homepage.dart';
-import 'package:disaster_management/modules/MainHomePage/pages/custombottom_bar.dart';
+import 'package:disaster_management/CampModule/HomePage/bloc/user_list_bloc.dart';
+import 'package:disaster_management/CampModule/Registrartion/bloc/camp_list_bloc.dart';
+import 'package:disaster_management/CampModule/Registrartion/bloc/volunteerRegBloc/bloc/volunteer_reg_bloc.dart';
 import 'package:disaster_management/modules/login/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-// Add your Blocs or Cubits imports here
+import 'CampModule/RefugeeaddPage/bloc/refugee_register_bloc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,13 +22,21 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return const ScreenUtilInit(
-      designSize: const Size(375, 812), // Set your design size
-      minTextAdapt: true, // Adjust text sizes
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        home: LoginPage(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => CampListBloc()),
+          BlocProvider(create: (context) => VolunteerRegBloc()),
+          BlocProvider(create: (context) => RefugeeRegisterBloc()),
+          BlocProvider(create: (context) => UserListBloc()),
+        ],
+        child: const MaterialApp(
+          title: 'Flutter Demo',
+          home: LoginPage(),
+        ),
       ),
     );
   }
