@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'user_list_bloc.dart';
+part of 'takeaction_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,65 +15,65 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$UserListEvent {
+mixin _$TakeactionEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() userList,
+    required TResult Function(String primerykey) takeAction,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? userList,
+    TResult? Function(String primerykey)? takeAction,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? userList,
+    TResult Function(String primerykey)? takeAction,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_UserList value) userList,
+    required TResult Function(_TakeAction value) takeAction,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_UserList value)? userList,
+    TResult? Function(_TakeAction value)? takeAction,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_UserList value)? userList,
+    TResult Function(_TakeAction value)? takeAction,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserListEventCopyWith<$Res> {
-  factory $UserListEventCopyWith(
-          UserListEvent value, $Res Function(UserListEvent) then) =
-      _$UserListEventCopyWithImpl<$Res, UserListEvent>;
+abstract class $TakeactionEventCopyWith<$Res> {
+  factory $TakeactionEventCopyWith(
+          TakeactionEvent value, $Res Function(TakeactionEvent) then) =
+      _$TakeactionEventCopyWithImpl<$Res, TakeactionEvent>;
 }
 
 /// @nodoc
-class _$UserListEventCopyWithImpl<$Res, $Val extends UserListEvent>
-    implements $UserListEventCopyWith<$Res> {
-  _$UserListEventCopyWithImpl(this._value, this._then);
+class _$TakeactionEventCopyWithImpl<$Res, $Val extends TakeactionEvent>
+    implements $TakeactionEventCopyWith<$Res> {
+  _$TakeactionEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of UserListEvent
+  /// Create a copy of TakeactionEvent
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -86,13 +86,13 @@ abstract class _$$StartedImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$StartedImplCopyWithImpl<$Res>
-    extends _$UserListEventCopyWithImpl<$Res, _$StartedImpl>
+    extends _$TakeactionEventCopyWithImpl<$Res, _$StartedImpl>
     implements _$$StartedImplCopyWith<$Res> {
   __$$StartedImplCopyWithImpl(
       _$StartedImpl _value, $Res Function(_$StartedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserListEvent
+  /// Create a copy of TakeactionEvent
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -103,7 +103,7 @@ class _$StartedImpl implements _Started {
 
   @override
   String toString() {
-    return 'UserListEvent.started()';
+    return 'TakeactionEvent.started()';
   }
 
   @override
@@ -119,7 +119,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() userList,
+    required TResult Function(String primerykey) takeAction,
   }) {
     return started();
   }
@@ -128,7 +128,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? userList,
+    TResult? Function(String primerykey)? takeAction,
   }) {
     return started?.call();
   }
@@ -137,7 +137,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? userList,
+    TResult Function(String primerykey)? takeAction,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -150,7 +150,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_UserList value) userList,
+    required TResult Function(_TakeAction value) takeAction,
   }) {
     return started(this);
   }
@@ -159,7 +159,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_UserList value)? userList,
+    TResult? Function(_TakeAction value)? takeAction,
   }) {
     return started?.call(this);
   }
@@ -168,7 +168,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_UserList value)? userList,
+    TResult Function(_TakeAction value)? takeAction,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -178,75 +178,103 @@ class _$StartedImpl implements _Started {
   }
 }
 
-abstract class _Started implements UserListEvent {
+abstract class _Started implements TakeactionEvent {
   const factory _Started() = _$StartedImpl;
 }
 
 /// @nodoc
-abstract class _$$UserListImplCopyWith<$Res> {
-  factory _$$UserListImplCopyWith(
-          _$UserListImpl value, $Res Function(_$UserListImpl) then) =
-      __$$UserListImplCopyWithImpl<$Res>;
+abstract class _$$TakeActionImplCopyWith<$Res> {
+  factory _$$TakeActionImplCopyWith(
+          _$TakeActionImpl value, $Res Function(_$TakeActionImpl) then) =
+      __$$TakeActionImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String primerykey});
 }
 
 /// @nodoc
-class __$$UserListImplCopyWithImpl<$Res>
-    extends _$UserListEventCopyWithImpl<$Res, _$UserListImpl>
-    implements _$$UserListImplCopyWith<$Res> {
-  __$$UserListImplCopyWithImpl(
-      _$UserListImpl _value, $Res Function(_$UserListImpl) _then)
+class __$$TakeActionImplCopyWithImpl<$Res>
+    extends _$TakeactionEventCopyWithImpl<$Res, _$TakeActionImpl>
+    implements _$$TakeActionImplCopyWith<$Res> {
+  __$$TakeActionImplCopyWithImpl(
+      _$TakeActionImpl _value, $Res Function(_$TakeActionImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserListEvent
+  /// Create a copy of TakeactionEvent
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? primerykey = null,
+  }) {
+    return _then(_$TakeActionImpl(
+      primerykey: null == primerykey
+          ? _value.primerykey
+          : primerykey // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$UserListImpl implements _UserList {
-  const _$UserListImpl();
+class _$TakeActionImpl implements _TakeAction {
+  const _$TakeActionImpl({required this.primerykey});
+
+  @override
+  final String primerykey;
 
   @override
   String toString() {
-    return 'UserListEvent.userList()';
+    return 'TakeactionEvent.takeAction(primerykey: $primerykey)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$UserListImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$TakeActionImpl &&
+            (identical(other.primerykey, primerykey) ||
+                other.primerykey == primerykey));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, primerykey);
+
+  /// Create a copy of TakeactionEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TakeActionImplCopyWith<_$TakeActionImpl> get copyWith =>
+      __$$TakeActionImplCopyWithImpl<_$TakeActionImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() userList,
+    required TResult Function(String primerykey) takeAction,
   }) {
-    return userList();
+    return takeAction(primerykey);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? userList,
+    TResult? Function(String primerykey)? takeAction,
   }) {
-    return userList?.call();
+    return takeAction?.call(primerykey);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? userList,
+    TResult Function(String primerykey)? takeAction,
     required TResult orElse(),
   }) {
-    if (userList != null) {
-      return userList();
+    if (takeAction != null) {
+      return takeAction(primerykey);
     }
     return orElse();
   }
@@ -255,46 +283,55 @@ class _$UserListImpl implements _UserList {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_UserList value) userList,
+    required TResult Function(_TakeAction value) takeAction,
   }) {
-    return userList(this);
+    return takeAction(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_UserList value)? userList,
+    TResult? Function(_TakeAction value)? takeAction,
   }) {
-    return userList?.call(this);
+    return takeAction?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_UserList value)? userList,
+    TResult Function(_TakeAction value)? takeAction,
     required TResult orElse(),
   }) {
-    if (userList != null) {
-      return userList(this);
+    if (takeAction != null) {
+      return takeAction(this);
     }
     return orElse();
   }
 }
 
-abstract class _UserList implements UserListEvent {
-  const factory _UserList() = _$UserListImpl;
+abstract class _TakeAction implements TakeactionEvent {
+  const factory _TakeAction({required final String primerykey}) =
+      _$TakeActionImpl;
+
+  String get primerykey;
+
+  /// Create a copy of TakeactionEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$TakeActionImplCopyWith<_$TakeActionImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-mixin _$UserListState {
+mixin _$TakeactionState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String error) error,
-    required TResult Function(UserlistModel response) success,
+    required TResult Function(TakeActionModel response) success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -302,7 +339,7 @@ mixin _$UserListState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? error,
-    TResult? Function(UserlistModel response)? success,
+    TResult? Function(TakeActionModel response)? success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -310,7 +347,7 @@ mixin _$UserListState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? error,
-    TResult Function(UserlistModel response)? success,
+    TResult Function(TakeActionModel response)? success,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -342,23 +379,23 @@ mixin _$UserListState {
 }
 
 /// @nodoc
-abstract class $UserListStateCopyWith<$Res> {
-  factory $UserListStateCopyWith(
-          UserListState value, $Res Function(UserListState) then) =
-      _$UserListStateCopyWithImpl<$Res, UserListState>;
+abstract class $TakeactionStateCopyWith<$Res> {
+  factory $TakeactionStateCopyWith(
+          TakeactionState value, $Res Function(TakeactionState) then) =
+      _$TakeactionStateCopyWithImpl<$Res, TakeactionState>;
 }
 
 /// @nodoc
-class _$UserListStateCopyWithImpl<$Res, $Val extends UserListState>
-    implements $UserListStateCopyWith<$Res> {
-  _$UserListStateCopyWithImpl(this._value, this._then);
+class _$TakeactionStateCopyWithImpl<$Res, $Val extends TakeactionState>
+    implements $TakeactionStateCopyWith<$Res> {
+  _$TakeactionStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of UserListState
+  /// Create a copy of TakeactionState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -371,13 +408,13 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$UserListStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$TakeactionStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserListState
+  /// Create a copy of TakeactionState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -388,7 +425,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'UserListState.initial()';
+    return 'TakeactionState.initial()';
   }
 
   @override
@@ -406,7 +443,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String error) error,
-    required TResult Function(UserlistModel response) success,
+    required TResult Function(TakeActionModel response) success,
   }) {
     return initial();
   }
@@ -417,7 +454,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? error,
-    TResult? Function(UserlistModel response)? success,
+    TResult? Function(TakeActionModel response)? success,
   }) {
     return initial?.call();
   }
@@ -428,7 +465,7 @@ class _$InitialImpl implements _Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? error,
-    TResult Function(UserlistModel response)? success,
+    TResult Function(TakeActionModel response)? success,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -475,7 +512,7 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements UserListState {
+abstract class _Initial implements TakeactionState {
   const factory _Initial() = _$InitialImpl;
 }
 
@@ -488,13 +525,13 @@ abstract class _$$LoadingImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$UserListStateCopyWithImpl<$Res, _$LoadingImpl>
+    extends _$TakeactionStateCopyWithImpl<$Res, _$LoadingImpl>
     implements _$$LoadingImplCopyWith<$Res> {
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserListState
+  /// Create a copy of TakeactionState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -505,7 +542,7 @@ class _$LoadingImpl implements _Loading {
 
   @override
   String toString() {
-    return 'UserListState.loading()';
+    return 'TakeactionState.loading()';
   }
 
   @override
@@ -523,7 +560,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String error) error,
-    required TResult Function(UserlistModel response) success,
+    required TResult Function(TakeActionModel response) success,
   }) {
     return loading();
   }
@@ -534,7 +571,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? error,
-    TResult? Function(UserlistModel response)? success,
+    TResult? Function(TakeActionModel response)? success,
   }) {
     return loading?.call();
   }
@@ -545,7 +582,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? error,
-    TResult Function(UserlistModel response)? success,
+    TResult Function(TakeActionModel response)? success,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -592,7 +629,7 @@ class _$LoadingImpl implements _Loading {
   }
 }
 
-abstract class _Loading implements UserListState {
+abstract class _Loading implements TakeactionState {
   const factory _Loading() = _$LoadingImpl;
 }
 
@@ -607,13 +644,13 @@ abstract class _$$ErrorImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$UserListStateCopyWithImpl<$Res, _$ErrorImpl>
+    extends _$TakeactionStateCopyWithImpl<$Res, _$ErrorImpl>
     implements _$$ErrorImplCopyWith<$Res> {
   __$$ErrorImplCopyWithImpl(
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserListState
+  /// Create a copy of TakeactionState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -639,7 +676,7 @@ class _$ErrorImpl implements _Error {
 
   @override
   String toString() {
-    return 'UserListState.error(error: $error)';
+    return 'TakeactionState.error(error: $error)';
   }
 
   @override
@@ -653,7 +690,7 @@ class _$ErrorImpl implements _Error {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of UserListState
+  /// Create a copy of TakeactionState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
@@ -667,7 +704,7 @@ class _$ErrorImpl implements _Error {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String error) error,
-    required TResult Function(UserlistModel response) success,
+    required TResult Function(TakeActionModel response) success,
   }) {
     return error(this.error);
   }
@@ -678,7 +715,7 @@ class _$ErrorImpl implements _Error {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? error,
-    TResult? Function(UserlistModel response)? success,
+    TResult? Function(TakeActionModel response)? success,
   }) {
     return error?.call(this.error);
   }
@@ -689,7 +726,7 @@ class _$ErrorImpl implements _Error {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? error,
-    TResult Function(UserlistModel response)? success,
+    TResult Function(TakeActionModel response)? success,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -736,12 +773,12 @@ class _$ErrorImpl implements _Error {
   }
 }
 
-abstract class _Error implements UserListState {
+abstract class _Error implements TakeactionState {
   const factory _Error({required final String error}) = _$ErrorImpl;
 
   String get error;
 
-  /// Create a copy of UserListState
+  /// Create a copy of TakeactionState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
@@ -754,18 +791,18 @@ abstract class _$$SuccessImplCopyWith<$Res> {
           _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
       __$$SuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({UserlistModel response});
+  $Res call({TakeActionModel response});
 }
 
 /// @nodoc
 class __$$SuccessImplCopyWithImpl<$Res>
-    extends _$UserListStateCopyWithImpl<$Res, _$SuccessImpl>
+    extends _$TakeactionStateCopyWithImpl<$Res, _$SuccessImpl>
     implements _$$SuccessImplCopyWith<$Res> {
   __$$SuccessImplCopyWithImpl(
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserListState
+  /// Create a copy of TakeactionState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -776,7 +813,7 @@ class __$$SuccessImplCopyWithImpl<$Res>
       response: null == response
           ? _value.response
           : response // ignore: cast_nullable_to_non_nullable
-              as UserlistModel,
+              as TakeActionModel,
     ));
   }
 }
@@ -787,11 +824,11 @@ class _$SuccessImpl implements _Success {
   const _$SuccessImpl({required this.response});
 
   @override
-  final UserlistModel response;
+  final TakeActionModel response;
 
   @override
   String toString() {
-    return 'UserListState.success(response: $response)';
+    return 'TakeactionState.success(response: $response)';
   }
 
   @override
@@ -806,7 +843,7 @@ class _$SuccessImpl implements _Success {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  /// Create a copy of UserListState
+  /// Create a copy of TakeactionState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
@@ -820,7 +857,7 @@ class _$SuccessImpl implements _Success {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String error) error,
-    required TResult Function(UserlistModel response) success,
+    required TResult Function(TakeActionModel response) success,
   }) {
     return success(response);
   }
@@ -831,7 +868,7 @@ class _$SuccessImpl implements _Success {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? error,
-    TResult? Function(UserlistModel response)? success,
+    TResult? Function(TakeActionModel response)? success,
   }) {
     return success?.call(response);
   }
@@ -842,7 +879,7 @@ class _$SuccessImpl implements _Success {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? error,
-    TResult Function(UserlistModel response)? success,
+    TResult Function(TakeActionModel response)? success,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -889,13 +926,13 @@ class _$SuccessImpl implements _Success {
   }
 }
 
-abstract class _Success implements UserListState {
-  const factory _Success({required final UserlistModel response}) =
+abstract class _Success implements TakeactionState {
+  const factory _Success({required final TakeActionModel response}) =
       _$SuccessImpl;
 
-  UserlistModel get response;
+  TakeActionModel get response;
 
-  /// Create a copy of UserListState
+  /// Create a copy of TakeactionState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>

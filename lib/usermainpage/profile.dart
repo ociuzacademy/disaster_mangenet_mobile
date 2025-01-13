@@ -18,7 +18,7 @@ class Profile extends StatelessWidget {
         child: Column(
           children: [
             Row(
-              crossAxisAlignment: CrossAxisAlignment.start, // Center vertically
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Profile Image
                 const CircleAvatar(

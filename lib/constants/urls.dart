@@ -16,4 +16,9 @@ class Urls {
   static const String VoluntercampCampList = "${baseUrl}camps-dropdown/";
   static const String volunteerReg = "${baseUrl}register/volunteer-camp/";
   static const String refugees = "${baseUrl}refugees/";
+  static const String requirements = "${baseUrl}requirements/";
+  static const String regvolunteerCc =
+      "${baseUrl}register/volunteer-collection-centre/";
+  static const String collectionCentersdropdown =
+      "${baseUrl}collection-centers-dropdown/";
 }

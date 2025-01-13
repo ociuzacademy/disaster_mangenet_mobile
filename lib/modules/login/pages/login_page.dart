@@ -1,15 +1,13 @@
 // pages/login_page.dart
-import 'dart:async';
-
 import 'package:disaster_management/CampModule/MainHomePage/pages/camphomepage.dart';
-import 'package:disaster_management/modules/login/service/login%20service.dart';
+import 'package:disaster_management/modules/login/bloc/login_bloc.dart';
 import 'package:disaster_management/widgets/lg_btn.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../MainHomePage/pages/custombottom_bar.dart';
 import '../../../widgets/textfiled.dart';
 import '../../user_registration/pages/user_reg_page.dart';
-import '../../../pages/volunteer_collection_reg.dart';
+import '../../../volunteerCollectionCentre_register/pages/volunteer_collection_reg.dart';
 import '../../../CampModule/Registrartion/pages/volunteer_relife_camp_reg.dart';
 
 class LoginPage extends StatefulWidget {
@@ -73,40 +71,52 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: 20.h),
                 SizedBox(
                   width: 1.sw, // 1.sw is equivalent to screen width
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // LOGIN(
-                      //     email: usernamecontroller.text.trim(),
-                      //     password: passcontroller.text);
-                      String username = usernamecontroller.text.trim();
-                      if (username == "shanu") {
-                        print("shanu");
-                      } else if (username == 'asif') {
-                        print('asif');
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) =>
-                                // MainHomePage()
-                                MainCampHomePage()));
-                      } else if (username == 'nj') {
-                        print('nj');
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => MainHomePage()));
-                      } else {
-                        print('Sonthing went wrong!');
-                      }
+                  child: BlocListener<LoginBloc, LoginState>(
+                    listener: (context, state) {
+                      state.when(
+                        initial: () {},
+                        loding: () {
+                          // You can show a loading spinner here
+                        },
+                        error: (error) {
+                          // Show error message
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Error: $error")),
+                          );
+                        },
+                        success: (response) {
+                          // Handle success response
+                          if (response.data.first.utype == "User") {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Login Success")),
+                            );
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MainCampHomePage()));
+                          }
+                        },
+                      );
                     },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 228, 12, 12),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 20.w, vertical: 20.h),
-                      textStyle: TextStyle(fontSize: 16.sp),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.r),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        String username = usernamecontroller.text.trim();
+                        String password = passcontroller.text.trim();
+                        LoginAPI(username, password);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 228, 12, 12),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 20.w, vertical: 20.h),
+                        textStyle: TextStyle(fontSize: 16.sp),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.r),
+                        ),
                       ),
-                    ),
-                    child: Text(
-                      'Log In',
-                      style: TextStyle(color: Colors.white),
+                      child: Text(
+                        'Log In',
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
@@ -123,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
                     targetPage: VolunteerRelifeCampReg()),
                 LGBtn(
                     text: 'volunteer in collection centre',
-                    targetPage: volunteerCollectionReg()),
+                    targetPage: VolunteerCollectionReg()),
               ],
             ),
           ),
@@ -146,23 +156,11 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Future<void> LOGIN({required String email, required String password}) async {
-    final response = await Login(email: email, password: password);
-    if (response.data.first.utype == "User") {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Registration Success")),
-      );
-      Timer(
-        Duration(seconds: 1),
-        () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      // MainHomePage()
-                      MainCampHomePage()));
-        },
-      );
-    }
+  void LoginAPI(String username, String password) {
+    final loginBloc = BlocProvider.of<LoginBloc>(context);
+    loginBloc.add(LoginEvent.login(
+      email: username,
+      password: password,
+    ));
   }
 }

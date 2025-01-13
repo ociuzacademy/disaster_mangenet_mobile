@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'user_list_bloc.dart';
+part of 'request_service_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,65 +15,71 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$UserListEvent {
+mixin _$RequestServiceEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() userList,
+    required TResult Function(
+            String category, String description, String refugeeid, String camp)
+        requestServ,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? userList,
+    TResult? Function(
+            String category, String description, String refugeeid, String camp)?
+        requestServ,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? userList,
+    TResult Function(
+            String category, String description, String refugeeid, String camp)?
+        requestServ,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_UserList value) userList,
+    required TResult Function(_RequestServ value) requestServ,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_UserList value)? userList,
+    TResult? Function(_RequestServ value)? requestServ,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_UserList value)? userList,
+    TResult Function(_RequestServ value)? requestServ,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserListEventCopyWith<$Res> {
-  factory $UserListEventCopyWith(
-          UserListEvent value, $Res Function(UserListEvent) then) =
-      _$UserListEventCopyWithImpl<$Res, UserListEvent>;
+abstract class $RequestServiceEventCopyWith<$Res> {
+  factory $RequestServiceEventCopyWith(
+          RequestServiceEvent value, $Res Function(RequestServiceEvent) then) =
+      _$RequestServiceEventCopyWithImpl<$Res, RequestServiceEvent>;
 }
 
 /// @nodoc
-class _$UserListEventCopyWithImpl<$Res, $Val extends UserListEvent>
-    implements $UserListEventCopyWith<$Res> {
-  _$UserListEventCopyWithImpl(this._value, this._then);
+class _$RequestServiceEventCopyWithImpl<$Res, $Val extends RequestServiceEvent>
+    implements $RequestServiceEventCopyWith<$Res> {
+  _$RequestServiceEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of UserListEvent
+  /// Create a copy of RequestServiceEvent
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -86,13 +92,13 @@ abstract class _$$StartedImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$StartedImplCopyWithImpl<$Res>
-    extends _$UserListEventCopyWithImpl<$Res, _$StartedImpl>
+    extends _$RequestServiceEventCopyWithImpl<$Res, _$StartedImpl>
     implements _$$StartedImplCopyWith<$Res> {
   __$$StartedImplCopyWithImpl(
       _$StartedImpl _value, $Res Function(_$StartedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserListEvent
+  /// Create a copy of RequestServiceEvent
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -103,7 +109,7 @@ class _$StartedImpl implements _Started {
 
   @override
   String toString() {
-    return 'UserListEvent.started()';
+    return 'RequestServiceEvent.started()';
   }
 
   @override
@@ -119,7 +125,9 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() userList,
+    required TResult Function(
+            String category, String description, String refugeeid, String camp)
+        requestServ,
   }) {
     return started();
   }
@@ -128,7 +136,9 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? userList,
+    TResult? Function(
+            String category, String description, String refugeeid, String camp)?
+        requestServ,
   }) {
     return started?.call();
   }
@@ -137,7 +147,9 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? userList,
+    TResult Function(
+            String category, String description, String refugeeid, String camp)?
+        requestServ,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -150,7 +162,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_UserList value) userList,
+    required TResult Function(_RequestServ value) requestServ,
   }) {
     return started(this);
   }
@@ -159,7 +171,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_UserList value)? userList,
+    TResult? Function(_RequestServ value)? requestServ,
   }) {
     return started?.call(this);
   }
@@ -168,7 +180,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_UserList value)? userList,
+    TResult Function(_RequestServ value)? requestServ,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -178,75 +190,141 @@ class _$StartedImpl implements _Started {
   }
 }
 
-abstract class _Started implements UserListEvent {
+abstract class _Started implements RequestServiceEvent {
   const factory _Started() = _$StartedImpl;
 }
 
 /// @nodoc
-abstract class _$$UserListImplCopyWith<$Res> {
-  factory _$$UserListImplCopyWith(
-          _$UserListImpl value, $Res Function(_$UserListImpl) then) =
-      __$$UserListImplCopyWithImpl<$Res>;
+abstract class _$$RequestServImplCopyWith<$Res> {
+  factory _$$RequestServImplCopyWith(
+          _$RequestServImpl value, $Res Function(_$RequestServImpl) then) =
+      __$$RequestServImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {String category, String description, String refugeeid, String camp});
 }
 
 /// @nodoc
-class __$$UserListImplCopyWithImpl<$Res>
-    extends _$UserListEventCopyWithImpl<$Res, _$UserListImpl>
-    implements _$$UserListImplCopyWith<$Res> {
-  __$$UserListImplCopyWithImpl(
-      _$UserListImpl _value, $Res Function(_$UserListImpl) _then)
+class __$$RequestServImplCopyWithImpl<$Res>
+    extends _$RequestServiceEventCopyWithImpl<$Res, _$RequestServImpl>
+    implements _$$RequestServImplCopyWith<$Res> {
+  __$$RequestServImplCopyWithImpl(
+      _$RequestServImpl _value, $Res Function(_$RequestServImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserListEvent
+  /// Create a copy of RequestServiceEvent
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? category = null,
+    Object? description = null,
+    Object? refugeeid = null,
+    Object? camp = null,
+  }) {
+    return _then(_$RequestServImpl(
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      refugeeid: null == refugeeid
+          ? _value.refugeeid
+          : refugeeid // ignore: cast_nullable_to_non_nullable
+              as String,
+      camp: null == camp
+          ? _value.camp
+          : camp // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$UserListImpl implements _UserList {
-  const _$UserListImpl();
+class _$RequestServImpl implements _RequestServ {
+  const _$RequestServImpl(
+      {required this.category,
+      required this.description,
+      required this.refugeeid,
+      required this.camp});
+
+  @override
+  final String category;
+  @override
+  final String description;
+  @override
+  final String refugeeid;
+  @override
+  final String camp;
 
   @override
   String toString() {
-    return 'UserListEvent.userList()';
+    return 'RequestServiceEvent.requestServ(category: $category, description: $description, refugeeid: $refugeeid, camp: $camp)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$UserListImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$RequestServImpl &&
+            (identical(other.category, category) ||
+                other.category == category) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.refugeeid, refugeeid) ||
+                other.refugeeid == refugeeid) &&
+            (identical(other.camp, camp) || other.camp == camp));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, category, description, refugeeid, camp);
+
+  /// Create a copy of RequestServiceEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RequestServImplCopyWith<_$RequestServImpl> get copyWith =>
+      __$$RequestServImplCopyWithImpl<_$RequestServImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() userList,
+    required TResult Function(
+            String category, String description, String refugeeid, String camp)
+        requestServ,
   }) {
-    return userList();
+    return requestServ(category, description, refugeeid, camp);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? userList,
+    TResult? Function(
+            String category, String description, String refugeeid, String camp)?
+        requestServ,
   }) {
-    return userList?.call();
+    return requestServ?.call(category, description, refugeeid, camp);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? userList,
+    TResult Function(
+            String category, String description, String refugeeid, String camp)?
+        requestServ,
     required TResult orElse(),
   }) {
-    if (userList != null) {
-      return userList();
+    if (requestServ != null) {
+      return requestServ(category, description, refugeeid, camp);
     }
     return orElse();
   }
@@ -255,46 +333,61 @@ class _$UserListImpl implements _UserList {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_UserList value) userList,
+    required TResult Function(_RequestServ value) requestServ,
   }) {
-    return userList(this);
+    return requestServ(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_UserList value)? userList,
+    TResult? Function(_RequestServ value)? requestServ,
   }) {
-    return userList?.call(this);
+    return requestServ?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_UserList value)? userList,
+    TResult Function(_RequestServ value)? requestServ,
     required TResult orElse(),
   }) {
-    if (userList != null) {
-      return userList(this);
+    if (requestServ != null) {
+      return requestServ(this);
     }
     return orElse();
   }
 }
 
-abstract class _UserList implements UserListEvent {
-  const factory _UserList() = _$UserListImpl;
+abstract class _RequestServ implements RequestServiceEvent {
+  const factory _RequestServ(
+      {required final String category,
+      required final String description,
+      required final String refugeeid,
+      required final String camp}) = _$RequestServImpl;
+
+  String get category;
+  String get description;
+  String get refugeeid;
+  String get camp;
+
+  /// Create a copy of RequestServiceEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$RequestServImplCopyWith<_$RequestServImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-mixin _$UserListState {
+mixin _$RequestServiceState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String error) error,
-    required TResult Function(UserlistModel response) success,
+    required TResult Function(RequestModel response) success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -302,7 +395,7 @@ mixin _$UserListState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? error,
-    TResult? Function(UserlistModel response)? success,
+    TResult? Function(RequestModel response)? success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -310,7 +403,7 @@ mixin _$UserListState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? error,
-    TResult Function(UserlistModel response)? success,
+    TResult Function(RequestModel response)? success,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -342,23 +435,23 @@ mixin _$UserListState {
 }
 
 /// @nodoc
-abstract class $UserListStateCopyWith<$Res> {
-  factory $UserListStateCopyWith(
-          UserListState value, $Res Function(UserListState) then) =
-      _$UserListStateCopyWithImpl<$Res, UserListState>;
+abstract class $RequestServiceStateCopyWith<$Res> {
+  factory $RequestServiceStateCopyWith(
+          RequestServiceState value, $Res Function(RequestServiceState) then) =
+      _$RequestServiceStateCopyWithImpl<$Res, RequestServiceState>;
 }
 
 /// @nodoc
-class _$UserListStateCopyWithImpl<$Res, $Val extends UserListState>
-    implements $UserListStateCopyWith<$Res> {
-  _$UserListStateCopyWithImpl(this._value, this._then);
+class _$RequestServiceStateCopyWithImpl<$Res, $Val extends RequestServiceState>
+    implements $RequestServiceStateCopyWith<$Res> {
+  _$RequestServiceStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of UserListState
+  /// Create a copy of RequestServiceState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -371,13 +464,13 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$UserListStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$RequestServiceStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserListState
+  /// Create a copy of RequestServiceState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -388,7 +481,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'UserListState.initial()';
+    return 'RequestServiceState.initial()';
   }
 
   @override
@@ -406,7 +499,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String error) error,
-    required TResult Function(UserlistModel response) success,
+    required TResult Function(RequestModel response) success,
   }) {
     return initial();
   }
@@ -417,7 +510,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? error,
-    TResult? Function(UserlistModel response)? success,
+    TResult? Function(RequestModel response)? success,
   }) {
     return initial?.call();
   }
@@ -428,7 +521,7 @@ class _$InitialImpl implements _Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? error,
-    TResult Function(UserlistModel response)? success,
+    TResult Function(RequestModel response)? success,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -475,7 +568,7 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements UserListState {
+abstract class _Initial implements RequestServiceState {
   const factory _Initial() = _$InitialImpl;
 }
 
@@ -488,13 +581,13 @@ abstract class _$$LoadingImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$UserListStateCopyWithImpl<$Res, _$LoadingImpl>
+    extends _$RequestServiceStateCopyWithImpl<$Res, _$LoadingImpl>
     implements _$$LoadingImplCopyWith<$Res> {
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserListState
+  /// Create a copy of RequestServiceState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -505,7 +598,7 @@ class _$LoadingImpl implements _Loading {
 
   @override
   String toString() {
-    return 'UserListState.loading()';
+    return 'RequestServiceState.loading()';
   }
 
   @override
@@ -523,7 +616,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String error) error,
-    required TResult Function(UserlistModel response) success,
+    required TResult Function(RequestModel response) success,
   }) {
     return loading();
   }
@@ -534,7 +627,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? error,
-    TResult? Function(UserlistModel response)? success,
+    TResult? Function(RequestModel response)? success,
   }) {
     return loading?.call();
   }
@@ -545,7 +638,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? error,
-    TResult Function(UserlistModel response)? success,
+    TResult Function(RequestModel response)? success,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -592,7 +685,7 @@ class _$LoadingImpl implements _Loading {
   }
 }
 
-abstract class _Loading implements UserListState {
+abstract class _Loading implements RequestServiceState {
   const factory _Loading() = _$LoadingImpl;
 }
 
@@ -607,13 +700,13 @@ abstract class _$$ErrorImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$UserListStateCopyWithImpl<$Res, _$ErrorImpl>
+    extends _$RequestServiceStateCopyWithImpl<$Res, _$ErrorImpl>
     implements _$$ErrorImplCopyWith<$Res> {
   __$$ErrorImplCopyWithImpl(
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserListState
+  /// Create a copy of RequestServiceState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -639,7 +732,7 @@ class _$ErrorImpl implements _Error {
 
   @override
   String toString() {
-    return 'UserListState.error(error: $error)';
+    return 'RequestServiceState.error(error: $error)';
   }
 
   @override
@@ -653,7 +746,7 @@ class _$ErrorImpl implements _Error {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of UserListState
+  /// Create a copy of RequestServiceState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
@@ -667,7 +760,7 @@ class _$ErrorImpl implements _Error {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String error) error,
-    required TResult Function(UserlistModel response) success,
+    required TResult Function(RequestModel response) success,
   }) {
     return error(this.error);
   }
@@ -678,7 +771,7 @@ class _$ErrorImpl implements _Error {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? error,
-    TResult? Function(UserlistModel response)? success,
+    TResult? Function(RequestModel response)? success,
   }) {
     return error?.call(this.error);
   }
@@ -689,7 +782,7 @@ class _$ErrorImpl implements _Error {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? error,
-    TResult Function(UserlistModel response)? success,
+    TResult Function(RequestModel response)? success,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -736,12 +829,12 @@ class _$ErrorImpl implements _Error {
   }
 }
 
-abstract class _Error implements UserListState {
+abstract class _Error implements RequestServiceState {
   const factory _Error({required final String error}) = _$ErrorImpl;
 
   String get error;
 
-  /// Create a copy of UserListState
+  /// Create a copy of RequestServiceState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
@@ -754,18 +847,18 @@ abstract class _$$SuccessImplCopyWith<$Res> {
           _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
       __$$SuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({UserlistModel response});
+  $Res call({RequestModel response});
 }
 
 /// @nodoc
 class __$$SuccessImplCopyWithImpl<$Res>
-    extends _$UserListStateCopyWithImpl<$Res, _$SuccessImpl>
+    extends _$RequestServiceStateCopyWithImpl<$Res, _$SuccessImpl>
     implements _$$SuccessImplCopyWith<$Res> {
   __$$SuccessImplCopyWithImpl(
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserListState
+  /// Create a copy of RequestServiceState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -776,7 +869,7 @@ class __$$SuccessImplCopyWithImpl<$Res>
       response: null == response
           ? _value.response
           : response // ignore: cast_nullable_to_non_nullable
-              as UserlistModel,
+              as RequestModel,
     ));
   }
 }
@@ -787,11 +880,11 @@ class _$SuccessImpl implements _Success {
   const _$SuccessImpl({required this.response});
 
   @override
-  final UserlistModel response;
+  final RequestModel response;
 
   @override
   String toString() {
-    return 'UserListState.success(response: $response)';
+    return 'RequestServiceState.success(response: $response)';
   }
 
   @override
@@ -806,7 +899,7 @@ class _$SuccessImpl implements _Success {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  /// Create a copy of UserListState
+  /// Create a copy of RequestServiceState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
@@ -820,7 +913,7 @@ class _$SuccessImpl implements _Success {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String error) error,
-    required TResult Function(UserlistModel response) success,
+    required TResult Function(RequestModel response) success,
   }) {
     return success(response);
   }
@@ -831,7 +924,7 @@ class _$SuccessImpl implements _Success {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? error,
-    TResult? Function(UserlistModel response)? success,
+    TResult? Function(RequestModel response)? success,
   }) {
     return success?.call(response);
   }
@@ -842,7 +935,7 @@ class _$SuccessImpl implements _Success {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? error,
-    TResult Function(UserlistModel response)? success,
+    TResult Function(RequestModel response)? success,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -889,13 +982,13 @@ class _$SuccessImpl implements _Success {
   }
 }
 
-abstract class _Success implements UserListState {
-  const factory _Success({required final UserlistModel response}) =
+abstract class _Success implements RequestServiceState {
+  const factory _Success({required final RequestModel response}) =
       _$SuccessImpl;
 
-  UserlistModel get response;
+  RequestModel get response;
 
-  /// Create a copy of UserListState
+  /// Create a copy of RequestServiceState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>

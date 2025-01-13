@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'user_list_bloc.dart';
+part of 'collection_center_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,65 +15,93 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$UserListEvent {
+mixin _$CollectionCenterEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() userList,
+    required TResult Function(
+            String email,
+            String password,
+            String choose_collection_center,
+            String name,
+            String address,
+            String aadhaar,
+            String district,
+            String phone_number)
+        collectionReg,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? userList,
+    TResult? Function(
+            String email,
+            String password,
+            String choose_collection_center,
+            String name,
+            String address,
+            String aadhaar,
+            String district,
+            String phone_number)?
+        collectionReg,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? userList,
+    TResult Function(
+            String email,
+            String password,
+            String choose_collection_center,
+            String name,
+            String address,
+            String aadhaar,
+            String district,
+            String phone_number)?
+        collectionReg,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_UserList value) userList,
+    required TResult Function(_CollectionReg value) collectionReg,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_UserList value)? userList,
+    TResult? Function(_CollectionReg value)? collectionReg,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_UserList value)? userList,
+    TResult Function(_CollectionReg value)? collectionReg,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserListEventCopyWith<$Res> {
-  factory $UserListEventCopyWith(
-          UserListEvent value, $Res Function(UserListEvent) then) =
-      _$UserListEventCopyWithImpl<$Res, UserListEvent>;
+abstract class $CollectionCenterEventCopyWith<$Res> {
+  factory $CollectionCenterEventCopyWith(CollectionCenterEvent value,
+          $Res Function(CollectionCenterEvent) then) =
+      _$CollectionCenterEventCopyWithImpl<$Res, CollectionCenterEvent>;
 }
 
 /// @nodoc
-class _$UserListEventCopyWithImpl<$Res, $Val extends UserListEvent>
-    implements $UserListEventCopyWith<$Res> {
-  _$UserListEventCopyWithImpl(this._value, this._then);
+class _$CollectionCenterEventCopyWithImpl<$Res,
+        $Val extends CollectionCenterEvent>
+    implements $CollectionCenterEventCopyWith<$Res> {
+  _$CollectionCenterEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of UserListEvent
+  /// Create a copy of CollectionCenterEvent
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -86,13 +114,13 @@ abstract class _$$StartedImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$StartedImplCopyWithImpl<$Res>
-    extends _$UserListEventCopyWithImpl<$Res, _$StartedImpl>
+    extends _$CollectionCenterEventCopyWithImpl<$Res, _$StartedImpl>
     implements _$$StartedImplCopyWith<$Res> {
   __$$StartedImplCopyWithImpl(
       _$StartedImpl _value, $Res Function(_$StartedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserListEvent
+  /// Create a copy of CollectionCenterEvent
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -103,7 +131,7 @@ class _$StartedImpl implements _Started {
 
   @override
   String toString() {
-    return 'UserListEvent.started()';
+    return 'CollectionCenterEvent.started()';
   }
 
   @override
@@ -119,7 +147,16 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() userList,
+    required TResult Function(
+            String email,
+            String password,
+            String choose_collection_center,
+            String name,
+            String address,
+            String aadhaar,
+            String district,
+            String phone_number)
+        collectionReg,
   }) {
     return started();
   }
@@ -128,7 +165,16 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? userList,
+    TResult? Function(
+            String email,
+            String password,
+            String choose_collection_center,
+            String name,
+            String address,
+            String aadhaar,
+            String district,
+            String phone_number)?
+        collectionReg,
   }) {
     return started?.call();
   }
@@ -137,7 +183,16 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? userList,
+    TResult Function(
+            String email,
+            String password,
+            String choose_collection_center,
+            String name,
+            String address,
+            String aadhaar,
+            String district,
+            String phone_number)?
+        collectionReg,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -150,7 +205,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_UserList value) userList,
+    required TResult Function(_CollectionReg value) collectionReg,
   }) {
     return started(this);
   }
@@ -159,7 +214,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_UserList value)? userList,
+    TResult? Function(_CollectionReg value)? collectionReg,
   }) {
     return started?.call(this);
   }
@@ -168,7 +223,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_UserList value)? userList,
+    TResult Function(_CollectionReg value)? collectionReg,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -178,75 +233,210 @@ class _$StartedImpl implements _Started {
   }
 }
 
-abstract class _Started implements UserListEvent {
+abstract class _Started implements CollectionCenterEvent {
   const factory _Started() = _$StartedImpl;
 }
 
 /// @nodoc
-abstract class _$$UserListImplCopyWith<$Res> {
-  factory _$$UserListImplCopyWith(
-          _$UserListImpl value, $Res Function(_$UserListImpl) then) =
-      __$$UserListImplCopyWithImpl<$Res>;
+abstract class _$$CollectionRegImplCopyWith<$Res> {
+  factory _$$CollectionRegImplCopyWith(
+          _$CollectionRegImpl value, $Res Function(_$CollectionRegImpl) then) =
+      __$$CollectionRegImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {String email,
+      String password,
+      String choose_collection_center,
+      String name,
+      String address,
+      String aadhaar,
+      String district,
+      String phone_number});
 }
 
 /// @nodoc
-class __$$UserListImplCopyWithImpl<$Res>
-    extends _$UserListEventCopyWithImpl<$Res, _$UserListImpl>
-    implements _$$UserListImplCopyWith<$Res> {
-  __$$UserListImplCopyWithImpl(
-      _$UserListImpl _value, $Res Function(_$UserListImpl) _then)
+class __$$CollectionRegImplCopyWithImpl<$Res>
+    extends _$CollectionCenterEventCopyWithImpl<$Res, _$CollectionRegImpl>
+    implements _$$CollectionRegImplCopyWith<$Res> {
+  __$$CollectionRegImplCopyWithImpl(
+      _$CollectionRegImpl _value, $Res Function(_$CollectionRegImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserListEvent
+  /// Create a copy of CollectionCenterEvent
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+    Object? password = null,
+    Object? choose_collection_center = null,
+    Object? name = null,
+    Object? address = null,
+    Object? aadhaar = null,
+    Object? district = null,
+    Object? phone_number = null,
+  }) {
+    return _then(_$CollectionRegImpl(
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: null == password
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+      choose_collection_center: null == choose_collection_center
+          ? _value.choose_collection_center
+          : choose_collection_center // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String,
+      aadhaar: null == aadhaar
+          ? _value.aadhaar
+          : aadhaar // ignore: cast_nullable_to_non_nullable
+              as String,
+      district: null == district
+          ? _value.district
+          : district // ignore: cast_nullable_to_non_nullable
+              as String,
+      phone_number: null == phone_number
+          ? _value.phone_number
+          : phone_number // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
-class _$UserListImpl implements _UserList {
-  const _$UserListImpl();
+class _$CollectionRegImpl implements _CollectionReg {
+  const _$CollectionRegImpl(
+      {required this.email,
+      required this.password,
+      required this.choose_collection_center,
+      required this.name,
+      required this.address,
+      required this.aadhaar,
+      required this.district,
+      required this.phone_number});
+
+  @override
+  final String email;
+  @override
+  final String password;
+  @override
+  final String choose_collection_center;
+  @override
+  final String name;
+  @override
+  final String address;
+  @override
+  final String aadhaar;
+  @override
+  final String district;
+  @override
+  final String phone_number;
 
   @override
   String toString() {
-    return 'UserListEvent.userList()';
+    return 'CollectionCenterEvent.collectionReg(email: $email, password: $password, choose_collection_center: $choose_collection_center, name: $name, address: $address, aadhaar: $aadhaar, district: $district, phone_number: $phone_number)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$UserListImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$CollectionRegImpl &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.password, password) ||
+                other.password == password) &&
+            (identical(
+                    other.choose_collection_center, choose_collection_center) ||
+                other.choose_collection_center == choose_collection_center) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.address, address) || other.address == address) &&
+            (identical(other.aadhaar, aadhaar) || other.aadhaar == aadhaar) &&
+            (identical(other.district, district) ||
+                other.district == district) &&
+            (identical(other.phone_number, phone_number) ||
+                other.phone_number == phone_number));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, email, password,
+      choose_collection_center, name, address, aadhaar, district, phone_number);
+
+  /// Create a copy of CollectionCenterEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CollectionRegImplCopyWith<_$CollectionRegImpl> get copyWith =>
+      __$$CollectionRegImplCopyWithImpl<_$CollectionRegImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() userList,
+    required TResult Function(
+            String email,
+            String password,
+            String choose_collection_center,
+            String name,
+            String address,
+            String aadhaar,
+            String district,
+            String phone_number)
+        collectionReg,
   }) {
-    return userList();
+    return collectionReg(email, password, choose_collection_center, name,
+        address, aadhaar, district, phone_number);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? userList,
+    TResult? Function(
+            String email,
+            String password,
+            String choose_collection_center,
+            String name,
+            String address,
+            String aadhaar,
+            String district,
+            String phone_number)?
+        collectionReg,
   }) {
-    return userList?.call();
+    return collectionReg?.call(email, password, choose_collection_center, name,
+        address, aadhaar, district, phone_number);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? userList,
+    TResult Function(
+            String email,
+            String password,
+            String choose_collection_center,
+            String name,
+            String address,
+            String aadhaar,
+            String district,
+            String phone_number)?
+        collectionReg,
     required TResult orElse(),
   }) {
-    if (userList != null) {
-      return userList();
+    if (collectionReg != null) {
+      return collectionReg(email, password, choose_collection_center, name,
+          address, aadhaar, district, phone_number);
     }
     return orElse();
   }
@@ -255,69 +445,92 @@ class _$UserListImpl implements _UserList {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_UserList value) userList,
+    required TResult Function(_CollectionReg value) collectionReg,
   }) {
-    return userList(this);
+    return collectionReg(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_UserList value)? userList,
+    TResult? Function(_CollectionReg value)? collectionReg,
   }) {
-    return userList?.call(this);
+    return collectionReg?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_UserList value)? userList,
+    TResult Function(_CollectionReg value)? collectionReg,
     required TResult orElse(),
   }) {
-    if (userList != null) {
-      return userList(this);
+    if (collectionReg != null) {
+      return collectionReg(this);
     }
     return orElse();
   }
 }
 
-abstract class _UserList implements UserListEvent {
-  const factory _UserList() = _$UserListImpl;
+abstract class _CollectionReg implements CollectionCenterEvent {
+  const factory _CollectionReg(
+      {required final String email,
+      required final String password,
+      required final String choose_collection_center,
+      required final String name,
+      required final String address,
+      required final String aadhaar,
+      required final String district,
+      required final String phone_number}) = _$CollectionRegImpl;
+
+  String get email;
+  String get password;
+  String get choose_collection_center;
+  String get name;
+  String get address;
+  String get aadhaar;
+  String get district;
+  String get phone_number;
+
+  /// Create a copy of CollectionCenterEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$CollectionRegImplCopyWith<_$CollectionRegImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-mixin _$UserListState {
+mixin _$CollectionCenterState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function() loding,
     required TResult Function(String error) error,
-    required TResult Function(UserlistModel response) success,
+    required TResult Function(VolunteerRegCollectionModel response) success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function()? loding,
     TResult? Function(String error)? error,
-    TResult? Function(UserlistModel response)? success,
+    TResult? Function(VolunteerRegCollectionModel response)? success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function()? loding,
     TResult Function(String error)? error,
-    TResult Function(UserlistModel response)? success,
+    TResult Function(VolunteerRegCollectionModel response)? success,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loding value) loding,
     required TResult Function(_Error value) error,
     required TResult Function(_Success value) success,
   }) =>
@@ -325,7 +538,7 @@ mixin _$UserListState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Loding value)? loding,
     TResult? Function(_Error value)? error,
     TResult? Function(_Success value)? success,
   }) =>
@@ -333,7 +546,7 @@ mixin _$UserListState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
+    TResult Function(_Loding value)? loding,
     TResult Function(_Error value)? error,
     TResult Function(_Success value)? success,
     required TResult orElse(),
@@ -342,23 +555,24 @@ mixin _$UserListState {
 }
 
 /// @nodoc
-abstract class $UserListStateCopyWith<$Res> {
-  factory $UserListStateCopyWith(
-          UserListState value, $Res Function(UserListState) then) =
-      _$UserListStateCopyWithImpl<$Res, UserListState>;
+abstract class $CollectionCenterStateCopyWith<$Res> {
+  factory $CollectionCenterStateCopyWith(CollectionCenterState value,
+          $Res Function(CollectionCenterState) then) =
+      _$CollectionCenterStateCopyWithImpl<$Res, CollectionCenterState>;
 }
 
 /// @nodoc
-class _$UserListStateCopyWithImpl<$Res, $Val extends UserListState>
-    implements $UserListStateCopyWith<$Res> {
-  _$UserListStateCopyWithImpl(this._value, this._then);
+class _$CollectionCenterStateCopyWithImpl<$Res,
+        $Val extends CollectionCenterState>
+    implements $CollectionCenterStateCopyWith<$Res> {
+  _$CollectionCenterStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of UserListState
+  /// Create a copy of CollectionCenterState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -371,13 +585,13 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$UserListStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$CollectionCenterStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserListState
+  /// Create a copy of CollectionCenterState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -388,7 +602,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'UserListState.initial()';
+    return 'CollectionCenterState.initial()';
   }
 
   @override
@@ -404,9 +618,9 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function() loding,
     required TResult Function(String error) error,
-    required TResult Function(UserlistModel response) success,
+    required TResult Function(VolunteerRegCollectionModel response) success,
   }) {
     return initial();
   }
@@ -415,9 +629,9 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function()? loding,
     TResult? Function(String error)? error,
-    TResult? Function(UserlistModel response)? success,
+    TResult? Function(VolunteerRegCollectionModel response)? success,
   }) {
     return initial?.call();
   }
@@ -426,9 +640,9 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function()? loding,
     TResult Function(String error)? error,
-    TResult Function(UserlistModel response)? success,
+    TResult Function(VolunteerRegCollectionModel response)? success,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -441,7 +655,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loding value) loding,
     required TResult Function(_Error value) error,
     required TResult Function(_Success value) success,
   }) {
@@ -452,7 +666,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Loding value)? loding,
     TResult? Function(_Error value)? error,
     TResult? Function(_Success value)? success,
   }) {
@@ -463,7 +677,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
+    TResult Function(_Loding value)? loding,
     TResult Function(_Error value)? error,
     TResult Function(_Success value)? success,
     required TResult orElse(),
@@ -475,43 +689,43 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements UserListState {
+abstract class _Initial implements CollectionCenterState {
   const factory _Initial() = _$InitialImpl;
 }
 
 /// @nodoc
-abstract class _$$LoadingImplCopyWith<$Res> {
-  factory _$$LoadingImplCopyWith(
-          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
-      __$$LoadingImplCopyWithImpl<$Res>;
+abstract class _$$LodingImplCopyWith<$Res> {
+  factory _$$LodingImplCopyWith(
+          _$LodingImpl value, $Res Function(_$LodingImpl) then) =
+      __$$LodingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$UserListStateCopyWithImpl<$Res, _$LoadingImpl>
-    implements _$$LoadingImplCopyWith<$Res> {
-  __$$LoadingImplCopyWithImpl(
-      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
+class __$$LodingImplCopyWithImpl<$Res>
+    extends _$CollectionCenterStateCopyWithImpl<$Res, _$LodingImpl>
+    implements _$$LodingImplCopyWith<$Res> {
+  __$$LodingImplCopyWithImpl(
+      _$LodingImpl _value, $Res Function(_$LodingImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserListState
+  /// Create a copy of CollectionCenterState
   /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
 
-class _$LoadingImpl implements _Loading {
-  const _$LoadingImpl();
+class _$LodingImpl implements _Loding {
+  const _$LodingImpl();
 
   @override
   String toString() {
-    return 'UserListState.loading()';
+    return 'CollectionCenterState.loding()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl);
+        (other.runtimeType == runtimeType && other is _$LodingImpl);
   }
 
   @override
@@ -521,35 +735,35 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function() loding,
     required TResult Function(String error) error,
-    required TResult Function(UserlistModel response) success,
+    required TResult Function(VolunteerRegCollectionModel response) success,
   }) {
-    return loading();
+    return loding();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function()? loding,
     TResult? Function(String error)? error,
-    TResult? Function(UserlistModel response)? success,
+    TResult? Function(VolunteerRegCollectionModel response)? success,
   }) {
-    return loading?.call();
+    return loding?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function()? loding,
     TResult Function(String error)? error,
-    TResult Function(UserlistModel response)? success,
+    TResult Function(VolunteerRegCollectionModel response)? success,
     required TResult orElse(),
   }) {
-    if (loading != null) {
-      return loading();
+    if (loding != null) {
+      return loding();
     }
     return orElse();
   }
@@ -558,42 +772,42 @@ class _$LoadingImpl implements _Loading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loding value) loding,
     required TResult Function(_Error value) error,
     required TResult Function(_Success value) success,
   }) {
-    return loading(this);
+    return loding(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Loding value)? loding,
     TResult? Function(_Error value)? error,
     TResult? Function(_Success value)? success,
   }) {
-    return loading?.call(this);
+    return loding?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
+    TResult Function(_Loding value)? loding,
     TResult Function(_Error value)? error,
     TResult Function(_Success value)? success,
     required TResult orElse(),
   }) {
-    if (loading != null) {
-      return loading(this);
+    if (loding != null) {
+      return loding(this);
     }
     return orElse();
   }
 }
 
-abstract class _Loading implements UserListState {
-  const factory _Loading() = _$LoadingImpl;
+abstract class _Loding implements CollectionCenterState {
+  const factory _Loding() = _$LodingImpl;
 }
 
 /// @nodoc
@@ -607,13 +821,13 @@ abstract class _$$ErrorImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$UserListStateCopyWithImpl<$Res, _$ErrorImpl>
+    extends _$CollectionCenterStateCopyWithImpl<$Res, _$ErrorImpl>
     implements _$$ErrorImplCopyWith<$Res> {
   __$$ErrorImplCopyWithImpl(
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserListState
+  /// Create a copy of CollectionCenterState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -639,7 +853,7 @@ class _$ErrorImpl implements _Error {
 
   @override
   String toString() {
-    return 'UserListState.error(error: $error)';
+    return 'CollectionCenterState.error(error: $error)';
   }
 
   @override
@@ -653,7 +867,7 @@ class _$ErrorImpl implements _Error {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of UserListState
+  /// Create a copy of CollectionCenterState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
@@ -665,9 +879,9 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function() loding,
     required TResult Function(String error) error,
-    required TResult Function(UserlistModel response) success,
+    required TResult Function(VolunteerRegCollectionModel response) success,
   }) {
     return error(this.error);
   }
@@ -676,9 +890,9 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function()? loding,
     TResult? Function(String error)? error,
-    TResult? Function(UserlistModel response)? success,
+    TResult? Function(VolunteerRegCollectionModel response)? success,
   }) {
     return error?.call(this.error);
   }
@@ -687,9 +901,9 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function()? loding,
     TResult Function(String error)? error,
-    TResult Function(UserlistModel response)? success,
+    TResult Function(VolunteerRegCollectionModel response)? success,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -702,7 +916,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loding value) loding,
     required TResult Function(_Error value) error,
     required TResult Function(_Success value) success,
   }) {
@@ -713,7 +927,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Loding value)? loding,
     TResult? Function(_Error value)? error,
     TResult? Function(_Success value)? success,
   }) {
@@ -724,7 +938,7 @@ class _$ErrorImpl implements _Error {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
+    TResult Function(_Loding value)? loding,
     TResult Function(_Error value)? error,
     TResult Function(_Success value)? success,
     required TResult orElse(),
@@ -736,12 +950,12 @@ class _$ErrorImpl implements _Error {
   }
 }
 
-abstract class _Error implements UserListState {
+abstract class _Error implements CollectionCenterState {
   const factory _Error({required final String error}) = _$ErrorImpl;
 
   String get error;
 
-  /// Create a copy of UserListState
+  /// Create a copy of CollectionCenterState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
@@ -754,18 +968,18 @@ abstract class _$$SuccessImplCopyWith<$Res> {
           _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
       __$$SuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({UserlistModel response});
+  $Res call({VolunteerRegCollectionModel response});
 }
 
 /// @nodoc
 class __$$SuccessImplCopyWithImpl<$Res>
-    extends _$UserListStateCopyWithImpl<$Res, _$SuccessImpl>
+    extends _$CollectionCenterStateCopyWithImpl<$Res, _$SuccessImpl>
     implements _$$SuccessImplCopyWith<$Res> {
   __$$SuccessImplCopyWithImpl(
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserListState
+  /// Create a copy of CollectionCenterState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -776,7 +990,7 @@ class __$$SuccessImplCopyWithImpl<$Res>
       response: null == response
           ? _value.response
           : response // ignore: cast_nullable_to_non_nullable
-              as UserlistModel,
+              as VolunteerRegCollectionModel,
     ));
   }
 }
@@ -787,11 +1001,11 @@ class _$SuccessImpl implements _Success {
   const _$SuccessImpl({required this.response});
 
   @override
-  final UserlistModel response;
+  final VolunteerRegCollectionModel response;
 
   @override
   String toString() {
-    return 'UserListState.success(response: $response)';
+    return 'CollectionCenterState.success(response: $response)';
   }
 
   @override
@@ -806,7 +1020,7 @@ class _$SuccessImpl implements _Success {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  /// Create a copy of UserListState
+  /// Create a copy of CollectionCenterState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
@@ -818,9 +1032,9 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function() loding,
     required TResult Function(String error) error,
-    required TResult Function(UserlistModel response) success,
+    required TResult Function(VolunteerRegCollectionModel response) success,
   }) {
     return success(response);
   }
@@ -829,9 +1043,9 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function()? loding,
     TResult? Function(String error)? error,
-    TResult? Function(UserlistModel response)? success,
+    TResult? Function(VolunteerRegCollectionModel response)? success,
   }) {
     return success?.call(response);
   }
@@ -840,9 +1054,9 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function()? loding,
     TResult Function(String error)? error,
-    TResult Function(UserlistModel response)? success,
+    TResult Function(VolunteerRegCollectionModel response)? success,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -855,7 +1069,7 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loding value) loding,
     required TResult Function(_Error value) error,
     required TResult Function(_Success value) success,
   }) {
@@ -866,7 +1080,7 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Loding value)? loding,
     TResult? Function(_Error value)? error,
     TResult? Function(_Success value)? success,
   }) {
@@ -877,7 +1091,7 @@ class _$SuccessImpl implements _Success {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
+    TResult Function(_Loding value)? loding,
     TResult Function(_Error value)? error,
     TResult Function(_Success value)? success,
     required TResult orElse(),
@@ -889,13 +1103,13 @@ class _$SuccessImpl implements _Success {
   }
 }
 
-abstract class _Success implements UserListState {
-  const factory _Success({required final UserlistModel response}) =
-      _$SuccessImpl;
+abstract class _Success implements CollectionCenterState {
+  const factory _Success(
+      {required final VolunteerRegCollectionModel response}) = _$SuccessImpl;
 
-  UserlistModel get response;
+  VolunteerRegCollectionModel get response;
 
-  /// Create a copy of UserListState
+  /// Create a copy of CollectionCenterState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>

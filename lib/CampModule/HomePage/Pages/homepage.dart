@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart'; // Import the package
 import 'package:disaster_management/CampModule/HomePage/bloc/user_list_bloc.dart';
 import 'package:disaster_management/CampModule/RefugeeaddPage/Pages/refugeeaddpage.dart';
-import 'package:disaster_management/CampModule/RequestPage/requestpage.dart';
+import 'package:disaster_management/CampModule/RequestPage/views/requestpage.dart';
 import 'package:disaster_management/constants/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -72,33 +72,34 @@ class _UserListPageState extends State<UserListPage> {
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
-                      subtitle: Text('ID: ${user.gender}'),
+                      subtitle: Text('ID: ${user.id}'),
                       onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
                             builder: (context) => RequestPage(
-                                  id: response.data[index].id.toString(),
-                                  name: response.data[index].name,
-                                  image: response.data[index].image,
-                                  age: response.data[index].age.toString(),
-                                  gender: response.data[index].gender,
-                                  medicines_used:
-                                      response.data[index].medicinesUsed,
-                                  address: response.data[index].address,
-                                  family_members:
-                                      response.data[index].familyMembers,
-                                  contact: response.data[index].contact,
-                                  no_of_people_missing:
-                                      response.data[index].noOfPeopleMissing,
-                                  missing_person_info:
-                                      response.data[index].missingPersonInfo,
-                                  additional_info:
-                                      response.data[index].additionalInfo,
-                                  //  date_of_entry: response
-                                  //    .data[index].dateOfEntry as String,
-                                  camp: response.data[index].camp.toString(),
-                                  volunteer:
-                                      response.data[index].volunteer.toString(),
-                                )));
+                              id: response.data[index].id.toString(),
+                              name: response.data[index].name,
+                              image: response.data[index].image,
+                              age: response.data[index].age.toString(),
+                              gender: response.data[index].gender,
+                              medicines_used:
+                                  response.data[index].medicinesUsed,
+                              address: response.data[index].address,
+                              family_members:
+                                  response.data[index].familyMembers,
+                              contact: response.data[index].contact,
+                              no_of_people_missing:
+                                  response.data[index].noOfPeopleMissing,
+                              missing_person_info:
+                                  response.data[index].missingPersonInfo,
+                              additional_info:
+                                  response.data[index].additionalInfo,
+                              camp: response.data[index].camp.toString(),
+                              volunteer:
+                                  response.data[index].volunteer.toString(),
+                            ),
+                          ),
+                        );
                       },
                     ),
                   );
