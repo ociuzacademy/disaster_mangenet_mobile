@@ -1,4 +1,6 @@
 // main.dart
+import 'package:disaster_management/CollectionModule/MainHomePage/pages/newhomepage.dart';
+import 'package:disaster_management/CollectionModule/sessionPage/pages/sessionpage.dart';
 import 'package:disaster_management/modules/HomePage/pages/homepage.dart';
 import 'package:disaster_management/modules/MainHomePage/pages/custombottom_bar.dart';
 import 'package:disaster_management/modules/login/pages/login_page.dart';
@@ -21,14 +23,13 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return const ScreenUtilInit(
+    return ScreenUtilInit(
       designSize: const Size(375, 812), // Set your design size
       minTextAdapt: true, // Adjust text sizes
       splitScreenMode: true,
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        home: LoginPage(),
-      ),
+      child: MaterialApp(title: 'Flutter Demo', home: SessionsPage()
+          // MainCollectionHomePage(),
+          ),
     );
   }
 }

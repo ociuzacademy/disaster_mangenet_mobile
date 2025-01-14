@@ -86,7 +86,8 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
                             builder: (context) =>
                                 // MainHomePage()
-                                MainCampHomePage()));
+                                MainCampHomePage()
+                                ));
                       } else if (username == 'nj') {
                         print('nj');
                         Navigator.of(context).push(MaterialPageRoute(
