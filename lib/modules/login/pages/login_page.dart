@@ -4,6 +4,8 @@ import 'package:disaster_management/modules/MainHomePage/pages/custombottom_bar.
 import 'package:disaster_management/modules/login/bloc/login_bloc.dart';
 import 'package:disaster_management/widgets/lg_btn.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -100,12 +102,14 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           );
                         },
-                        success: (response) {
+                        success: (response) async {
                           setState(() {
                             isLoading = false;
                           });
                           if (response.data.isNotEmpty &&
                               response.data[0].utype == "user") {
+                            final prefs = await SharedPreferences.getInstance();
+                            await prefs.setInt('id', response.data[0].id);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text("Login Success")),
                             );
@@ -116,6 +120,9 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             );
                           } else if (response.data[0].utype == "volcmp") {
+                            final prefs = await SharedPreferences.getInstance();
+                            await prefs.setString(
+                                'campid', response.data[0].cId);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text("Login Success")),
                             );
@@ -126,6 +133,17 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             );
                           } else {
+                            final prefs = await SharedPreferences.getInstance();
+                            await prefs.setString(
+                                'collectionid', response.data[0].cId);
+
+                            if (response.data[0].sectionId.isNotEmpty) {
+                              final prefs =
+                                  await SharedPreferences.getInstance();
+                              await prefs.setString(
+                                  'sessionid', response.data[0].sectionId);
+                            }
+
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text("Login Success")),
                             );
