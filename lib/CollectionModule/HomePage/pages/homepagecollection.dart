@@ -1,9 +1,16 @@
+import 'package:disaster_management/CollectionModule/HomePage/bloc/stock_lists_bloc.dart';
 import 'package:disaster_management/CollectionModule/dresslistpage/pages/dresslistpage.dart';
 import 'package:disaster_management/CollectionModule/foodlistpage/pages/foodlistpage.dart';
 import 'package:disaster_management/CollectionModule/medicinelistpage/pages/medicinelistpage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CollectionHomePage extends StatelessWidget {
+class CollectionHomePage extends StatefulWidget {
+  @override
+  State<CollectionHomePage> createState() => _CollectionHomePageState();
+}
+
+class _CollectionHomePageState extends State<CollectionHomePage> {
   final List<Map<String, dynamic>> categories = [
     {
       'title': 'Food',
@@ -27,6 +34,14 @@ class CollectionHomePage extends StatelessWidget {
     },
   ];
 
+  // List of pages corresponding to each category
+  final List<Widget> pages = [
+    StockEntryPage(),
+    DressStockEntryPage(),
+    MedicineStockEntryPage(),
+    // AddOtherItemPage(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,14 +63,9 @@ class CollectionHomePage extends StatelessWidget {
             return GestureDetector(
               onTap: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MedicineStockEntryPage()
-                        //  DetailPage(
-                        //   place: sessions[index]['place'],
-                        //   number: sessions[index]['number'],
-                        // ),
-                        ));
+                  context,
+                  MaterialPageRoute(builder: (context) => pages[index]),
+                );
               },
               child: Card(
                 shape: RoundedRectangleBorder(

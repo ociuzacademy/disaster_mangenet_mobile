@@ -273,22 +273,26 @@ class _VolunteerCollectionRegState extends State<VolunteerCollectionReg> {
   void districtAPI(String? selectedDistrict) {
     final districtBloc =
         BlocProvider.of<VolunteerCollectionCenterBloc>(context);
-    districtBloc.add(VolunteerCollectionCenterEvent.campList(
-      district: selectedDistrict ?? '',
-    ));
+    districtBloc.add(
+      VolunteerCollectionCenterEvent.campList(
+        district: selectedDistrict ?? '',
+      ),
+    );
   }
 
   void collectionCenterAPI() {
     final collectioncenterBloc = BlocProvider.of<CollectionCenterBloc>(context);
-    collectioncenterBloc.add(CollectionCenterEvent.collectionReg(
-      aadhaar: _aadharController.text,
-      address: _addressController.text,
-      choose_collection_center: selectedId ?? '',
-      email: _emailController.text,
-      name: _nameController.text,
-      password: _passwordController.text,
-      phone_number: _phoneController.text,
-      district: selectedDistrict ?? '',
-    ));
+    collectioncenterBloc.add(
+      CollectionCenterEvent.collectionReg(
+        aadhaar: _aadharController.text,
+        address: _addressController.text,
+        choose_collection_center: selectedId ?? '',
+        email: _emailController.text,
+        name: _nameController.text,
+        password: _passwordController.text,
+        phone_number: _phoneController.text,
+        district: selectedDistrict ?? '',
+      ),
+    );
   }
 }

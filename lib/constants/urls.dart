@@ -21,4 +21,10 @@ class Urls {
       "${baseUrl}register/volunteer-collection-centre/";
   static const String collectionCentersdropdown =
       "${baseUrl}collection-centers-dropdown/";
+  static const String CollectionCenterSections =
+      "${baseUrl}collection-center-sections/";
+  static const String assignSectionToVolunteer =
+      "${baseUrl}assign-section-to-volunteer/";
+  static const String stocks = "${baseUrl}stocks/";
+  static const String profile = "${baseUrl}profile/user/";
 }

@@ -2,11 +2,12 @@
 import 'package:disaster_management/CampModule/HomePage/pages/homepage.dart';
 import 'package:disaster_management/CampModule/StatusPage/Pages/statuspage.dart';
 import 'package:disaster_management/modules/sosmessage/services/sosmessageservice.dart';
+import 'package:disaster_management/usermainpage/profileSection/views/volunteerprofile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:motion_tab_bar/MotionTabBar.dart';
 import 'package:geolocator/geolocator.dart';
-import '../../../usermainpage/profile.dart';
+import '../../../usermainpage/profileSection/views/userprofile.dart';
 
 class MainCampHomePage extends StatefulWidget {
   const MainCampHomePage({super.key});
@@ -55,7 +56,7 @@ class _MainCampHomePageState extends State<MainCampHomePage>
   final List<Widget> _pages = [
     UserListPage(),
     RequestListPage(),
-    Profile(),
+    volunteerProfile(),
   ];
 
   @override

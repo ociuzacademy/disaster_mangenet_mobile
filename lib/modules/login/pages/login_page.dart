@@ -1,10 +1,12 @@
-// pages/login_page.dart
 import 'package:disaster_management/CampModule/MainHomePage/pages/camphomepage.dart';
+import 'package:disaster_management/CollectionModule/MainHomePage/pages/newhomepage.dart';
+import 'package:disaster_management/modules/MainHomePage/pages/custombottom_bar.dart';
 import 'package:disaster_management/modules/login/bloc/login_bloc.dart';
 import 'package:disaster_management/widgets/lg_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../../widgets/textfiled.dart';
 import '../../user_registration/pages/user_reg_page.dart';
 import '../../../volunteerCollectionCentre_register/pages/volunteer_collection_reg.dart';
@@ -17,11 +19,18 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-TextEditingController usernamecontroller = TextEditingController();
-TextEditingController passcontroller = TextEditingController();
-
 class _LoginPageState extends State<LoginPage> {
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   bool _isSecurePassword = true;
+  bool isLoading = false;
+
+  @override
+  void dispose() {
+    usernameController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,20 +43,21 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               children: [
                 SizedBox(
-                    height: 180.h,
-                    child: Image.asset("assets/images/login-img.png")),
+                  height: MediaQuery.of(context).size.height * 0.2,
+                  child: Image.asset("assets/images/login-img.png"),
+                ),
                 TextFiledWidget(
                   labelText: 'Email',
                   suffix: Icon(Icons.mail, size: 24.sp),
                   obscureText: false,
-                  controller: usernamecontroller,
+                  controller: usernameController,
                 ),
                 SizedBox(height: 20.h),
                 TextFiledWidget(
                   labelText: 'Password',
                   suffix: togglePassword(),
                   obscureText: _isSecurePassword,
-                  controller: passcontroller,
+                  controller: passwordController,
                 ),
                 SizedBox(height: 20.h),
                 Row(
@@ -70,70 +80,123 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 SizedBox(height: 20.h),
                 SizedBox(
-                  width: 1.sw, // 1.sw is equivalent to screen width
+                  width: 1.sw,
                   child: BlocListener<LoginBloc, LoginState>(
                     listener: (context, state) {
                       state.when(
                         initial: () {},
                         loding: () {
-                          // You can show a loading spinner here
+                          setState(() {
+                            isLoading = true;
+                          });
                         },
                         error: (error) {
-                          // Show error message
+                          setState(() {
+                            isLoading = false;
+                          });
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("Error: $error")),
+                            SnackBar(
+                              content: Text(error ?? "An error occurred."),
+                            ),
                           );
                         },
                         success: (response) {
-                          // Handle success response
-                          if (response.data.first.utype == "User") {
+                          setState(() {
+                            isLoading = false;
+                          });
+                          if (response.data.isNotEmpty &&
+                              response.data[0].utype == "user") {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text("Login Success")),
                             );
                             Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MainCampHomePage()));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MainHomePage(),
+                              ),
+                            );
+                          } else if (response.data[0].utype == "volcmp") {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Login Success")),
+                            );
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MainCampHomePage(),
+                              ),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Login Success")),
+                            );
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MainCollectionHomePage(
+                                  sectionID: response.data[0].sectionId,
+                                ),
+                              ),
+                            );
                           }
                         },
                       );
                     },
                     child: ElevatedButton(
-                      onPressed: () {
-                        String username = usernamecontroller.text.trim();
-                        String password = passcontroller.text.trim();
-                        LoginAPI(username, password);
-                      },
+                      onPressed: isLoading
+                          ? null
+                          : () {
+                              String username = usernameController.text.trim();
+                              String password = passwordController.text.trim();
+
+                              if (username.isEmpty || password.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content:
+                                          Text("Please fill in all fields.")),
+                                );
+                                return;
+                              }
+                              LoginAPI(username, password);
+                            },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 228, 12, 12),
                         padding: EdgeInsets.symmetric(
-                            horizontal: 20.w, vertical: 20.h),
+                          horizontal: 20.w,
+                          vertical: 20.h,
+                        ),
                         textStyle: TextStyle(fontSize: 16.sp),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5.r),
                         ),
                       ),
-                      child: Text(
-                        'Log In',
-                        style: TextStyle(color: Colors.white),
-                      ),
+                      child: isLoading
+                          ? SpinKitRotatingCircle(
+                              color: Colors.red, size: 24.sp)
+                          : Text(
+                              'Log In',
+                              style: TextStyle(color: Colors.white),
+                            ),
                     ),
                   ),
                 ),
                 SizedBox(height: 10.h),
-                Text("Don't have an account ?",
-                    style: TextStyle(color: Colors.black, fontSize: 14.sp)),
+                Text(
+                  "Don't have an account ?",
+                  style: TextStyle(color: Colors.black, fontSize: 14.sp),
+                ),
                 SizedBox(height: 25.h),
                 LGBtn(
-                  text: 'Register in user',
+                  text: 'Register as User',
                   targetPage: UserRegPage(),
                 ),
                 LGBtn(
-                    text: 'volunteer in relif camp',
-                    targetPage: VolunteerRelifeCampReg()),
+                  text: 'Volunteer in Relief Camp',
+                  targetPage: VolunteerRelifeCampReg(),
+                ),
                 LGBtn(
-                    text: 'volunteer in collection centre',
-                    targetPage: VolunteerCollectionReg()),
+                  text: 'Volunteer in Collection Centre',
+                  targetPage: VolunteerCollectionReg(),
+                ),
               ],
             ),
           ),

@@ -1,4 +1,22 @@
+import 'package:disaster_management/CollectionModule/HomePage/bloc/stock_lists_bloc.dart';
+import 'package:disaster_management/CollectionModule/HomePage/model/foodlist_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+// Define the StockItem class
+class StockItem {
+  final String itemName;
+  final int quantity;
+  final String clothingSize;
+  final String unit;
+
+  StockItem({
+    required this.itemName,
+    required this.quantity,
+    required this.clothingSize,
+    required this.unit,
+  });
+}
 
 class StockEntryPage extends StatefulWidget {
   const StockEntryPage({Key? key}) : super(key: key);
@@ -8,77 +26,12 @@ class StockEntryPage extends StatefulWidget {
 }
 
 class _StockEntryPageState extends State<StockEntryPage> {
-  // Sample stock data - replace with your actual data
-  final List<Map<String, dynamic>> stockItems = [
-    {
-      'itemName': 'Rice',
-      'currentStock': 100,
-      'unit': 'kg',
-      'lastUpdated': '2024-01-13',
-    },
-    {
-      'itemName': 'Wheat Flour',
-      'currentStock': 50,
-      'unit': 'kg',
-      'lastUpdated': '2024-01-13',
-    },
-    {
-      'itemName': 'Sugar',
-      'currentStock': 30,
-      'unit': 'kg',
-      'lastUpdated': '2024-01-13',
-    },
-    {
-      'itemName': 'Cooking Oil',
-      'currentStock': 20,
-      'unit': 'L',
-      'lastUpdated': '2024-01-13',
-    },
-  ];
-
-  // Map to track quantity changes
   Map<int, int> quantityChanges = {};
 
-  void updateQuantity(int index, int amount) {
-    setState(() {
-      quantityChanges[index] = (quantityChanges[index] ?? 0) + amount;
-      // Ensure stock doesn't go below 0
-      if ((stockItems[index]['currentStock'] + (quantityChanges[index] ?? 0)) <
-          0) {
-        quantityChanges[index] = -stockItems[index]['currentStock'];
-      }
-    });
-  }
-
-  void submitStockChanges() {
-    // Here you would typically send the updates to your backend
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Stock Update Summary'),
-        content: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: quantityChanges.entries.map((entry) {
-              final itemName = stockItems[entry.key]['itemName'];
-              final unit = stockItems[entry.key]['unit'];
-              final change = entry.value;
-              return Text(
-                '$itemName: ${change > 0 ? '+' : ''}$change $unit',
-                style: const TextStyle(fontSize: 16),
-              );
-            }).toList(),
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
-          ),
-        ],
-      ),
-    );
+  @override
+  void initState() {
+    super.initState();
+    FoodListAPI();
   }
 
   @override
@@ -91,79 +44,92 @@ class _StockEntryPageState extends State<StockEntryPage> {
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(16),
-              itemCount: stockItems.length,
-              itemBuilder: (context, index) {
-                final item = stockItems[index];
-                final currentChange = quantityChanges[index] ?? 0;
-                final currentTotal = item['currentStock'] + currentChange;
+            child: BlocBuilder<StockListsBloc, StockListsState>(
+              builder: (context, state) {
+                return state.when(
+                  initial: () {
+                    return Center(
+                        child: Text('Welcome! Please load the stock.'));
+                  },
+                  loding: () {
+                    return Center(child: CircularProgressIndicator());
+                  },
+                  error: (error) {
+                    return Center(
+                        child: Text('Error: $error',
+                            style: TextStyle(color: Colors.red)));
+                  },
+                  success: (response) {
+                    List<Datum> stockItems = response.data;
+                    return ListView.builder(
+                      padding: const EdgeInsets.all(16),
+                      itemCount: stockItems.length,
+                      itemBuilder: (context, index) {
+                        final item = stockItems[index];
+                        final currentChange = quantityChanges[index] ?? 0;
+                        final currentTotal = item.quantity + currentChange;
 
-                return Card(
-                  margin: const EdgeInsets.only(bottom: 12),
-                  elevation: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              item['itemName'],
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              'Current: $currentTotal ${item['unit']}',
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Last Updated: ${item['lastUpdated']}',
-                              style: const TextStyle(
-                                color: Colors.grey,
-                              ),
-                            ),
-                            Row(
+                        return Card(
+                          margin: const EdgeInsets.only(bottom: 12),
+                          elevation: 2,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                IconButton(
-                                  onPressed: () => updateQuantity(index, -1),
-                                  icon: const Icon(Icons.remove_circle_outline),
-                                  color: Colors.red,
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      " Name : ${item.itemName}",
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Current: $currentTotal:${item.quantity}',
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  '${currentChange > 0 ? '+' : ''}$currentChange',
-                                  style: TextStyle(
-                                    color: currentChange > 0
-                                        ? Colors.green
-                                        : Colors.red,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                IconButton(
-                                  onPressed: () => updateQuantity(index, 1),
-                                  icon: const Icon(Icons.add_circle_outline),
-                                  color: Colors.green,
-                                ),
+                                const SizedBox(height: 12),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Container(
+                                      width: 60,
+                                      child: TextField(
+                                        decoration: InputDecoration(
+                                          labelText: 'Qty',
+                                          border: OutlineInputBorder(),
+                                          contentPadding: EdgeInsets.symmetric(
+                                              vertical: 8, horizontal: 12),
+                                        ),
+                                        keyboardType: TextInputType.number,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 2),
+                                    Card(
+                                      child: IconButton(
+                                        onPressed: () {},
+                                        color: Colors.red,
+                                        icon: Icon(Icons.send),
+                                      ),
+                                    )
+                                  ],
+                                )
                               ],
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                          ),
+                        );
+                      },
+                    );
+                  },
                 );
               },
             ),
@@ -171,7 +137,7 @@ class _StockEntryPageState extends State<StockEntryPage> {
           Container(
             padding: const EdgeInsets.all(16),
             child: ElevatedButton(
-              onPressed: quantityChanges.isNotEmpty ? submitStockChanges : null,
+              onPressed: () {},
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(50),
               ),
@@ -183,6 +149,14 @@ class _StockEntryPageState extends State<StockEntryPage> {
           ),
         ],
       ),
+    );
+  }
+
+  // Method to trigger loading of stock data
+  void FoodListAPI() {
+    final stockListsBloc = BlocProvider.of<StockListsBloc>(context);
+    stockListsBloc.add(
+      StockListsEvent.stockLists(item_category: 'food'),
     );
   }
 }

@@ -1,16 +1,14 @@
 // widgets/custombottom_bar.dart
 import 'package:disaster_management/modules/campListPage/Pages/camplist.dart';
 import 'package:disaster_management/modules/sosmessage/services/sosmessageservice.dart';
-import 'package:disaster_management/widgets/textfiled.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:motion_tab_bar/MotionTabBar.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../collectioncamp/Pages/disaster_alert.dart';
 import '../../HomePage/pages/homepage.dart';
-import '../../../usermainpage/resource_finder.dart';
 import '../../../usermainpage/saftey_guidlines.dart';
-import '../../../usermainpage/profile.dart';
+import '../../../usermainpage/profileSection/views/userprofile.dart';
 
 class MainHomePage extends StatefulWidget {
   const MainHomePage({super.key});
@@ -54,7 +52,7 @@ class _MainHomePageState extends State<MainHomePage>
   }
 
   int _selectedIndex = 0;
-  String _sosMessage = ''; // Variable to hold the SOS message
+  String _sosMessage = '';
   TextEditingController sosmessagecontroller = TextEditingController();
   final List<Widget> _pages = [
     HomePage(),

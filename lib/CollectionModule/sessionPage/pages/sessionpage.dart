@@ -1,17 +1,21 @@
-import 'package:disaster_management/CollectionModule/MainHomePage/pages/newhomepage.dart';
+import 'package:disaster_management/CollectionModule/sessionPage/bloc/AssignSectionToVolunteer/bloc/assign_section_to_volunteer_bloc.dart';
+import 'package:disaster_management/CollectionModule/sessionPage/bloc/session_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SessionsPage extends StatelessWidget {
-  // Sample data - replace with your actual data
-  final List<Map<String, dynamic>> sessions = [
-    {'place': 'New York', 'number': '42'},
-    {'place': 'London', 'number': '28'},
-    {'place': 'Paris', 'number': '35'},
-    {'place': 'Tokyo', 'number': '50'},
-    {'place': 'Sydney', 'number': '31'},
-  ];
+class SessionsPage extends StatefulWidget {
+  const SessionsPage({Key? key}) : super(key: key);
 
-  SessionsPage({Key? key}) : super(key: key);
+  @override
+  State<SessionsPage> createState() => _SessionsPageState();
+}
+
+class _SessionsPageState extends State<SessionsPage> {
+  @override
+  void initState() {
+    super.initState();
+    fetchSessionData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,55 +37,98 @@ class SessionsPage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Expanded(
-                child: ListView.builder(
-                  itemCount: sessions.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 12.0),
-                      child: Card(
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MainCollectionHomePage()
-                                  //  DetailPage(
-                                  //   place: sessions[index]['place'],
-                                  //   number: sessions[index]['number'],
-                                  // ),
+                child: BlocConsumer<AssignSectionToVolunteerBloc,
+                    AssignSectionToVolunteerState>(
+                  listener: (context, state) {
+                    state.when(
+                      initial: () {},
+                      loding: () {},
+                      error: (error) {},
+                      success: (response) {
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => DetailPage(),
+                        //   ),
+                        // );
+                      },
+                    );
+                  },
+                  builder: (context, state) {
+                    return BlocBuilder<SessionBloc, SessionState>(
+                      builder: (context, state) {
+                        return state.when(
+                          initial: () => const Center(
+                              child: Text(
+                            "No data available yet.",
+                            style: TextStyle(fontSize: 16),
+                          )),
+                          loding: () => const Center(
+                              child: CircularProgressIndicator(
+                            color: Colors.blue,
+                          )),
+                          error: (error) => Center(
+                              child: Text(
+                            "Error: $error",
+                            style: const TextStyle(
+                                fontSize: 16, color: Colors.red),
+                          )),
+                          success: (sessions) {
+                            // Assuming sessions is a List<Map<String, dynamic>>
+                            return ListView.builder(
+                              itemCount: sessions.data.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 12.0),
+                                  child: Card(
+                                    elevation: 2,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: InkWell(
+                                      onTap: () {
+                                        // Print the session's name and ID
+                                        final session = sessions.data[index];
+                                        print(
+                                            'Session Name: ${session.sectionName}');
+                                        print('Session ID: ${session.id}');
+                                        SessionSelectionAPI(
+                                            session.sectionName, session.id);
+                                      },
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              sessions.data[index].sectionName,
+                                              style: const TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                            Text(
+                                              sessions.data[index].id
+                                                  .toString(),
+                                              style: const TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
                                   ),
+                                );
+                              },
                             );
                           },
-                          borderRadius: BorderRadius.circular(12),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  sessions[index]['place'],
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                Text(
-                                  sessions[index]['number'],
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.blue,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                        );
+                      },
                     );
                   },
                 ),
@@ -92,9 +139,24 @@ class SessionsPage extends StatelessWidget {
       ),
     );
   }
+
+  void fetchSessionData() {
+    final sessionBloc = context.read<SessionBloc>();
+    sessionBloc.add(SessionEvent.sessionList());
+  }
+
+  void SessionSelectionAPI(String sectionName, int id) {
+    final assignSectionToVolunteerBloc =
+        context.read<AssignSectionToVolunteerBloc>();
+    assignSectionToVolunteerBloc.add(
+      AssignSectionToVolunteerEvent.sessionSelection(
+        sectionID: id.toString(),
+      ),
+    );
+  }
 }
 
-// Detail page that shows when a card is tapped
+// Detail Page for showing tapped session details
 class DetailPage extends StatelessWidget {
   final String place;
   final String number;

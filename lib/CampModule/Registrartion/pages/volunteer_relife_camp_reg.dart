@@ -205,7 +205,12 @@ class _VolunteerRelifeCampRegState extends State<VolunteerRelifeCampReg> {
                       },
                       success: (message) {
                         setState(() => _isLoading = false);
-                        // showSnackBar('Registration Successful!');
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Registration Successful')),
+                        );
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => LoginPage()),
+                        );
                       },
                     );
                   },

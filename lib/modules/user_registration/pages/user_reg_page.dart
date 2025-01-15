@@ -1,12 +1,12 @@
-// pages/user_reg_page.dart
-import 'dart:async';
-
-import 'package:disaster_management/services/userreg_service.dart';
+import 'dart:io';
+import 'package:disaster_management/modules/login/pages/login_page.dart';
+import 'package:disaster_management/modules/user_registration/bloc/user_reg_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../../widgets/textfiled.dart';
-import '../../login/pages/login_page.dart';
 
 class UserRegPage extends StatefulWidget {
   const UserRegPage({super.key});
@@ -22,12 +22,13 @@ class _UserRegPageState extends State<UserRegPage> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController locationController = TextEditingController();
-  final TextEditingController imageController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
-  final TextEditingController utypeController = TextEditingController();
 
   bool _isSecurePassword = true;
   bool _isLoading = false;
+  File? _pickedImage;
+
+  final ImagePicker _picker = ImagePicker();
 
   @override
   void dispose() {
@@ -37,69 +38,8 @@ class _UserRegPageState extends State<UserRegPage> {
     passwordController.dispose();
     addressController.dispose();
     locationController.dispose();
-    imageController.dispose();
     phoneNumberController.dispose();
-    utypeController.dispose();
     super.dispose();
-  }
-
-  void _submitForm() async {
-    if (!_validateForm()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Please fill all required fields")),
-      );
-      return;
-    }
-
-    setState(() {
-      _isLoading = true;
-    });
-
-    final userData = {
-      //'name': nameController.text,
-      //'email': emailController.text,
-      'password': passwordController.text,
-      'address': addressController.text,
-      //'location': locationController.text,
-      'image': imageController.text,
-      // 'phone_number': phoneNumberController.text,
-      'utype': utypeController.text,
-    };
-
-    final response = await Registration(
-      name: nameController.text,
-      phonenumber: phoneNumberController.text,
-      email: emailController.text,
-      location: locationController.text,
-      address: addressController.text,
-      Password: passwordController.text,
-    );
-    if (response == "sss") {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Registration Success")),
-      );
-      Timer(
-        Duration(seconds: 1),
-        () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => LoginPage(),
-              ));
-        },
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Registration failed")),
-      );
-    }
-  }
-
-  bool _validateForm() {
-    return nameController.text.isNotEmpty &&
-        emailController.text.isNotEmpty &&
-        passwordController.text.isNotEmpty &&
-        phoneNumberController.text.isNotEmpty;
   }
 
   @override
@@ -112,6 +52,33 @@ class _UserRegPageState extends State<UserRegPage> {
             padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 20.h),
             child: Column(
               children: [
+                // CircleAvatar for profile image
+                GestureDetector(
+                  onTap: () async {
+                    final pickedFile =
+                        await _picker.pickImage(source: ImageSource.gallery);
+
+                    if (pickedFile != null) {
+                      setState(() {
+                        _pickedImage = File(pickedFile.path);
+                      });
+                    }
+                  },
+                  child: CircleAvatar(
+                    radius: 60.r,
+                    backgroundColor: Colors.grey[200],
+                    backgroundImage:
+                        _pickedImage != null ? FileImage(_pickedImage!) : null,
+                    child: _pickedImage == null
+                        ? Icon(
+                            Icons.camera_alt,
+                            size: 40.sp,
+                            color: Colors.white,
+                          )
+                        : null,
+                  ),
+                ),
+                SizedBox(height: 20.h),
                 Text(
                   "User Registration",
                   style: TextStyle(
@@ -157,37 +124,68 @@ class _UserRegPageState extends State<UserRegPage> {
                 ),
                 SizedBox(height: 20.h),
                 TextFiledWidget(
-                  labelText: 'Image URL',
-                  suffix: Icon(Icons.image, size: 20.sp),
-                  obscureText: false,
-                  controller: imageController,
-                ),
-                SizedBox(height: 20.h),
-                TextFiledWidget(
                   labelText: 'Phone Number',
                   suffix: Icon(Icons.phone, size: 20.sp),
                   obscureText: false,
                   controller: phoneNumberController,
                 ),
                 SizedBox(height: 30.h),
-                SizedBox(
-                  width: 1.sw * 0.8,
-                  child: ElevatedButton(
-                    onPressed: _isLoading ? null : _submitForm,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 228, 12, 12),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 20.w, vertical: 20.h),
-                      textStyle: TextStyle(fontSize: 16.sp),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50.r),
+                BlocListener<UserRegBloc, UserRegState>(
+                  listener: (context, state) {
+                    state.when(
+                      initial: () {},
+                      loading: () {
+                        setState(() {
+                          _isLoading = true;
+                        });
+                      },
+                      error: (error) {
+                        setState(() {
+                          _isLoading = false;
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(error)),
+                        );
+                      },
+                      success: (response) {
+                        setState(() {
+                          _isLoading = false;
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Registration Successful')),
+                        );
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => LoginPage()),
+                        );
+                      },
+                    );
+                  },
+                  child: SizedBox(
+                    width: 1.sw * 0.8,
+                    child: ElevatedButton(
+                      onPressed: _isLoading
+                          ? null // Disable button when loading
+                          : () {
+                              setState(() {
+                                _isLoading = true;
+                              });
+                              userRegAPI();
+                            },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 228, 12, 12),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 20.w, vertical: 20.h),
+                        textStyle: TextStyle(fontSize: 16.sp),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.r),
+                        ),
                       ),
+                      child: _isLoading
+                          ? SpinKitRotatingCircle(
+                              color: Colors.white, size: 24.sp)
+                          : Text('Complete Profile',
+                              style: TextStyle(color: Colors.white)),
                     ),
-                    child: _isLoading
-                        ? SpinKitRotatingCircle(
-                            color: Colors.white, size: 24.sp)
-                        : Text('Complete Profile',
-                            style: TextStyle(color: Colors.white)),
                   ),
                 ),
               ],
@@ -209,6 +207,22 @@ class _UserRegPageState extends State<UserRegPage> {
           ? Icon(Icons.visibility, size: 20.sp)
           : Icon(Icons.visibility_off, size: 20.sp),
       color: Colors.black,
+    );
+  }
+
+  void userRegAPI() {
+    final imagePath = _pickedImage != null ? _pickedImage!.path : '';
+    final userRegBloc = BlocProvider.of<UserRegBloc>(context);
+    userRegBloc.add(
+      UserRegEvent.userReg(
+        Password: passwordController.text,
+        address: addressController.text,
+        email: emailController.text,
+        location: locationController.text,
+        name: nameController.text,
+        phonenumber: phoneNumberController.text,
+        image: imagePath,
+      ),
     );
   }
 }

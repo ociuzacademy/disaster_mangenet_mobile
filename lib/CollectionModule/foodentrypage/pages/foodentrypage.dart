@@ -1,4 +1,6 @@
+import 'package:disaster_management/CollectionModule/foodentrypage/bloc/foodentery_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddFoodItemPage extends StatefulWidget {
   const AddFoodItemPage({Key? key}) : super(key: key);
@@ -11,56 +13,49 @@ class _AddFoodItemPageState extends State<AddFoodItemPage> {
   final _formKey = GlobalKey<FormState>();
   final _itemNameController = TextEditingController();
   final _currentStockController = TextEditingController();
-  String _selectedUnit = 'kg'; // Default unit
-  
+  final _food_expiry_dateController = TextEditingController();
+  String _selectedUnit = 'kg';
+  String _item_type = 'Snacks';
+
   // List of available units
   final List<String> _units = ['kg', 'L', 'g', 'mL', 'pieces'];
-
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      // Create new food item
-      final newItem = {
-        'itemName': _itemNameController.text,
-        'currentStock': int.parse(_currentStockController.text),
-        'unit': _selectedUnit,
-        'lastUpdated': DateTime.now().toString().split(' ')[0], // Current date
-      };
-
-      // Here you would typically send the new item to your backend
-      // For now, just show a success dialog
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Success'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('New item added:'),
-              const SizedBox(height: 8),
-              Text('Name: ${newItem['itemName']}'),
-              Text('Stock: ${newItem['currentStock']} ${newItem['unit']}'),
-              Text('Date: ${newItem['lastUpdated']}'),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context); // Close dialog
-                Navigator.pop(context); // Return to previous screen
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    }
-  }
+  final List<String> _floodCampFoodCategories = [
+    'Canned Foods',
+    'Dry Goods',
+    'Instant Meals',
+    'Snacks',
+    'Beverages',
+    'Emergency Foods',
+    'Perishable Foods',
+    'Proteins',
+    'Vegetarian',
+    'Non-Vegetarian',
+    'Vegan',
+    'Gluten-Free',
+    'Dairy-Free',
+    'Low-Carb',
+    'High-Protein',
+    'Organic',
+    'Fruits',
+    'Vegetables',
+    'Grains',
+    'Breakfast Items',
+    'Soups & Stews',
+    'Energy Bars & Snacks',
+    'Spices & Condiments',
+    'Packaged Meals',
+    'Instant Noodles',
+    'Canned Meats',
+    'Canned Vegetables',
+    'Canned Fruits',
+    'Ready-to-Eat Meals'
+  ];
 
   @override
   void dispose() {
     _itemNameController.dispose();
     _currentStockController.dispose();
+    _food_expiry_dateController.dispose();
     super.dispose();
   }
 
@@ -146,9 +141,74 @@ class _AddFoodItemPageState extends State<AddFoodItemPage> {
                     ),
                   ],
                 ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: _food_expiry_dateController,
+                  decoration: const InputDecoration(
+                    labelText: 'Food Expiry Date',
+                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.calendar_today),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter food expiry date';
+                    }
+                    return null;
+                  },
+                  onTap: () async {
+                    // Prevents the keyboard from appearing when tapping on the text field
+                    FocusScope.of(context).requestFocus(FocusNode());
+
+                    // Show the date picker
+                    DateTime? selectedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2101),
+                    );
+
+                    if (selectedDate != null) {
+                      // Format the selected date and update the controller
+                      final formattedDate =
+                          "${selectedDate.toLocal()}".split(' ')[0];
+                      _food_expiry_dateController.text = formattedDate;
+                    }
+                  },
+                ),
+                const SizedBox(height: 16),
+                DropdownButtonFormField<String>(
+                  value: _item_type,
+                  decoration: const InputDecoration(
+                    labelText: 'Food Item Type',
+                    border: OutlineInputBorder(),
+                  ),
+                  items: _floodCampFoodCategories.map((String type) {
+                    return DropdownMenuItem<String>(
+                      value: type,
+                      child: Text(type),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    if (newValue != null) {
+                      setState(() {
+                        _item_type = newValue;
+                      });
+                    }
+                  },
+                  validator: (value) {
+                    if (value == null ||
+                        !_floodCampFoodCategories.contains(value)) {
+                      return 'Please select a valid food item type';
+                    }
+                    return null;
+                  },
+                ),
                 const SizedBox(height: 24),
                 ElevatedButton(
-                  onPressed: _submitForm,
+                  onPressed: () {
+                    _submitFormAPI(_itemNameController, _currentStockController,
+                        _selectedUnit, _item_type, _food_expiry_dateController);
+                  },
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(50),
                   ),
@@ -161,6 +221,25 @@ class _AddFoodItemPageState extends State<AddFoodItemPage> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  void _submitFormAPI(
+    TextEditingController itemNameController,
+    TextEditingController currentStockController,
+    String selectedUnit,
+    String item_type,
+    TextEditingController food_expiry_dateController,
+  ) {
+    final foodenteryBloc = BlocProvider.of<FoodenteryBloc>(context);
+    foodenteryBloc.add(
+      FoodenteryEvent.foodstockenter(
+        food_expiry_date: food_expiry_dateController.text.trim(),
+        item_name: itemNameController.text.trim(),
+        item_type: item_type ?? '',
+        quantity: currentStockController.text.trim(),
+        unit_type: _selectedUnit ?? '',
       ),
     );
   }

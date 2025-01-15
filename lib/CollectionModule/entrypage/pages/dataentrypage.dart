@@ -1,10 +1,8 @@
-import 'package:disaster_management/CollectionModule/dressentrypage/pages/dressentrypage.dart';
-import 'package:disaster_management/CollectionModule/dresslistpage/pages/dresslistpage.dart';
-import 'package:disaster_management/CollectionModule/foodentrypage/pages/foodentrypage.dart';
-import 'package:disaster_management/CollectionModule/foodlistpage/pages/foodlistpage.dart';
 import 'package:disaster_management/CollectionModule/medicineentrymodule/pages/medicine%20entrypage.dart';
-import 'package:disaster_management/CollectionModule/medicinelistpage/pages/medicinelistpage.dart';
 import 'package:flutter/material.dart';
+import 'package:disaster_management/CollectionModule/dressentrypage/pages/dressentrypage.dart';
+// Import the pages for Food, Medicine, and Other
+import 'package:disaster_management/CollectionModule/foodentrypage/pages/foodentrypage.dart';
 
 class EntryPage extends StatelessWidget {
   final List<Map<String, dynamic>> categories = [
@@ -30,6 +28,14 @@ class EntryPage extends StatelessWidget {
     },
   ];
 
+  // List of pages corresponding to each category
+  final List<Widget> pages = [
+    AddFoodItemPage(),
+    AddDressItemPage(),
+    AddMedicinePage(),
+    // AddOtherItemPage(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,13 +57,9 @@ class EntryPage extends StatelessWidget {
             return GestureDetector(
               onTap: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => AddDressItemPage()
-                        //  DetailPage(
-                        //   place: sessions[index]['place'],
-                        //   number: sessions[index]['number'],
-                        // ),
-                        ));
+                  context,
+                  MaterialPageRoute(builder: (context) => pages[index]),
+                );
               },
               child: Card(
                 shape: RoundedRectangleBorder(

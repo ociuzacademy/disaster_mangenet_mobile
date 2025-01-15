@@ -1,4 +1,6 @@
+import 'package:disaster_management/CollectionModule/dressentrypage/bloc/stock_enter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddDressItemPage extends StatefulWidget {
   const AddDressItemPage({Key? key}) : super(key: key);
@@ -10,11 +12,13 @@ class AddDressItemPage extends StatefulWidget {
 class _AddDressItemPageState extends State<AddDressItemPage> {
   final _formKey = GlobalKey<FormState>();
   final _itemNameController = TextEditingController();
-  final _currentStockController = TextEditingController();
-  final _priceController = TextEditingController();
+  final _quantityController = TextEditingController();
 
-  String _selectedSize = 'M'; // Default size
-  String _selectedColor = 'Black'; // Default color
+  String _selectedSize = 'M';
+  String _selectedColor = 'Black';
+  String _selectedGender = 'Unisex';
+  String _selectedFabric = 'Cotton';
+  String _itemcategory = 'Dress';
 
   // Available options
   final List<String> _sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
@@ -31,84 +35,66 @@ class _AddDressItemPageState extends State<AddDressItemPage> {
     'Brown',
     'Grey'
   ];
-
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      // Create new dress item
-      final newItem = {
-        'itemName': _itemNameController.text,
-        'size': _selectedSize,
-        'color': _selectedColor,
-        'currentStock': int.parse(_currentStockController.text),
-        'price': double.parse(_priceController.text),
-        'lastUpdated': DateTime.now().toString().split(' ')[0], // Current date
-      };
-
-      // Show success dialog
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Success'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'New dress item added:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-              ),
-              const SizedBox(height: 16),
-              Text('Name: ${newItem['itemName']}'),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Text('Size: ${newItem['size']}'),
-                  ),
-                  const SizedBox(width: 8),
-                  Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Text('Color: ${newItem['color']}'),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Text('Stock: ${newItem['currentStock']} pieces'),
-              //Text('Price: ₹${newItem['price'].toStringAsFixed(2)}'),
-              Text('Date: ${newItem['lastUpdated']}'),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context); // Close dialog
-                Navigator.pop(context); // Return to previous screen
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    }
-  }
+  final List<String> _genders = ['Male', 'Female', 'Unisex'];
+  final List<String> _fabrics = [
+    'Cotton',
+    'Silk',
+    'Polyester',
+    'Wool',
+    'Denim'
+  ];
 
   @override
   void dispose() {
     _itemNameController.dispose();
-    _currentStockController.dispose();
-    _priceController.dispose();
+    _quantityController.dispose();
     super.dispose();
+  }
+
+  void _submitForm() {
+    if (_formKey.currentState!.validate()) {
+      stockenterAPI();
+    }
+  }
+
+  void stockenterAPI() {
+    final stockEnterBloc = BlocProvider.of<StockEnterBloc>(context);
+
+    // Collect data from controllers and dropdowns
+    final itemName = _itemNameController.text;
+    final quantity = _quantityController.text;
+
+    // Ensure quantity is not empty and valid
+    if (quantity.isEmpty || int.tryParse(quantity) == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter a valid quantity')),
+      );
+      return;
+    }
+
+    // Trigger the API event with the collected data
+    stockEnterBloc.add(
+      StockEnterEvent.stockenter(
+        clothing_gender: _selectedGender,
+        clothing_size: _selectedSize,
+        color: _selectedColor,
+        fabric_type: _selectedFabric,
+        item_name: itemName,
+        item_category: _itemcategory,
+        quantity: quantity,
+      ),
+    );
+
+    // Optionally clear the form fields after submission
+    _formKey.currentState!.reset();
+    _itemNameController.clear();
+    _quantityController.clear();
+    setState(() {
+      _selectedSize = 'M';
+      _selectedColor = 'Black';
+      _selectedGender = 'Unisex';
+      _selectedFabric = 'Cotton';
+    });
   }
 
   @override
@@ -131,7 +117,6 @@ class _AddDressItemPageState extends State<AddDressItemPage> {
                   decoration: const InputDecoration(
                     labelText: 'Dress Name',
                     border: OutlineInputBorder(),
-                    // prefixIcon: Icon(Icons.dress),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -141,106 +126,105 @@ class _AddDressItemPageState extends State<AddDressItemPage> {
                   },
                 ),
                 const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Expanded(
-                      child: DropdownButtonFormField<String>(
-                        value: _selectedSize,
-                        decoration: const InputDecoration(
-                          labelText: 'Size',
-                          border: OutlineInputBorder(),
-                        ),
-                        items: _sizes.map((String size) {
-                          return DropdownMenuItem<String>(
-                            value: size,
-                            child: Text(size),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          if (newValue != null) {
-                            setState(() {
-                              _selectedSize = newValue;
-                            });
-                          }
-                        },
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: DropdownButtonFormField<String>(
-                        value: _selectedColor,
-                        decoration: const InputDecoration(
-                          labelText: 'Color',
-                          border: OutlineInputBorder(),
-                        ),
-                        items: _colors.map((String color) {
-                          return DropdownMenuItem<String>(
-                            value: color,
-                            child: Text(color),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          if (newValue != null) {
-                            setState(() {
-                              _selectedColor = newValue;
-                            });
-                          }
-                        },
-                      ),
-                    ),
-                  ],
+                DropdownButtonFormField<String>(
+                  value: _selectedSize,
+                  decoration: const InputDecoration(
+                    labelText: 'Clothing Size',
+                    border: OutlineInputBorder(),
+                  ),
+                  items: _sizes.map((String size) {
+                    return DropdownMenuItem<String>(
+                      value: size,
+                      child: Text(size),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    if (newValue != null) {
+                      setState(() {
+                        _selectedSize = newValue;
+                      });
+                    }
+                  },
                 ),
                 const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: _currentStockController,
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                          labelText: 'Initial Stock',
-                          border: OutlineInputBorder(),
-                          prefixIcon: Icon(Icons.inventory),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter initial stock';
-                          }
-                          if (int.tryParse(value) == null) {
-                            return 'Please enter a valid number';
-                          }
-                          if (int.parse(value) < 0) {
-                            return 'Stock cannot be negative';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: TextFormField(
-                        controller: _priceController,
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                          labelText: 'Price (₹)',
-                          border: OutlineInputBorder(),
-                          prefixIcon: Icon(Icons.currency_rupee),
-                        ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter price';
-                          }
-                          if (double.tryParse(value) == null) {
-                            return 'Please enter a valid price';
-                          }
-                          if (double.parse(value) <= 0) {
-                            return 'Price must be greater than 0';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                  ],
+                DropdownButtonFormField<String>(
+                  value: _selectedGender,
+                  decoration: const InputDecoration(
+                    labelText: 'Clothing Gender',
+                    border: OutlineInputBorder(),
+                  ),
+                  items: _genders.map((String gender) {
+                    return DropdownMenuItem<String>(
+                      value: gender,
+                      child: Text(gender),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    if (newValue != null) {
+                      setState(() {
+                        _selectedGender = newValue;
+                      });
+                    }
+                  },
+                ),
+                const SizedBox(height: 16),
+                DropdownButtonFormField<String>(
+                  value: _selectedColor,
+                  decoration: const InputDecoration(
+                    labelText: 'Color',
+                    border: OutlineInputBorder(),
+                  ),
+                  items: _colors.map((String color) {
+                    return DropdownMenuItem<String>(
+                      value: color,
+                      child: Text(color),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    if (newValue != null) {
+                      setState(() {
+                        _selectedColor = newValue;
+                      });
+                    }
+                  },
+                ),
+                const SizedBox(height: 16),
+                DropdownButtonFormField<String>(
+                  value: _selectedFabric,
+                  decoration: const InputDecoration(
+                    labelText: 'Fabric Type',
+                    border: OutlineInputBorder(),
+                  ),
+                  items: _fabrics.map((String fabric) {
+                    return DropdownMenuItem<String>(
+                      value: fabric,
+                      child: Text(fabric),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    if (newValue != null) {
+                      setState(() {
+                        _selectedFabric = newValue;
+                      });
+                    }
+                  },
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  controller: _quantityController,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: 'Quantity',
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (value) {
+                    if (value == null ||
+                        value.isEmpty ||
+                        int.tryParse(value) == null) {
+                      return 'Please enter a valid quantity';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 24),
                 ElevatedButton(
