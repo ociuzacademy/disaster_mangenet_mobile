@@ -2,18 +2,23 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:disaster_management/CollectionModule/sessionPage/model/assignSectionToVolunteer_model.dart';
+import 'package:disaster_management/app_functions/app_functions.dart';
 import 'package:disaster_management/constants/urls.dart';
 import 'package:http/http.dart' as http;
 
-Future<AssignSectionToVolunteerModel> assignSectionToVolunteer_ser(
-    {required SectionID}) async {
+Future<AssignSectionToVolunteerModel> assignSectionToVolunteer_ser({
+  required String sectionID,
+}) async {
   try {
     // Construct the URL with query parameters
+    int? id = await fun().getId();
+    String? userid = id.toString();
+    print('Retrieved ID: $id ');
 
     final url = Uri.parse(Urls.assignSectionToVolunteer).replace(
       queryParameters: {
-        'volunteer_id': '6',
-        'section_id': SectionID,
+        'volunteer_id': userid,
+        'section_id': sectionID,
       },
     );
 

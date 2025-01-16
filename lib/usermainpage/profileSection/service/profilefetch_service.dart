@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:disaster_management/app_functions/app_functions.dart';
 import 'package:disaster_management/constants/urls.dart';
 import 'package:disaster_management/usermainpage/profileSection/models/userprofile_model.dart';
 import 'package:http/http.dart' as http;
@@ -9,11 +10,14 @@ Future<UserProfileModel> ProfileFetchService({
   required String utype,
 }) async {
   try {
+    int? id = await fun().getId();
+    String? userid = id.toString();
+    print('Retrieved ID: $id');
     // Construct the URL with query parameters
     final url = Uri.parse(Urls.profile).replace(
       queryParameters: {
         'utype': utype,
-        'user': '10',
+        'user': userid,
       },
     );
 

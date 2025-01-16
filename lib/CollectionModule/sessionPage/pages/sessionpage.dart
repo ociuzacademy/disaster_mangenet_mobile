@@ -1,3 +1,4 @@
+import 'package:disaster_management/CollectionModule/MainHomePage/pages/newhomepage.dart';
 import 'package:disaster_management/CollectionModule/sessionPage/bloc/AssignSectionToVolunteer/bloc/assign_section_to_volunteer_bloc.dart';
 import 'package:disaster_management/CollectionModule/sessionPage/bloc/session_bloc.dart';
 import 'package:flutter/material.dart';
@@ -45,12 +46,12 @@ class _SessionsPageState extends State<SessionsPage> {
                       loding: () {},
                       error: (error) {},
                       success: (response) {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => DetailPage(),
-                        //   ),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MainCollectionHomePage(),
+                          ),
+                        );
                       },
                     );
                   },

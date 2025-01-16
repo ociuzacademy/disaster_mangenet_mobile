@@ -16,25 +16,10 @@ class AssignSectionToVolunteerBloc
         emit(const AssignSectionToVolunteerState.loding());
         if (event is _$SessionSelectionImpl) {
           final response = await assignSectionToVolunteer_ser(
-            SectionID: event.sectionID,
+            sectionID: event.sectionID,
           );
-          // Handle the response (example)
-          if (response.detail ==
-              'Section assigned to volunteer successfully.') {
-            // Update shared preferences
-            SharedPreferences prefs = await SharedPreferences.getInstance();
 
-            // Update shared preferences with the new sectionID (or any other data you want to store)
-            prefs.setString(
-              'sectionID',
-              response.sectionId.toString(),
-            );
-
-            emit(AssignSectionToVolunteerState.success(response: response));
-          } else {
-            emit(const AssignSectionToVolunteerState.error(
-                error: "Please try again"));
-          }
+          emit(AssignSectionToVolunteerState.success(response: response));
         }
       } catch (e) {
         emit(AssignSectionToVolunteerState.error(error: e.toString()));

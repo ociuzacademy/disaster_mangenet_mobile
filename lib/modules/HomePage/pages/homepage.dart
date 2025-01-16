@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
         title: const Text('Home Page'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.w), // Use ScreenUtil for padding
+        padding: EdgeInsets.all(16.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:disaster_management/constants/urls.dart';
 import 'package:disaster_management/modules/HomePage/models/newsmodel.dart';
-import 'package:disaster_management/modules/login/model/login_model.dart';
 import 'package:http/http.dart' as http;
 
 Future<NewsModel> NewsList() async {

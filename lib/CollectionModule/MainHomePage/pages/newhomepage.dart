@@ -1,26 +1,14 @@
-import 'package:disaster_management/CampModule/HomePage/pages/homepage.dart';
-import 'package:disaster_management/CampModule/StatusPage/Pages/statuspage.dart';
 import 'package:disaster_management/CollectionModule/HomePage/pages/homepagecollection.dart';
 import 'package:disaster_management/CollectionModule/entrypage/pages/dataentrypage.dart';
-import 'package:disaster_management/CollectionModule/sessionPage/pages/sessionpage.dart';
-import 'package:disaster_management/modules/campListPage/Pages/camplist.dart';
 import 'package:disaster_management/modules/sosmessage/services/sosmessageservice.dart';
 import 'package:disaster_management/usermainpage/profileSection/views/volunteercollection_profile.dart';
-import 'package:disaster_management/widgets/textfiled.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:motion_tab_bar/MotionTabBar.dart';
 import 'package:geolocator/geolocator.dart';
-import '../../../usermainpage/resource_finder.dart';
-import '../../../usermainpage/saftey_guidlines.dart';
-import '../../../usermainpage/profileSection/views/userprofile.dart';
 
 class MainCollectionHomePage extends StatefulWidget {
-  final String sectionID;
-  const MainCollectionHomePage({
-    super.key,
-    required this.sectionID,
-  });
+  const MainCollectionHomePage({super.key});
 
   @override
   State<MainCollectionHomePage> createState() => _MainCollectionHomePageState();
@@ -63,18 +51,12 @@ class _MainCollectionHomePageState extends State<MainCollectionHomePage>
 
   @override
   Widget build(BuildContext context) {
-    // Dynamically decide the pages based on sectionID
-    final List<Widget> _pages = widget.sectionID.isEmpty
-        ? [
-            SessionsPage(),
-            EntryPage(),
-            volunteerCollectionnProfile(),
-          ]
-        : [
-            CollectionHomePage(),
-            EntryPage(),
-            volunteerCollectionnProfile(),
-          ];
+    // Removed the sectionID feature and updated the pages list
+    final List<Widget> _pages = [
+      CollectionHomePage(),
+      EntryPage(),
+      volunteerCollectionnProfile(),
+    ];
 
     return Scaffold(
       body: _pages[_selectedIndex],

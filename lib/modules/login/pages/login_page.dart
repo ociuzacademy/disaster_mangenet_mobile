@@ -1,5 +1,6 @@
 import 'package:disaster_management/CampModule/MainHomePage/pages/camphomepage.dart';
 import 'package:disaster_management/CollectionModule/MainHomePage/pages/newhomepage.dart';
+import 'package:disaster_management/CollectionModule/sessionPage/pages/sessionpage.dart';
 import 'package:disaster_management/modules/MainHomePage/pages/custombottom_bar.dart';
 import 'package:disaster_management/modules/login/bloc/login_bloc.dart';
 import 'package:disaster_management/widgets/lg_btn.dart';
@@ -123,6 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                             final prefs = await SharedPreferences.getInstance();
                             await prefs.setString(
                                 'campid', response.data[0].cId);
+                            await prefs.setInt('id', response.data[0].id);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text("Login Success")),
                             );
@@ -136,25 +138,34 @@ class _LoginPageState extends State<LoginPage> {
                             final prefs = await SharedPreferences.getInstance();
                             await prefs.setString(
                                 'collectionid', response.data[0].cId);
+                            await prefs.setInt('id', response.data[0].id);
 
                             if (response.data[0].sectionId.isNotEmpty) {
                               final prefs =
                                   await SharedPreferences.getInstance();
                               await prefs.setString(
                                   'sessionid', response.data[0].sectionId);
-                            }
-
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("Login Success")),
-                            );
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => MainCollectionHomePage(
-                                  sectionID: response.data[0].sectionId,
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Login Success")),
+                              );
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      MainCollectionHomePage(),
                                 ),
-                              ),
-                            );
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Login Success")),
+                              );
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SessionsPage(),
+                                ),
+                              );
+                            }
                           }
                         },
                       );

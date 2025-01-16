@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:disaster_management/CampModule/RequestPage/model/request_model.dart';
+import 'package:disaster_management/app_functions/app_functions.dart';
 import 'package:disaster_management/constants/urls.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,12 +13,17 @@ Future<RequestModel> requestServ({
   required String camp,
 }) async {
   try {
+    int? id = await fun().getId();
+    String? userid = id.toString();
+    print('Retrieved ID: $id');
+    String? cmpid = await fun().getCampid();
+    print('Retrieved ID: $cmpid');
     Map param = {
-      "volunteer": '3',
+      "volunteer": userid,
       "category": category,
       "refugee": refugeeid,
       "description": description,
-      "camp": camp,
+      "camp": cmpid,
     };
     final resp = await http.post(
       Uri.parse(Urls.requirements),

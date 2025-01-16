@@ -25,10 +25,12 @@ Future<CollectionCenterModel> Collectiodetails() async {
 
   try {
     // Construct the URL with query parameters
-    final url = Uri.parse(Urls.GetCollection).replace(queryParameters: {
-      "latitude": position.latitude.toString(),
-      "longitude": position.longitude.toString(),
-    });
+    final url = Uri.parse(Urls.GetCollection).replace(
+      queryParameters: {
+        "latitude": position.latitude.toString(),
+        "longitude": position.longitude.toString(),
+      },
+    );
 
     // Send GET request
     final resp = await http.get(

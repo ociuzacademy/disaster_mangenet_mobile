@@ -164,7 +164,7 @@ class _UserRegPageState extends State<UserRegPage> {
                     width: 1.sw * 0.8,
                     child: ElevatedButton(
                       onPressed: _isLoading
-                          ? null // Disable button when loading
+                          ? null
                           : () {
                               setState(() {
                                 _isLoading = true;

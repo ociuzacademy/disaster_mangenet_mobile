@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:disaster_management/CollectionModule/dressentrypage/model/stock_enter_model.dart';
+import 'package:disaster_management/app_functions/app_functions.dart';
 import 'package:disaster_management/constants/urls.dart';
 import 'package:http/http.dart' as http;
 
@@ -17,7 +18,10 @@ Future<StockEnterModel> dressStockService({
   try {
     // Construct the URL (no query parameters here for POST)
     final url = Uri.parse(Urls.stocks);
-
+    String? collid = await fun().getCollectionid();
+    print('Retrieved ID: $collid');
+    String? sectionid = await fun().getSectionId();
+    print('Retrieved ID: $sectionid');
     // Create the body as a JSON-encoded string
     final body = jsonEncode({
       'item_name': item_name,
@@ -26,8 +30,8 @@ Future<StockEnterModel> dressStockService({
       'color': color,
       'fabric_type': fabric_type,
       'quantity': quantity,
-      'collection_id': '19',
-      'section_id': '11',
+      'collection_id': collid,
+      'section_id': sectionid,
       'item_category': item_category,
     });
 

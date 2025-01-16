@@ -50,6 +50,32 @@ class _UserListPageState extends State<UserListPage> {
             },
             success: (response) {
               final userList = response;
+
+              if (userList.data.isEmpty) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'No Refugee List. Add Refugee',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => RefugeeInfoPage()),
+                          );
+                        },
+                        child: Text('Add Refugee'),
+                      ),
+                    ],
+                  ),
+                );
+              }
+
               return ListView.builder(
                 itemCount: userList.data.length,
                 itemBuilder: (context, index) {

@@ -103,35 +103,6 @@ class _volunteerProfileState extends State<volunteerProfile> {
                       ],
                     ),
                     const SizedBox(height: 10),
-                    const Divider(color: Colors.grey, thickness: 1),
-                    const SizedBox(height: 10),
-                    InkWell(
-                      onTap: () {
-                        // Navigator.of(context).push(MaterialPageRoute(
-                        //     builder: (context) => const SosUpdatePage()));
-                      },
-                      child: Row(
-                        children: const [
-                          Icon(Icons.keyboard_arrow_right, size: 30),
-                          SizedBox(width: 25),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Update Now',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
-                              ),
-                              Text(
-                                'Your email address update',
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 10),
                     const Divider(color: Colors.grey, thickness: 0.5),
                     const SizedBox(height: 10),
                     InkWell(
