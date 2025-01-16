@@ -103,6 +103,7 @@ class _RequestListPageState extends State<RequestListPage> {
                                       backgroundColor: Colors.green,
                                     ),
                                   );
+                                  fetchRequestList();
                                 },
                               );
                             },

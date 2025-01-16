@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:convert';
 import 'package:disaster_management/CampModule/RefugeeaddPage/model/refugeesregModel.dart';
+import 'package:disaster_management/app_functions/app_functions.dart';
 import 'package:disaster_management/constants/urls.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
@@ -22,6 +23,11 @@ Future<RefugeesregModel> refugeeserv({
   required String date_of_entry,
 }) async {
   try {
+    String? cmpid = await fun().getCampid();
+    print('Retrieved ID: $cmpid');
+    int? id = await fun().getId();
+    String? userid = id.toString();
+    print('Retrieved ID: $id');
     // Create a multipart request
     var request = http.MultipartRequest('POST', Uri.parse(Urls.refugees));
 
@@ -29,7 +35,7 @@ Future<RefugeesregModel> refugeeserv({
     request.fields['name'] = name;
     request.fields['age'] = age;
     request.fields['gender'] = gender;
-    request.fields['camp'] = camp;
+    request.fields['camp'] = cmpid!;
     request.fields['medicines_used'] = medicines_used;
     request.fields['address'] = address;
     request.fields['family_members'] = family_members;
@@ -37,7 +43,7 @@ Future<RefugeesregModel> refugeeserv({
     request.fields['no_of_people_missing'] = no_of_people_missing;
     request.fields['missing_person_info'] = missing_person_info;
     request.fields['additional_info'] = additional_info;
-    request.fields['volunteer'] = volunteer;
+    request.fields['volunteer'] = userid;
     request.fields['date_of_entry'] = date_of_entry;
 
     // Add the image file to the request

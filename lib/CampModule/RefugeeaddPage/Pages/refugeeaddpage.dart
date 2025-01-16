@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:disaster_management/CampModule/HomePage/Pages/homepage.dart';
+import 'package:disaster_management/CampModule/MainHomePage/pages/camphomepage.dart';
 import 'package:disaster_management/CampModule/RefugeeaddPage/bloc/refugee_register_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -153,8 +154,11 @@ class _RefugeeInfoPageState extends State<RefugeeInfoPage> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('Submission Successful!')),
                       );
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => UserListPage()));
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => MainCampHomePage(),
+                        ),
+                      );
                       _clearControllers();
                     },
                   );

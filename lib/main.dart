@@ -9,6 +9,7 @@ import 'package:disaster_management/CollectionModule/dressentrypage/bloc/stock_e
 import 'package:disaster_management/CollectionModule/dresslistpage/bloc/dress_list_bloc.dart';
 import 'package:disaster_management/CollectionModule/sessionPage/bloc/AssignSectionToVolunteer/bloc/assign_section_to_volunteer_bloc.dart';
 import 'package:disaster_management/CollectionModule/sessionPage/bloc/session_bloc.dart';
+import 'package:disaster_management/modules/Sos_Update/bloc/sosupdate_bloc.dart';
 import 'package:disaster_management/modules/login/bloc/login_bloc.dart';
 import 'package:disaster_management/modules/login/pages/login_page.dart';
 import 'package:disaster_management/modules/user_registration/bloc/user_reg_bloc.dart';
@@ -60,6 +61,7 @@ class _MyAppState extends State<MyApp> {
           BlocProvider(create: (context) => StockListsBloc()),
           BlocProvider(create: (context) => DressListBloc()),
           BlocProvider(create: (context) => ProfileBloc()),
+          BlocProvider(create: (context) => SosupdateBloc()),
         ],
         child: const MaterialApp(
           title: 'Flutter Demo',

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:disaster_management/constants/urls.dart';
+import 'package:disaster_management/modules/Sos_Update/Pages/sos_update.dart';
 import 'package:disaster_management/usermainpage/profileSection/bloc/profile_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -63,6 +64,7 @@ class _ProfileState extends State<Profile> {
                       children: [
                         // Cached Network Image
                         CachedNetworkImage(
+                          color: Colors.grey,
                           imageUrl: ImageUrl + items[0].image,
                           imageBuilder: (context, imageProvider) =>
                               CircleAvatar(
@@ -72,7 +74,7 @@ class _ProfileState extends State<Profile> {
                           placeholder: (context, url) =>
                               const CircularProgressIndicator(),
                           errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
+                              const Icon(Icons.person),
                         ),
                         const SizedBox(width: 16),
                         Expanded(
@@ -104,8 +106,11 @@ class _ProfileState extends State<Profile> {
                     const SizedBox(height: 10),
                     InkWell(
                       onTap: () {
-                        // Navigator.of(context).push(MaterialPageRoute(
-                        //     builder: (context) => const SosUpdatePage()));
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const SosUpdatePage(),
+                          ),
+                        );
                       },
                       child: Row(
                         children: const [

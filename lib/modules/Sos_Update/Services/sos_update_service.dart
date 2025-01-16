@@ -1,18 +1,21 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:disaster_management/app_functions/app_functions.dart';
 import 'package:disaster_management/constants/urls.dart';
 import 'package:disaster_management/modules/Sos_Update/Models/sosmodel.dart';
-import 'package:disaster_management/modules/donation_payment_page/Model/donationmodel.dart';
 import 'package:http/http.dart' as http;
 
 Future<Sosupdate> SOSupdate({
   required String email,
   required String secondaryemail,
 }) async {
+  int? id = await fun().getId();
+  String? user = id.toString();
+  print('Retrieved ID: $id');
   try {
     Map param = {
-      "user": 1,
+      "user": user,
       "email1": email,
       "email2": secondaryemail,
     };
@@ -24,7 +27,7 @@ Future<Sosupdate> SOSupdate({
       },
     );
     final Map<String, dynamic> decoded = jsonDecode(resp.body);
-    if (resp.statusCode == 201) {
+    if (resp.statusCode == 200) {
       final response = Sosupdate.fromJson(decoded);
       return response;
     } else {

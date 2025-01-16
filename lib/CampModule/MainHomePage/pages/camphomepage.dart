@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:motion_tab_bar/MotionTabBar.dart';
 import 'package:geolocator/geolocator.dart';
-import '../../../usermainpage/profileSection/views/userprofile.dart';
 
 class MainCampHomePage extends StatefulWidget {
   const MainCampHomePage({super.key});

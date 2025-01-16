@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:disaster_management/CampModule/MainHomePage/pages/camphomepage.dart';
 import 'package:disaster_management/CampModule/RequestPage/bloc/request_service_bloc.dart';
 import 'package:disaster_management/constants/urls.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,7 @@ class _RequestPageState extends State<RequestPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _noteController = TextEditingController();
   String? selectedNeed;
+  bool _isLoading = false; // Manage button loading state
 
   final List<String> needs = [
     "Dress",
@@ -58,11 +60,11 @@ class _RequestPageState extends State<RequestPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Request Page"),
+        title: const Text("Request Page"),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -72,68 +74,69 @@ class _RequestPageState extends State<RequestPage> {
               children: [
                 CachedNetworkImage(
                   imageUrl: ImageUrl + widget.image,
-                  placeholder: (context, url) => CircularProgressIndicator(),
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
                   errorWidget: (context, url, error) =>
-                      Icon(Icons.error, color: Colors.red),
+                      const Icon(Icons.error, color: Colors.red),
                   imageBuilder: (context, imageProvider) => CircleAvatar(
                     radius: 40,
                     backgroundImage: imageProvider,
                   ),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         widget.name,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       Text("Age: ${widget.age}, Gender: ${widget.gender}"),
                     ],
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Details Section
             Card(
-              margin: EdgeInsets.symmetric(vertical: 8),
+              margin: const EdgeInsets.symmetric(vertical: 8),
               child: Padding(
-                padding: EdgeInsets.all(12),
+                padding: const EdgeInsets.all(12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("Address: ${widget.address}"),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text("Family Members: ${widget.family_members}"),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text("Contact: ${widget.contact}"),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text(
                         "Number of People Missing: ${widget.no_of_people_missing}"),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text("Missing Person Info: ${widget.missing_person_info}"),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Text("Additional Info: ${widget.additional_info}"),
                   ],
                 ),
               ),
             ),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Request Form Section
-            Text(
+            const Text(
               "Request Your Need",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Form(
               key: _formKey,
               child: Column(
@@ -149,7 +152,7 @@ class _RequestPageState extends State<RequestPage> {
                         borderSide: BorderSide.none,
                       ),
                     ),
-                    hint: Text("Choose an option"),
+                    hint: const Text("Choose an option"),
                     value: selectedNeed,
                     onChanged: (value) {
                       setState(() {
@@ -165,7 +168,7 @@ class _RequestPageState extends State<RequestPage> {
                     validator: (value) =>
                         value == null ? "Please select an option" : null,
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
 
                   // Note Input field
                   TextFormField(
@@ -183,25 +186,84 @@ class _RequestPageState extends State<RequestPage> {
                     validator: (value) =>
                         value!.isEmpty ? "Note cannot be empty" : null,
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
 
-                  // Submit Button
-                  ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        requestServAPI();
-                      }
+                  // Submit Button with Loading
+                  BlocListener<RequestServiceBloc, RequestServiceState>(
+                    listener: (context, state) {
+                      state.when(
+                        initial: () {},
+                        loading: () {
+                          setState(() {
+                            _isLoading = true;
+                          });
+                        },
+                        error: (error) {
+                          setState(() {
+                            _isLoading = false;
+                          });
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("Error: $error"),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        },
+                        success: (response) {
+                          setState(() {
+                            _isLoading = false;
+                          });
+                          if (response.message ==
+                              "Requirement successfully added") {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content:
+                                    Text("Request submitted successfully!"),
+                                backgroundColor: Colors.green,
+                              ),
+                            );
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => MainCampHomePage(),
+                              ),
+                            );
+                            setState(() {
+                              selectedNeed = null;
+                              _noteController.clear();
+                            });
+                          }
+                        },
+                      );
                     },
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      backgroundColor: Colors.teal,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                    child: ElevatedButton(
+                      onPressed: _isLoading
+                          ? null // Disable the button when loading
+                          : () {
+                              if (_formKey.currentState!.validate()) {
+                                requestServAPI();
+                              }
+                            },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        backgroundColor: Colors.teal,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
-                    ),
-                    child: Text(
-                      "Send Request",
-                      style: TextStyle(fontSize: 18, color: Colors.white),
+                      child: _isLoading
+                          ? const SizedBox(
+                              height: 24,
+                              width: 24,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 2,
+                              ),
+                            )
+                          : const Text(
+                              "Send Request",
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.white),
+                            ),
                     ),
                   ),
                 ],
@@ -214,8 +276,8 @@ class _RequestPageState extends State<RequestPage> {
   }
 
   void requestServAPI() {
-    final RequestServBloc = BlocProvider.of<RequestServiceBloc>(context);
-    RequestServBloc.add(RequestServiceEvent.requestServ(
+    final requestServBloc = BlocProvider.of<RequestServiceBloc>(context);
+    requestServBloc.add(RequestServiceEvent.requestServ(
       category: selectedNeed ?? '',
       description: _noteController.text.trim(),
       refugeeid: widget.id,
