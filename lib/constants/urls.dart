@@ -1,5 +1,5 @@
-const String baseUrl = "https://c3cmjnm3-8001.inc1.devtunnels.ms/";
-const String ImageUrl = "https://c3cmjnm3-8001.inc1.devtunnels.ms";
+const String baseUrl = "https://84wv8dp3-8001.inc1.devtunnels.ms/";
+const String ImageUrl = "https://84wv8dp3-8001.inc1.devtunnels.ms";
 
 class Urls {
   static const String userRegister = "${baseUrl}register/user/";
