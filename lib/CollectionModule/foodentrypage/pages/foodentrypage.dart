@@ -1,3 +1,4 @@
+import 'package:disaster_management/CollectionModule/MainHomePage/pages/newhomepage.dart';
 import 'package:disaster_management/CollectionModule/foodentrypage/bloc/foodentery_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -126,9 +127,7 @@ class _AddFoodItemPageState extends State<AddFoodItemPage> {
                         ),
                         items: _units.map((String unit) {
                           return DropdownMenuItem<String>(
-                            value: unit,
-                            child: Text(unit),
-                          );
+                              value: unit, child: Text(unit));
                         }).toList(),
                         onChanged: (String? newValue) {
                           if (newValue != null) {
@@ -184,9 +183,7 @@ class _AddFoodItemPageState extends State<AddFoodItemPage> {
                   ),
                   items: _floodCampFoodCategories.map((String type) {
                     return DropdownMenuItem<String>(
-                      value: type,
-                      child: Text(type),
-                    );
+                        value: type, child: Text(type));
                   }).toList(),
                   onChanged: (String? newValue) {
                     if (newValue != null) {
@@ -204,17 +201,49 @@ class _AddFoodItemPageState extends State<AddFoodItemPage> {
                   },
                 ),
                 const SizedBox(height: 24),
-                ElevatedButton(
-                  onPressed: () {
-                    _submitFormAPI(_itemNameController, _currentStockController,
-                        _selectedUnit, _item_type, _food_expiry_dateController);
+                BlocListener<FoodenteryBloc, FoodenteryState>(
+                  listener: (context, state) {
+                    state.when(
+                      initial: () {},
+                      loding: () {
+                        CircularProgressIndicator();
+                      },
+                      error: (message) {
+                        // Hide loading indicator
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(SnackBar(content: Text(message)));
+                      },
+                      success: (response) {
+                        // Hide loading indicator
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('Item added successfully!')),
+                        );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MainCollectionHomePage(),
+                          ),
+                        );
+                      },
+                    );
                   },
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(50),
-                  ),
-                  child: const Text(
-                    'Add Item',
-                    style: TextStyle(fontSize: 16),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _submitFormAPI(
+                          _itemNameController,
+                          _currentStockController,
+                          _selectedUnit,
+                          _item_type,
+                          _food_expiry_dateController);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(50),
+                    ),
+                    child: const Text(
+                      'Add Item',
+                      style: TextStyle(fontSize: 16),
+                    ),
                   ),
                 ),
               ],

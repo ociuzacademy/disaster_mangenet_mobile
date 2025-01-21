@@ -1,7 +1,8 @@
+import 'package:disaster_management/CollectionModule/foodlistpage/bloc/qtyupdate_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:disaster_management/CollectionModule/dressentrypage/bloc/stock_enter_bloc.dart';
 import 'package:disaster_management/CollectionModule/dresslistpage/bloc/dress_list_bloc.dart';
+import 'package:intl/intl.dart';
 
 class DressStockEntryPage extends StatefulWidget {
   const DressStockEntryPage({Key? key}) : super(key: key);
@@ -11,89 +12,37 @@ class DressStockEntryPage extends StatefulWidget {
 }
 
 class _DressStockEntryPageState extends State<DressStockEntryPage> {
-  // Map to track quantity changes
   Map<int, int> quantityChanges = {};
+  List<TextEditingController> qtyControllers = [];
 
   @override
   void initState() {
     super.initState();
-    // Initiate API call to fetch dress items
     fetchDressList();
   }
 
-  void fetchDressList() {
-    final dressListBloc = BlocProvider.of<DressListBloc>(context);
-    dressListBloc.add(DressListEvent.stockLists(item_category: 'dress'));
+  @override
+  void dispose() {
+    for (var controller in qtyControllers) {
+      controller.dispose();
+    }
+    super.dispose();
   }
 
   void updateQuantity(int index, int amount, List<dynamic> items) {
     setState(() {
       quantityChanges[index] = (quantityChanges[index] ?? 0) + amount;
-
-      // Ensure stock doesn't go below 0
       if ((items[index]['currentStock'] + (quantityChanges[index] ?? 0)) < 0) {
         quantityChanges[index] = -items[index]['currentStock'];
       }
     });
   }
 
-  void submitStockChanges(List<dynamic> items) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Stock Update Summary'),
-        content: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: quantityChanges.entries.map((entry) {
-              final item = items[entry.key];
-              final change = entry.value;
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      item['itemName'],
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      'Size: ${item['size']} | Color: ${item['color']}',
-                      style: const TextStyle(fontSize: 14),
-                    ),
-                    Text(
-                      'Change: ${change > 0 ? '+' : ''}$change pieces',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: change > 0 ? Colors.green : Colors.red,
-                      ),
-                    ),
-                    const Divider(),
-                  ],
-                ),
-              );
-            }).toList(),
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('OK'),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Dress Stock Entry'),
+        title: const Text('Dress'),
         elevation: 2,
       ),
       body: Column(
@@ -120,123 +69,201 @@ class _DressStockEntryPageState extends State<DressStockEntryPage> {
                     ),
                   ),
                   success: (response) {
-                    final items =
-                        response.data; // Assuming response.data is a List
+                    final items = response.data;
+                    qtyControllers = List.generate(
+                      items.length,
+                      (index) => TextEditingController(),
+                    );
+
                     return ListView.builder(
                       padding: const EdgeInsets.all(16),
                       itemCount: items.length,
                       itemBuilder: (context, index) {
                         final item = items[index];
                         final currentChange = quantityChanges[index] ?? 0;
-                        // final currentTotal = item['currentStock'] + currentChange;
+                        final currentTotal = item.quantity + currentChange;
+                        final expiryColor =
+                            getExpiryColor(item.dateReceived.toString());
 
-                        return Card(
-                          margin: const EdgeInsets.only(bottom: 12),
-                          elevation: 2,
-                          child: Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  item.itemName,
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Row(
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 8,
-                                        vertical: 4,
+                        return Stack(
+                          children: [
+                            SizedBox(
+                              width: double.infinity,
+                              child: Card(
+                                margin: const EdgeInsets.only(bottom: 12),
+                                elevation: 2,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            " Name : ${item.itemName}",
+                                            style: const TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 8,
+                                              vertical: 4,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey[200],
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                            ),
+                                            child: Text(item.itemCategory),
+                                          ),
+                                        ],
                                       ),
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                        borderRadius: BorderRadius.circular(4),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 2,
+                                              vertical: 2,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey[200],
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                            ),
+                                            child: Text(
+                                              " colour : ${item.color}",
+                                              style: const TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 2,
+                                          ),
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 2,
+                                              vertical: 2,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey[200],
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                            ),
+                                            child: Text(
+                                              " Size : ${item.clothingSize}",
+                                              style: const TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      child: Text('Size: ${item.clothingSize}'),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 8,
-                                        vertical: 4,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                      child: Text('Color: ${item.color}'),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 12),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Price: ₹${item.quantity}',
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    // Text(
-                                    //   'In Stock: $currentTotal',
-                                    //   style: const TextStyle(
-                                    //     fontSize: 16,
-                                    //     fontWeight: FontWeight.w500,
-                                    //   ),
-                                    // ),
-                                  ],
-                                ),
-                                const SizedBox(height: 12),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Last Updated: ${item.clothingSize}',
-                                      style: const TextStyle(
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        IconButton(
-                                          onPressed: () =>
-                                              updateQuantity(index, -1, items),
-                                          icon: const Icon(
-                                              Icons.remove_circle_outline),
-                                          color: Colors.red,
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 5,
+                                          vertical: 3,
                                         ),
-                                        Text(
-                                          '${currentChange > 0 ? '+' : ''}$currentChange',
-                                          style: TextStyle(
-                                            color: currentChange > 0
-                                                ? Colors.green
-                                                : Colors.red,
+                                        decoration: BoxDecoration(
+                                          color: expiryColor.withOpacity(0.1),
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                          border:
+                                              Border.all(color: expiryColor),
+                                        ),
+                                        child: Text(
+                                          " Stock Updated Date : ${DateFormat('yyyy-MM-dd').format(
+                                            DateTime.parse(
+                                              item.dateReceived.toString(),
+                                            ),
+                                          )}",
+                                          style: const TextStyle(
+                                            fontSize: 12,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                        IconButton(
-                                          onPressed: () =>
-                                              updateQuantity(index, 1, items),
-                                          icon: const Icon(
-                                              Icons.add_circle_outline),
-                                          color: Colors.green,
+                                      ),
+                                      const SizedBox(height: 2),
+                                      Text(
+                                        // $currentTotal :
+                                        'In Stock : ${item.quantity}',
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
                                         ),
-                                      ],
-                                    ),
-                                  ],
+                                      ),
+                                      const SizedBox(height: 2),
+                                    ],
+                                  ),
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
+                            Positioned(
+                              left: 210,
+                              top: 50,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Container(
+                                    width: 60,
+                                    child: TextField(
+                                      controller: qtyControllers[index],
+                                      decoration: InputDecoration(
+                                        labelText: 'Qty',
+                                        border: OutlineInputBorder(),
+                                        contentPadding: EdgeInsets.symmetric(
+                                            vertical: 8, horizontal: 12),
+                                      ),
+                                      keyboardType: TextInputType.number,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 2),
+                                  BlocListener<QtyupdateBloc, QtyupdateState>(
+                                    listener: (context, state) {
+                                      state.when(
+                                        initial: () {},
+                                        loading: () {},
+                                        error: (error) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                            content: Text('Error: $error'),
+                                          ));
+                                        },
+                                        success: (response) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text(
+                                                  'Quantity updated successfully!'),
+                                            ),
+                                          );
+                                          dispose();
+                                          fetchDressList();
+                                        },
+                                      );
+                                    },
+                                    child: Card(
+                                      child: IconButton(
+                                        onPressed: () {
+                                          QtyUpdateAPI(
+                                              item.id, qtyControllers[index]!);
+                                        },
+                                        color: Colors.red,
+                                        icon: Icon(Icons.send),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         );
                       },
                     );
@@ -245,23 +272,37 @@ class _DressStockEntryPageState extends State<DressStockEntryPage> {
               },
             ),
           ),
-          // Container(
-          //   padding: const EdgeInsets.all(16),
-          //   child: ElevatedButton(
-          //     onPressed: quantityChanges.isNotEmpty
-          //         ? () => submitStockChanges(response.data)
-          //         : null,
-          //     style: ElevatedButton.styleFrom(
-          //       minimumSize: const Size.fromHeight(50),
-          //     ),
-          //     child: const Text(
-          //       'Submit Stock Changes',
-          //       style: TextStyle(fontSize: 16),
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );
+  }
+
+  void QtyUpdateAPI(int id, TextEditingController qtycontroller) {
+    final qtyupdateBloc = BlocProvider.of<QtyupdateBloc>(context);
+    qtyupdateBloc.add(
+      QtyupdateEvent.qtyupdate(
+        stockid: id.toString(),
+        unit: qtycontroller.text.trim(),
+      ),
+    );
+  }
+
+  void fetchDressList() {
+    final dressListBloc = BlocProvider.of<DressListBloc>(context);
+    dressListBloc.add(DressListEvent.stockLists(item_category: 'dress'));
+  }
+
+  Color getExpiryColor(String expiryDate) {
+    final expiry = DateTime.parse(expiryDate);
+    final now = DateTime.now();
+    final difference = expiry.difference(now).inDays;
+
+    if (difference < 0) {
+      return Colors.red;
+    } else if (difference < 90) {
+      return Colors.orange;
+    } else {
+      return Colors.green;
+    }
   }
 }

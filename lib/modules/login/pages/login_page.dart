@@ -111,59 +111,75 @@ class _LoginPageState extends State<LoginPage> {
                               response.data[0].utype == "user") {
                             final prefs = await SharedPreferences.getInstance();
                             await prefs.setInt('id', response.data[0].id);
+                            await prefs.setBool(
+                                'login', response.data[0].login);
+                            await prefs.setString(
+                                "utype", response.data[0].utype);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text("Login Success")),
                             );
-                            Navigator.pushReplacement(
+                            Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => MainHomePage(),
                               ),
+                              (Route<dynamic> route) => false,
                             );
                           } else if (response.data[0].utype == "volcmp") {
                             final prefs = await SharedPreferences.getInstance();
                             await prefs.setString(
                                 'campid', response.data[0].cId);
                             await prefs.setInt('id', response.data[0].id);
+                            await prefs.setBool(
+                                'login', response.data[0].login);
+                            await prefs.setString(
+                                "utype", response.data[0].utype);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text("Login Success")),
                             );
-                            Navigator.pushReplacement(
+
+                            Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => MainCampHomePage(),
                               ),
+                              (Route<dynamic> route) => false,
                             );
                           } else {
-                            final prefs = await SharedPreferences.getInstance();
-                            await prefs.setString(
-                                'collectionid', response.data[0].cId);
-                            await prefs.setInt('id', response.data[0].id);
-
                             if (response.data[0].sectionId.isNotEmpty) {
                               final prefs =
                                   await SharedPreferences.getInstance();
+                              await prefs.setString(
+                                  'collectionid', response.data[0].cId);
+                              await prefs.setInt('id', response.data[0].id);
+                              await prefs.setBool(
+                                  'login', response.data[0].login);
+                              await prefs.setString(
+                                  "utype", response.data[0].utype);
                               await prefs.setString(
                                   'sessionid', response.data[0].sectionId);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text("Login Success")),
                               );
-                              Navigator.pushReplacement(
+
+                              Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
                                       MainCollectionHomePage(),
                                 ),
+                                (Route<dynamic> route) => false,
                               );
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text("Login Success")),
                               );
-                              Navigator.pushReplacement(
+                              Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => SessionsPage(),
                                 ),
+                                (Route<dynamic> route) => false,
                               );
                             }
                           }

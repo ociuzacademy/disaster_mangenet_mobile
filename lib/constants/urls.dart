@@ -1,3 +1,5 @@
+// const String baseUrl = "https://c3cmjnm3-8001.inc1.devtunnels.ms/";
+// const String ImageUrl = "https://c3cmjnm3-8001.inc1.devtunnels.ms";
 const String baseUrl = "https://c3cmjnm3-8001.inc1.devtunnels.ms/";
 const String ImageUrl = "https://c3cmjnm3-8001.inc1.devtunnels.ms";
 
@@ -27,4 +29,5 @@ class Urls {
       "${baseUrl}assign-section-to-volunteer/";
   static const String stocks = "${baseUrl}stocks/";
   static const String profile = "${baseUrl}profile/user/";
+  static const String qtyupdate = "${baseUrl}stock_update-quantity/";
 }

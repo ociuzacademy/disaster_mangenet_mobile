@@ -2,7 +2,6 @@
 //
 //     final loginModel = loginModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 LoginModel loginModelFromJson(String str) =>
@@ -40,6 +39,7 @@ class Datum {
   String utype;
   String cId;
   String sectionId;
+  bool login;
 
   Datum({
     required this.status,
@@ -48,6 +48,7 @@ class Datum {
     required this.utype,
     required this.cId,
     required this.sectionId,
+    required this.login,
   });
 
   Datum copyWith({
@@ -57,6 +58,7 @@ class Datum {
     String? utype,
     String? cId,
     String? sectionId,
+    bool? login,
   }) =>
       Datum(
         status: status ?? this.status,
@@ -65,16 +67,17 @@ class Datum {
         utype: utype ?? this.utype,
         cId: cId ?? this.cId,
         sectionId: sectionId ?? this.sectionId,
+        login: login ?? this.login,
       );
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        status: json["status"],
-        message: json["message"],
-        id: json["id"],
-        utype: json["utype"],
-        cId: json["c_id"],
-        sectionId: json["section_id"],
-      );
+      status: json["status"],
+      message: json["message"],
+      id: json["id"],
+      utype: json["utype"],
+      cId: json["c_id"],
+      sectionId: json["section_id"],
+      login: json["login"]);
 
   Map<String, dynamic> toJson() => {
         "status": status,
@@ -83,5 +86,6 @@ class Datum {
         "utype": utype,
         "c_id": cId,
         "section_id": sectionId,
+        "login": login,
       };
 }

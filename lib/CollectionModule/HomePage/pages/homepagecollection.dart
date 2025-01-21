@@ -1,9 +1,8 @@
-import 'package:disaster_management/CollectionModule/HomePage/bloc/stock_lists_bloc.dart';
 import 'package:disaster_management/CollectionModule/dresslistpage/pages/dresslistpage.dart';
 import 'package:disaster_management/CollectionModule/foodlistpage/pages/foodlistpage.dart';
-import 'package:disaster_management/CollectionModule/medicinelistpage/pages/medicinelistpage.dart';
+import 'package:disaster_management/CollectionModule/medicinelistpage/page/medicinelistpage.dart';
+import 'package:disaster_management/CollectionModule/other_stock_list/pages/others_stock_list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CollectionHomePage extends StatefulWidget {
   @override
@@ -39,14 +38,14 @@ class _CollectionHomePageState extends State<CollectionHomePage> {
     StockEntryPage(),
     DressStockEntryPage(),
     MedicineStockEntryPage(),
-    // AddOtherItemPage(),
+    OtherStockEntryPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        //  title: Text('Home Page'),
         elevation: 2,
       ),
       body: Padding(

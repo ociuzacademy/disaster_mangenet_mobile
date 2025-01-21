@@ -71,14 +71,14 @@ class _MainCollectionHomePageState extends State<MainCollectionHomePage>
         icons: [
           Icons.home_outlined,
           Icons.add,
-          Icons.person_off,
+          Icons.person,
         ],
         textStyle: TextStyle(
           color: Colors.black,
-          fontSize: 12.sp, // Responsive font size
+          fontSize: 12.sp,
         ),
-        tabSize: 60.w, // Responsive tab size
-        tabIconSize: 28.w, // Responsive icon size
+        tabSize: 60.w,
+        tabIconSize: 28.w,
         tabBarColor: const Color.fromARGB(255, 251, 219, 219),
         tabSelectedColor: Colors.red,
         tabIconSelectedSize: 28.w,

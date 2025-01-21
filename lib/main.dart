@@ -1,14 +1,21 @@
 import 'package:disaster_management/CampModule/HomePage/bloc/user_list_bloc.dart';
+import 'package:disaster_management/CampModule/MainHomePage/pages/camphomepage.dart';
 import 'package:disaster_management/CampModule/Registrartion/bloc/camp_list_bloc.dart';
 import 'package:disaster_management/CampModule/Registrartion/bloc/volunteerRegBloc/bloc/volunteer_reg_bloc.dart';
 import 'package:disaster_management/CampModule/RequestPage/bloc/request_service_bloc.dart';
 import 'package:disaster_management/CampModule/StatusPage/bloc/request_list_bloc.dart';
 import 'package:disaster_management/CampModule/StatusPage/bloc/takeaction_bloc.dart';
 import 'package:disaster_management/CollectionModule/HomePage/bloc/stock_lists_bloc.dart';
+import 'package:disaster_management/CollectionModule/MainHomePage/pages/newhomepage.dart';
 import 'package:disaster_management/CollectionModule/dressentrypage/bloc/stock_enter_bloc.dart';
 import 'package:disaster_management/CollectionModule/dresslistpage/bloc/dress_list_bloc.dart';
+import 'package:disaster_management/CollectionModule/foodlistpage/bloc/qtyupdate_bloc.dart';
+import 'package:disaster_management/CollectionModule/medicineentrymodule/bloc/medicine_entery_bloc.dart';
+import 'package:disaster_management/CollectionModule/other_entery_page/bloc/othersentery_bloc.dart';
 import 'package:disaster_management/CollectionModule/sessionPage/bloc/AssignSectionToVolunteer/bloc/assign_section_to_volunteer_bloc.dart';
 import 'package:disaster_management/CollectionModule/sessionPage/bloc/session_bloc.dart';
+import 'package:disaster_management/app_functions/app_functions.dart';
+import 'package:disaster_management/modules/MainHomePage/pages/custombottom_bar.dart';
 import 'package:disaster_management/modules/Sos_Update/bloc/sosupdate_bloc.dart';
 import 'package:disaster_management/modules/login/bloc/login_bloc.dart';
 import 'package:disaster_management/modules/login/pages/login_page.dart';
@@ -35,6 +42,22 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool? logedIn;
+  String? utype;
+
+  @override
+  void initState() {
+    super.initState();
+    logedin();
+  }
+
+  // Function to fetch login status and user type
+  Future<void> logedin() async {
+    logedIn = await fun().getlogin();
+    utype = await fun().getutype();
+    setState(() {}); 
+  }
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -62,10 +85,25 @@ class _MyAppState extends State<MyApp> {
           BlocProvider(create: (context) => DressListBloc()),
           BlocProvider(create: (context) => ProfileBloc()),
           BlocProvider(create: (context) => SosupdateBloc()),
+          BlocProvider(create: (context) => QtyupdateBloc()),
+          BlocProvider(create: (context) => MedicineEnteryBloc()),
+          BlocProvider(create: (context) => OthersenteryBloc()),
         ],
-        child: const MaterialApp(
+        child: MaterialApp(
           title: 'Flutter Demo',
-          home: LoginPage(),
+          home: logedIn == null
+              ? const Center(child: CircularProgressIndicator())
+              : utype == "user"
+                  ? logedIn == true
+                      ? const MainHomePage()
+                      : const LoginPage()
+                  : utype == "volcmp"
+                      ? logedIn == true
+                          ? const MainCampHomePage()
+                          : const LoginPage()
+                      : logedIn == true
+                          ? const MainCollectionHomePage()
+                          : const LoginPage(),
         ),
       ),
     );

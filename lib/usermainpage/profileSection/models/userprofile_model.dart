@@ -1,15 +1,3 @@
-// To parse this JSON data, do
-//
-//     final userProfileModel = userProfileModelFromJson(jsonString);
-
-import 'dart:convert';
-
-UserProfileModel userProfileModelFromJson(String str) =>
-    UserProfileModel.fromJson(json.decode(str));
-
-String userProfileModelToJson(UserProfileModel data) =>
-    json.encode(data.toJson());
-
 class UserProfileModel {
   List<Datum> data;
 
@@ -24,14 +12,20 @@ class UserProfileModel {
         data: data ?? this.data,
       );
 
-  factory UserProfileModel.fromJson(Map<String, dynamic> json) =>
-      UserProfileModel(
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-      );
+  factory UserProfileModel.fromJson(Map<String, dynamic> json) {
+    // Check if the "data" key is present and not null, otherwise use an empty list
+    return UserProfileModel(
+      data: json["data"] != null
+          ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x)))
+          : [],
+    );
+  }
 
-  Map<String, dynamic> toJson() => {
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
-      };
+  Map<String, dynamic> toJson() {
+    return {
+      "data": List<dynamic>.from(data.map((x) => x.toJson())),
+    };
+  }
 }
 
 class Datum {
@@ -72,23 +66,29 @@ class Datum {
         utype: utype ?? this.utype,
       );
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        id: json["id"],
-        name: json["name"],
-        email: json["email"],
-        address: json["address"],
-        image: json["image"],
-        phoneNumber: json["phone_number"],
-        utype: json["utype"],
-      );
+  factory Datum.fromJson(Map<String, dynamic> json) {
+    // Check if the key exists and is not null; use default empty strings for missing values
+    return Datum(
+      id: json["id"] ?? 0, // Default value 0 if id is null
+      name: json["name"] ?? "", // Default empty string if name is null
+      email: json["email"] ?? "", // Default empty string if email is null
+      address: json["address"] ?? "", // Default empty string if address is null
+      image: json["image"] ?? "", // Default empty string if image is null
+      phoneNumber: json["phone_number"] ??
+          "", // Default empty string if phone_number is null
+      utype: json["utype"] ?? "", // Default empty string if utype is null
+    );
+  }
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "email": email,
-        "address": address,
-        "image": image,
-        "phone_number": phoneNumber,
-        "utype": utype,
-      };
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "name": name,
+      "email": email,
+      "address": address,
+      "image": image,
+      "phone_number": phoneNumber,
+      "utype": utype,
+    };
+  }
 }

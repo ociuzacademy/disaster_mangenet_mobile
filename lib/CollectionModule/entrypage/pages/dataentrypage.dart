@@ -1,4 +1,5 @@
-import 'package:disaster_management/CollectionModule/medicineentrymodule/pages/medicine%20entrypage.dart';
+import 'package:disaster_management/CollectionModule/medicineentrymodule/pages/medicineentrypage.dart';
+import 'package:disaster_management/CollectionModule/other_entery_page/views/others_enter_page.dart';
 import 'package:flutter/material.dart';
 import 'package:disaster_management/CollectionModule/dressentrypage/pages/dressentrypage.dart';
 // Import the pages for Food, Medicine, and Other
@@ -33,14 +34,14 @@ class EntryPage extends StatelessWidget {
     AddFoodItemPage(),
     AddDressItemPage(),
     AddMedicinePage(),
-    // AddOtherItemPage(),
+    OthersEnteryPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        // title: Text('Home Page'),
         elevation: 2,
       ),
       body: Padding(

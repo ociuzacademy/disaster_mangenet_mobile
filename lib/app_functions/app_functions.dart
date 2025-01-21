@@ -20,4 +20,14 @@ class fun {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('sessionid');
   }
+
+  Future<bool> getlogin() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.containsKey('login');
+  }
+
+  Future<String?> getutype() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('utype');
+  }
 }

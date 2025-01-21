@@ -3,6 +3,7 @@ import 'package:disaster_management/CollectionModule/sessionPage/bloc/AssignSect
 import 'package:disaster_management/CollectionModule/sessionPage/bloc/session_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SessionsPage extends StatefulWidget {
   const SessionsPage({Key? key}) : super(key: key);
@@ -45,7 +46,10 @@ class _SessionsPageState extends State<SessionsPage> {
                       initial: () {},
                       loding: () {},
                       error: (error) {},
-                      success: (response) {
+                      success: (response) async {
+                        final prefs = await SharedPreferences.getInstance();
+                        await prefs.setString(
+                            'sessionid', response.sectionId.toString());
                         Navigator.push(
                           context,
                           MaterialPageRoute(

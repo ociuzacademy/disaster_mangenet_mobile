@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:disaster_management/constants/urls.dart';
+import 'package:disaster_management/modules/login/pages/login_page.dart';
 import 'package:disaster_management/usermainpage/profileSection/bloc/profile_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class volunteerCollectionnProfile extends StatefulWidget {
   const volunteerCollectionnProfile({super.key});
@@ -74,7 +76,7 @@ class _volunteerCollectionnProfileState
                           placeholder: (context, url) =>
                               const CircularProgressIndicator(),
                           errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
+                              const Icon(Icons.person),
                         ),
                         const SizedBox(width: 16),
                         Expanded(
@@ -102,40 +104,20 @@ class _volunteerCollectionnProfileState
                       ],
                     ),
                     const SizedBox(height: 10),
-                    const Divider(color: Colors.grey, thickness: 1),
-                    const SizedBox(height: 10),
-                    InkWell(
-                      onTap: () {
-                        // Navigator.of(context).push(MaterialPageRoute(
-                        //     builder: (context) => const SosUpdatePage()));
-                      },
-                      child: Row(
-                        children: const [
-                          Icon(Icons.keyboard_arrow_right, size: 30),
-                          SizedBox(width: 25),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Update Now',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
-                              ),
-                              Text(
-                                'Your email address update',
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 10),
                     const Divider(color: Colors.grey, thickness: 0.5),
                     const SizedBox(height: 10),
                     InkWell(
-                      onTap: () {
-                        // Handle 'Log Out' tap
+                      onTap: () async {
+                        final prefs = await SharedPreferences.getInstance();
+                        await prefs.clear();
+
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginPage(),
+                          ),
+                          (Route<dynamic> route) => false,
+                        );
                       },
                       child: Row(
                         children: const [

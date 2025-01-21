@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'sosupdate_bloc.dart';
+part of 'qtyupdate_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,65 +15,65 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$SosupdateEvent {
+mixin _$QtyupdateEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(String email, String secondaryemail) stockLists,
+    required TResult Function(String stockid, String unit) qtyupdate,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String email, String secondaryemail)? stockLists,
+    TResult? Function(String stockid, String unit)? qtyupdate,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String email, String secondaryemail)? stockLists,
+    TResult Function(String stockid, String unit)? qtyupdate,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_StockLists value) stockLists,
+    required TResult Function(_Qtyupdate value) qtyupdate,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_StockLists value)? stockLists,
+    TResult? Function(_Qtyupdate value)? qtyupdate,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_StockLists value)? stockLists,
+    TResult Function(_Qtyupdate value)? qtyupdate,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SosupdateEventCopyWith<$Res> {
-  factory $SosupdateEventCopyWith(
-          SosupdateEvent value, $Res Function(SosupdateEvent) then) =
-      _$SosupdateEventCopyWithImpl<$Res, SosupdateEvent>;
+abstract class $QtyupdateEventCopyWith<$Res> {
+  factory $QtyupdateEventCopyWith(
+          QtyupdateEvent value, $Res Function(QtyupdateEvent) then) =
+      _$QtyupdateEventCopyWithImpl<$Res, QtyupdateEvent>;
 }
 
 /// @nodoc
-class _$SosupdateEventCopyWithImpl<$Res, $Val extends SosupdateEvent>
-    implements $SosupdateEventCopyWith<$Res> {
-  _$SosupdateEventCopyWithImpl(this._value, this._then);
+class _$QtyupdateEventCopyWithImpl<$Res, $Val extends QtyupdateEvent>
+    implements $QtyupdateEventCopyWith<$Res> {
+  _$QtyupdateEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of SosupdateEvent
+  /// Create a copy of QtyupdateEvent
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -86,13 +86,13 @@ abstract class _$$StartedImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$StartedImplCopyWithImpl<$Res>
-    extends _$SosupdateEventCopyWithImpl<$Res, _$StartedImpl>
+    extends _$QtyupdateEventCopyWithImpl<$Res, _$StartedImpl>
     implements _$$StartedImplCopyWith<$Res> {
   __$$StartedImplCopyWithImpl(
       _$StartedImpl _value, $Res Function(_$StartedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SosupdateEvent
+  /// Create a copy of QtyupdateEvent
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -103,7 +103,7 @@ class _$StartedImpl implements _Started {
 
   @override
   String toString() {
-    return 'SosupdateEvent.started()';
+    return 'QtyupdateEvent.started()';
   }
 
   @override
@@ -119,7 +119,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(String email, String secondaryemail) stockLists,
+    required TResult Function(String stockid, String unit) qtyupdate,
   }) {
     return started();
   }
@@ -128,7 +128,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String email, String secondaryemail)? stockLists,
+    TResult? Function(String stockid, String unit)? qtyupdate,
   }) {
     return started?.call();
   }
@@ -137,7 +137,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String email, String secondaryemail)? stockLists,
+    TResult Function(String stockid, String unit)? qtyupdate,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -150,7 +150,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_StockLists value) stockLists,
+    required TResult Function(_Qtyupdate value) qtyupdate,
   }) {
     return started(this);
   }
@@ -159,7 +159,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_StockLists value)? stockLists,
+    TResult? Function(_Qtyupdate value)? qtyupdate,
   }) {
     return started?.call(this);
   }
@@ -168,7 +168,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_StockLists value)? stockLists,
+    TResult Function(_Qtyupdate value)? qtyupdate,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -178,43 +178,43 @@ class _$StartedImpl implements _Started {
   }
 }
 
-abstract class _Started implements SosupdateEvent {
+abstract class _Started implements QtyupdateEvent {
   const factory _Started() = _$StartedImpl;
 }
 
 /// @nodoc
-abstract class _$$StockListsImplCopyWith<$Res> {
-  factory _$$StockListsImplCopyWith(
-          _$StockListsImpl value, $Res Function(_$StockListsImpl) then) =
-      __$$StockListsImplCopyWithImpl<$Res>;
+abstract class _$$QtyupdateImplCopyWith<$Res> {
+  factory _$$QtyupdateImplCopyWith(
+          _$QtyupdateImpl value, $Res Function(_$QtyupdateImpl) then) =
+      __$$QtyupdateImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String email, String secondaryemail});
+  $Res call({String stockid, String unit});
 }
 
 /// @nodoc
-class __$$StockListsImplCopyWithImpl<$Res>
-    extends _$SosupdateEventCopyWithImpl<$Res, _$StockListsImpl>
-    implements _$$StockListsImplCopyWith<$Res> {
-  __$$StockListsImplCopyWithImpl(
-      _$StockListsImpl _value, $Res Function(_$StockListsImpl) _then)
+class __$$QtyupdateImplCopyWithImpl<$Res>
+    extends _$QtyupdateEventCopyWithImpl<$Res, _$QtyupdateImpl>
+    implements _$$QtyupdateImplCopyWith<$Res> {
+  __$$QtyupdateImplCopyWithImpl(
+      _$QtyupdateImpl _value, $Res Function(_$QtyupdateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SosupdateEvent
+  /// Create a copy of QtyupdateEvent
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? email = null,
-    Object? secondaryemail = null,
+    Object? stockid = null,
+    Object? unit = null,
   }) {
-    return _then(_$StockListsImpl(
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
+    return _then(_$QtyupdateImpl(
+      stockid: null == stockid
+          ? _value.stockid
+          : stockid // ignore: cast_nullable_to_non_nullable
               as String,
-      secondaryemail: null == secondaryemail
-          ? _value.secondaryemail
-          : secondaryemail // ignore: cast_nullable_to_non_nullable
+      unit: null == unit
+          ? _value.unit
+          : unit // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -222,67 +222,66 @@ class __$$StockListsImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$StockListsImpl implements _StockLists {
-  const _$StockListsImpl({required this.email, required this.secondaryemail});
+class _$QtyupdateImpl implements _Qtyupdate {
+  const _$QtyupdateImpl({required this.stockid, required this.unit});
 
   @override
-  final String email;
+  final String stockid;
   @override
-  final String secondaryemail;
+  final String unit;
 
   @override
   String toString() {
-    return 'SosupdateEvent.stockLists(email: $email, secondaryemail: $secondaryemail)';
+    return 'QtyupdateEvent.qtyupdate(stockid: $stockid, unit: $unit)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$StockListsImpl &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.secondaryemail, secondaryemail) ||
-                other.secondaryemail == secondaryemail));
+            other is _$QtyupdateImpl &&
+            (identical(other.stockid, stockid) || other.stockid == stockid) &&
+            (identical(other.unit, unit) || other.unit == unit));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, email, secondaryemail);
+  int get hashCode => Object.hash(runtimeType, stockid, unit);
 
-  /// Create a copy of SosupdateEvent
+  /// Create a copy of QtyupdateEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$StockListsImplCopyWith<_$StockListsImpl> get copyWith =>
-      __$$StockListsImplCopyWithImpl<_$StockListsImpl>(this, _$identity);
+  _$$QtyupdateImplCopyWith<_$QtyupdateImpl> get copyWith =>
+      __$$QtyupdateImplCopyWithImpl<_$QtyupdateImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(String email, String secondaryemail) stockLists,
+    required TResult Function(String stockid, String unit) qtyupdate,
   }) {
-    return stockLists(email, secondaryemail);
+    return qtyupdate(stockid, unit);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(String email, String secondaryemail)? stockLists,
+    TResult? Function(String stockid, String unit)? qtyupdate,
   }) {
-    return stockLists?.call(email, secondaryemail);
+    return qtyupdate?.call(stockid, unit);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(String email, String secondaryemail)? stockLists,
+    TResult Function(String stockid, String unit)? qtyupdate,
     required TResult orElse(),
   }) {
-    if (stockLists != null) {
-      return stockLists(email, secondaryemail);
+    if (qtyupdate != null) {
+      return qtyupdate(stockid, unit);
     }
     return orElse();
   }
@@ -291,57 +290,57 @@ class _$StockListsImpl implements _StockLists {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
-    required TResult Function(_StockLists value) stockLists,
+    required TResult Function(_Qtyupdate value) qtyupdate,
   }) {
-    return stockLists(this);
+    return qtyupdate(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
-    TResult? Function(_StockLists value)? stockLists,
+    TResult? Function(_Qtyupdate value)? qtyupdate,
   }) {
-    return stockLists?.call(this);
+    return qtyupdate?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
-    TResult Function(_StockLists value)? stockLists,
+    TResult Function(_Qtyupdate value)? qtyupdate,
     required TResult orElse(),
   }) {
-    if (stockLists != null) {
-      return stockLists(this);
+    if (qtyupdate != null) {
+      return qtyupdate(this);
     }
     return orElse();
   }
 }
 
-abstract class _StockLists implements SosupdateEvent {
-  const factory _StockLists(
-      {required final String email,
-      required final String secondaryemail}) = _$StockListsImpl;
+abstract class _Qtyupdate implements QtyupdateEvent {
+  const factory _Qtyupdate(
+      {required final String stockid,
+      required final String unit}) = _$QtyupdateImpl;
 
-  String get email;
-  String get secondaryemail;
+  String get stockid;
+  String get unit;
 
-  /// Create a copy of SosupdateEvent
+  /// Create a copy of QtyupdateEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$StockListsImplCopyWith<_$StockListsImpl> get copyWith =>
+  _$$QtyupdateImplCopyWith<_$QtyupdateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-mixin _$SosupdateState {
+mixin _$QtyupdateState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String error) error,
-    required TResult Function(Sosupdate response) success,
+    required TResult Function(QtyupdateModel response) success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -349,7 +348,7 @@ mixin _$SosupdateState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? error,
-    TResult? Function(Sosupdate response)? success,
+    TResult? Function(QtyupdateModel response)? success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -357,7 +356,7 @@ mixin _$SosupdateState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? error,
-    TResult Function(Sosupdate response)? success,
+    TResult Function(QtyupdateModel response)? success,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -389,23 +388,23 @@ mixin _$SosupdateState {
 }
 
 /// @nodoc
-abstract class $SosupdateStateCopyWith<$Res> {
-  factory $SosupdateStateCopyWith(
-          SosupdateState value, $Res Function(SosupdateState) then) =
-      _$SosupdateStateCopyWithImpl<$Res, SosupdateState>;
+abstract class $QtyupdateStateCopyWith<$Res> {
+  factory $QtyupdateStateCopyWith(
+          QtyupdateState value, $Res Function(QtyupdateState) then) =
+      _$QtyupdateStateCopyWithImpl<$Res, QtyupdateState>;
 }
 
 /// @nodoc
-class _$SosupdateStateCopyWithImpl<$Res, $Val extends SosupdateState>
-    implements $SosupdateStateCopyWith<$Res> {
-  _$SosupdateStateCopyWithImpl(this._value, this._then);
+class _$QtyupdateStateCopyWithImpl<$Res, $Val extends QtyupdateState>
+    implements $QtyupdateStateCopyWith<$Res> {
+  _$QtyupdateStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of SosupdateState
+  /// Create a copy of QtyupdateState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -418,13 +417,13 @@ abstract class _$$InitialImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$InitialImplCopyWithImpl<$Res>
-    extends _$SosupdateStateCopyWithImpl<$Res, _$InitialImpl>
+    extends _$QtyupdateStateCopyWithImpl<$Res, _$InitialImpl>
     implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SosupdateState
+  /// Create a copy of QtyupdateState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -435,7 +434,7 @@ class _$InitialImpl implements _Initial {
 
   @override
   String toString() {
-    return 'SosupdateState.initial()';
+    return 'QtyupdateState.initial()';
   }
 
   @override
@@ -453,7 +452,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String error) error,
-    required TResult Function(Sosupdate response) success,
+    required TResult Function(QtyupdateModel response) success,
   }) {
     return initial();
   }
@@ -464,7 +463,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? error,
-    TResult? Function(Sosupdate response)? success,
+    TResult? Function(QtyupdateModel response)? success,
   }) {
     return initial?.call();
   }
@@ -475,7 +474,7 @@ class _$InitialImpl implements _Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? error,
-    TResult Function(Sosupdate response)? success,
+    TResult Function(QtyupdateModel response)? success,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -522,7 +521,7 @@ class _$InitialImpl implements _Initial {
   }
 }
 
-abstract class _Initial implements SosupdateState {
+abstract class _Initial implements QtyupdateState {
   const factory _Initial() = _$InitialImpl;
 }
 
@@ -535,13 +534,13 @@ abstract class _$$LoadingImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadingImplCopyWithImpl<$Res>
-    extends _$SosupdateStateCopyWithImpl<$Res, _$LoadingImpl>
+    extends _$QtyupdateStateCopyWithImpl<$Res, _$LoadingImpl>
     implements _$$LoadingImplCopyWith<$Res> {
   __$$LoadingImplCopyWithImpl(
       _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SosupdateState
+  /// Create a copy of QtyupdateState
   /// with the given fields replaced by the non-null parameter values.
 }
 
@@ -552,7 +551,7 @@ class _$LoadingImpl implements _Loading {
 
   @override
   String toString() {
-    return 'SosupdateState.loading()';
+    return 'QtyupdateState.loading()';
   }
 
   @override
@@ -570,7 +569,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String error) error,
-    required TResult Function(Sosupdate response) success,
+    required TResult Function(QtyupdateModel response) success,
   }) {
     return loading();
   }
@@ -581,7 +580,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? error,
-    TResult? Function(Sosupdate response)? success,
+    TResult? Function(QtyupdateModel response)? success,
   }) {
     return loading?.call();
   }
@@ -592,7 +591,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? error,
-    TResult Function(Sosupdate response)? success,
+    TResult Function(QtyupdateModel response)? success,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -639,7 +638,7 @@ class _$LoadingImpl implements _Loading {
   }
 }
 
-abstract class _Loading implements SosupdateState {
+abstract class _Loading implements QtyupdateState {
   const factory _Loading() = _$LoadingImpl;
 }
 
@@ -654,13 +653,13 @@ abstract class _$$ErrorImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$ErrorImplCopyWithImpl<$Res>
-    extends _$SosupdateStateCopyWithImpl<$Res, _$ErrorImpl>
+    extends _$QtyupdateStateCopyWithImpl<$Res, _$ErrorImpl>
     implements _$$ErrorImplCopyWith<$Res> {
   __$$ErrorImplCopyWithImpl(
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SosupdateState
+  /// Create a copy of QtyupdateState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -686,7 +685,7 @@ class _$ErrorImpl implements _Error {
 
   @override
   String toString() {
-    return 'SosupdateState.error(error: $error)';
+    return 'QtyupdateState.error(error: $error)';
   }
 
   @override
@@ -700,7 +699,7 @@ class _$ErrorImpl implements _Error {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of SosupdateState
+  /// Create a copy of QtyupdateState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
@@ -714,7 +713,7 @@ class _$ErrorImpl implements _Error {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String error) error,
-    required TResult Function(Sosupdate response) success,
+    required TResult Function(QtyupdateModel response) success,
   }) {
     return error(this.error);
   }
@@ -725,7 +724,7 @@ class _$ErrorImpl implements _Error {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? error,
-    TResult? Function(Sosupdate response)? success,
+    TResult? Function(QtyupdateModel response)? success,
   }) {
     return error?.call(this.error);
   }
@@ -736,7 +735,7 @@ class _$ErrorImpl implements _Error {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? error,
-    TResult Function(Sosupdate response)? success,
+    TResult Function(QtyupdateModel response)? success,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -783,12 +782,12 @@ class _$ErrorImpl implements _Error {
   }
 }
 
-abstract class _Error implements SosupdateState {
+abstract class _Error implements QtyupdateState {
   const factory _Error({required final String error}) = _$ErrorImpl;
 
   String get error;
 
-  /// Create a copy of SosupdateState
+  /// Create a copy of QtyupdateState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
@@ -801,18 +800,18 @@ abstract class _$$SuccessImplCopyWith<$Res> {
           _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
       __$$SuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({Sosupdate response});
+  $Res call({QtyupdateModel response});
 }
 
 /// @nodoc
 class __$$SuccessImplCopyWithImpl<$Res>
-    extends _$SosupdateStateCopyWithImpl<$Res, _$SuccessImpl>
+    extends _$QtyupdateStateCopyWithImpl<$Res, _$SuccessImpl>
     implements _$$SuccessImplCopyWith<$Res> {
   __$$SuccessImplCopyWithImpl(
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SosupdateState
+  /// Create a copy of QtyupdateState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -823,7 +822,7 @@ class __$$SuccessImplCopyWithImpl<$Res>
       response: null == response
           ? _value.response
           : response // ignore: cast_nullable_to_non_nullable
-              as Sosupdate,
+              as QtyupdateModel,
     ));
   }
 }
@@ -834,11 +833,11 @@ class _$SuccessImpl implements _Success {
   const _$SuccessImpl({required this.response});
 
   @override
-  final Sosupdate response;
+  final QtyupdateModel response;
 
   @override
   String toString() {
-    return 'SosupdateState.success(response: $response)';
+    return 'QtyupdateState.success(response: $response)';
   }
 
   @override
@@ -853,7 +852,7 @@ class _$SuccessImpl implements _Success {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  /// Create a copy of SosupdateState
+  /// Create a copy of QtyupdateState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
@@ -867,7 +866,7 @@ class _$SuccessImpl implements _Success {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String error) error,
-    required TResult Function(Sosupdate response) success,
+    required TResult Function(QtyupdateModel response) success,
   }) {
     return success(response);
   }
@@ -878,7 +877,7 @@ class _$SuccessImpl implements _Success {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String error)? error,
-    TResult? Function(Sosupdate response)? success,
+    TResult? Function(QtyupdateModel response)? success,
   }) {
     return success?.call(response);
   }
@@ -889,7 +888,7 @@ class _$SuccessImpl implements _Success {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String error)? error,
-    TResult Function(Sosupdate response)? success,
+    TResult Function(QtyupdateModel response)? success,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -936,12 +935,13 @@ class _$SuccessImpl implements _Success {
   }
 }
 
-abstract class _Success implements SosupdateState {
-  const factory _Success({required final Sosupdate response}) = _$SuccessImpl;
+abstract class _Success implements QtyupdateState {
+  const factory _Success({required final QtyupdateModel response}) =
+      _$SuccessImpl;
 
-  Sosupdate get response;
+  QtyupdateModel get response;
 
-  /// Create a copy of SosupdateState
+  /// Create a copy of QtyupdateState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>

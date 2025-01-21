@@ -1,77 +1,90 @@
-import 'package:disaster_management/CollectionModule/HomePage/bloc/stock_lists_bloc.dart';
-import 'package:disaster_management/CollectionModule/HomePage/model/foodlist_model.dart';
 import 'package:disaster_management/CollectionModule/foodlistpage/bloc/qtyupdate_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:disaster_management/CollectionModule/dresslistpage/bloc/dress_list_bloc.dart';
 import 'package:intl/intl.dart';
 
-class StockEntryPage extends StatefulWidget {
-  const StockEntryPage({Key? key}) : super(key: key);
+class MedicineStockEntryPage extends StatefulWidget {
+  const MedicineStockEntryPage({Key? key}) : super(key: key);
 
   @override
-  State<StockEntryPage> createState() => _StockEntryPageState();
+  State<MedicineStockEntryPage> createState() => _MedicineStockEntryPageState();
 }
 
-class _StockEntryPageState extends State<StockEntryPage> {
-  Map<int, TextEditingController> qtyControllers = {};
-  Map<int, bool> cardLoadingStates = {};
+class _MedicineStockEntryPageState extends State<MedicineStockEntryPage> {
+  Map<int, int> quantityChanges = {};
+  List<TextEditingController> qtyControllers = [];
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchmedicineList();
+  }
 
   @override
   void dispose() {
-    clearControllers();
+    for (var controller in qtyControllers) {
+      controller.dispose();
+    }
     super.dispose();
   }
 
-  void clearControllers() {
-    qtyControllers.forEach((key, controller) {
-      controller.dispose();
+  void updateQuantity(int index, int amount, List<dynamic> items) {
+    setState(() {
+      quantityChanges[index] = (quantityChanges[index] ?? 0) + amount;
+      if ((items[index]['currentStock'] + (quantityChanges[index] ?? 0)) < 0) {
+        quantityChanges[index] = -items[index]['currentStock'];
+      }
     });
-    qtyControllers.clear();
-    cardLoadingStates.clear();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Food'),
+        title: const Text('Medicine'),
         elevation: 2,
       ),
       body: Column(
         children: [
           Expanded(
-            child: BlocBuilder<StockListsBloc, StockListsState>(
+            child: BlocBuilder<DressListBloc, DressListState>(
               builder: (context, state) {
                 return state.when(
-                  initial: () {
-                    return const Center(
-                        child: Text('Welcome! Please load the stock.'));
-                  },
-                  loding: () {
-                    return const Center(child: CircularProgressIndicator());
-                  },
-                  error: (error) {
-                    return Center(
-                        child: Text('Error: $error',
-                            style: const TextStyle(color: Colors.red)));
-                  },
+                  initial: () =>
+                      const Center(child: CircularProgressIndicator()),
+                  loding: () =>
+                      const Center(child: CircularProgressIndicator()),
+                  error: (error) => Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text('Failed to fetch data.'),
+                        Text(error, style: const TextStyle(color: Colors.red)),
+                        ElevatedButton(
+                          onPressed: fetchmedicineList,
+                          child: const Text('Retry'),
+                        ),
+                      ],
+                    ),
+                  ),
                   success: (response) {
-                    // Clear previous controllers before rebuilding the list
-                    clearControllers();
+                    final items = response.data;
+                    qtyControllers = List.generate(
+                      items.length,
+                      (index) => TextEditingController(),
+                    );
 
-                    List<Datum> stockItems = response.data;
                     return ListView.builder(
                       padding: const EdgeInsets.all(16),
-                      itemCount: stockItems.length,
+                      itemCount: items.length,
                       itemBuilder: (context, index) {
-                        final item = stockItems[index];
-                        final currentTotal = item.quantity;
+                        final item = items[index];
+                        final currentChange = quantityChanges[index] ?? 0;
+                        final currentTotal = item.quantity + currentChange;
                         final expiryColor =
                             getExpiryColor(item.dateReceived.toString());
-
-                        // Initialize controllers and states
-                        qtyControllers[index] = TextEditingController();
-                        cardLoadingStates[index] = false;
 
                         return Stack(
                           children: [
@@ -111,6 +124,49 @@ class _StockEntryPageState extends State<StockEntryPage> {
                                           ),
                                         ],
                                       ),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 2,
+                                              vertical: 2,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey[200],
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                            ),
+                                            child: Text(
+                                              " colour : ${item.color}",
+                                              style: const TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 2,
+                                          ),
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 2,
+                                              vertical: 2,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey[200],
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                            ),
+                                            child: Text(
+                                              " Size : ${item.clothingSize}",
+                                              style: const TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                       Container(
                                         padding: const EdgeInsets.symmetric(
                                           horizontal: 5,
@@ -130,14 +186,15 @@ class _StockEntryPageState extends State<StockEntryPage> {
                                             ),
                                           )}",
                                           style: const TextStyle(
-                                            fontSize: 11,
+                                            fontSize: 12,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
                                       ),
                                       const SizedBox(height: 2),
                                       Text(
-                                        'Total QTY : ${currentTotal}',
+                                        // $currentTotal :
+                                        'In Stock : ${item.quantity}',
                                         style: const TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w500,
@@ -150,8 +207,8 @@ class _StockEntryPageState extends State<StockEntryPage> {
                               ),
                             ),
                             Positioned(
-                              left: 200,
-                              top: 45,
+                              left: 210,
+                              top: 50,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
@@ -159,7 +216,7 @@ class _StockEntryPageState extends State<StockEntryPage> {
                                     width: 60,
                                     child: TextField(
                                       controller: qtyControllers[index],
-                                      decoration: const InputDecoration(
+                                      decoration: InputDecoration(
                                         labelText: 'Qty',
                                         border: OutlineInputBorder(),
                                         contentPadding: EdgeInsets.symmetric(
@@ -172,12 +229,8 @@ class _StockEntryPageState extends State<StockEntryPage> {
                                   BlocListener<QtyupdateBloc, QtyupdateState>(
                                     listener: (context, state) {
                                       state.when(
-                                        initial: () {
-                                          // Do nothing for initial state
-                                        },
-                                        loading: () {
-                                          // Show loading indicator
-                                        },
+                                        initial: () {},
+                                        loading: () {},
                                         error: (error) {
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(
@@ -192,7 +245,9 @@ class _StockEntryPageState extends State<StockEntryPage> {
                                                   'Quantity updated successfully!'),
                                             ),
                                           );
-                                          FoodListAPI();
+
+                                          dispose();
+                                          fetchmedicineList();
                                         },
                                       );
                                     },
@@ -203,7 +258,7 @@ class _StockEntryPageState extends State<StockEntryPage> {
                                               item.id, qtyControllers[index]!);
                                         },
                                         color: Colors.red,
-                                        icon: const Icon(Icons.send),
+                                        icon: Icon(Icons.send),
                                       ),
                                     ),
                                   ),
@@ -234,11 +289,9 @@ class _StockEntryPageState extends State<StockEntryPage> {
     );
   }
 
-  void FoodListAPI() {
-    final stockListsBloc = BlocProvider.of<StockListsBloc>(context);
-    stockListsBloc.add(
-      StockListsEvent.stockLists(item_category: 'Food'),
-    );
+  void fetchmedicineList() {
+    final dressListBloc = BlocProvider.of<DressListBloc>(context);
+    dressListBloc.add(DressListEvent.stockLists(item_category: 'medicine'));
   }
 
   Color getExpiryColor(String expiryDate) {
