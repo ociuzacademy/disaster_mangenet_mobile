@@ -253,7 +253,7 @@ class _DressStockEntryPageState extends State<DressStockEntryPage> {
                                       child: IconButton(
                                         onPressed: () {
                                           QtyUpdateAPI(
-                                              item.id, qtyControllers[index]!);
+                                              item.id, qtyControllers[index]);
                                         },
                                         color: Colors.red,
                                         icon: Icon(Icons.send),

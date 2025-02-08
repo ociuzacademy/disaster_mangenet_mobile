@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:disaster_management/app_functions/app_functions.dart';
 import 'package:disaster_management/constants/urls.dart';
 import 'package:disaster_management/modules/donation_payment_page/Model/donationmodel.dart';
-import 'package:disaster_management/modules/login/model/login_model.dart';
 import 'package:http/http.dart' as http;
 
 Future<DonationModel> Donation({required String amount}) async {

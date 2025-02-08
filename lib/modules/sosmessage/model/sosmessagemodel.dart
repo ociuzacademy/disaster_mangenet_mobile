@@ -2,7 +2,6 @@
 //
 //     final sosmessage = sosmessageFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 Sosmessage sosmessageFromJson(String str) => Sosmessage.fromJson(json.decode(str));

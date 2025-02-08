@@ -2,7 +2,6 @@
 //
 //     final takeActionModel = takeActionModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 TakeActionModel takeActionModelFromJson(String str) =>

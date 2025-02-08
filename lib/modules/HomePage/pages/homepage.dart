@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../widgets/news_card.dart';
-import '../../collectioncamp/Pages/disaster_alert.dart';
 import '../../donation_payment_page/Page/payment_page.dart';
 
 class HomePage extends StatelessWidget {

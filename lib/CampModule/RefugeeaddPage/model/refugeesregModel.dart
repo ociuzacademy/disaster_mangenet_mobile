@@ -2,7 +2,6 @@
 //
 //     final refugeesregModel = refugeesregModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 RefugeesregModel refugeesregModelFromJson(String str) =>

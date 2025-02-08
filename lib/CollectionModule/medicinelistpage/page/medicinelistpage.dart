@@ -255,7 +255,7 @@ class _MedicineStockEntryPageState extends State<MedicineStockEntryPage> {
                                       child: IconButton(
                                         onPressed: () {
                                           QtyUpdateAPI(
-                                              item.id, qtyControllers[index]!);
+                                              item.id, qtyControllers[index]);
                                         },
                                         color: Colors.red,
                                         icon: Icon(Icons.send),

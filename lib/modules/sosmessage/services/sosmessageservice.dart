@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:disaster_management/constants/urls.dart';
-import 'package:disaster_management/modules/donation_payment_page/Model/donationmodel.dart';
-import 'package:disaster_management/modules/sosmessage/model/sosmessagemodel.dart';
 import 'package:http/http.dart' as http;
 
 Future<String> SOSMessage(

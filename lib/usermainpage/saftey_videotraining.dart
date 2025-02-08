@@ -1,122 +1,81 @@
-// usermainpage/saftey_videotraining.dart
 import 'package:flutter/material.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
-
-class SafteyVideotraining extends StatefulWidget {
-  const SafteyVideotraining({super.key});
+class SafetyVideoTraining extends StatefulWidget {
+  const SafetyVideoTraining({super.key});
 
   @override
-  _SafteyVideotrainingState createState() => _SafteyVideotrainingState();
+  _SafetyVideoTrainingState createState() => _SafetyVideoTrainingState();
 }
 
-class _SafteyVideotrainingState extends State<SafteyVideotraining> {
+class _SafetyVideoTrainingState extends State<SafetyVideoTraining> {
   late List<YoutubePlayerController> _controllers;
-  final List<String> _videoTitles = [
-    "Training Video 1",
-    "Training Video 2",
-    "Training Video 3",
-    "Training Video 4",
+
+  final List<Map<String, String>> _videos = [
+    {"title": "Training Video 1", "url": "https://youtu.be/GVBamXXVD30"},
+    {"title": "Training Video 2", "url": "https://youtu.be/UbLEO_cgEGg"},
+    {"title": "Training Video 3", "url": "https://youtu.be/uMpZee9-n10"},
+    {"title": "Training Video 4", "url": "https://youtu.be/Vc7ZqtGNmTY"},
   ];
+
+  String extractVideoId(String url) {
+    Uri uri = Uri.parse(url);
+    if (uri.host.contains("youtu.be")) {
+      return uri.pathSegments.first;
+    } else if (uri.host.contains("youtube.com") && uri.queryParameters.containsKey("v")) {
+      return uri.queryParameters["v"]!;
+    }
+    throw Exception("Invalid YouTube URL: $url");
+  }
 
   @override
   void initState() {
     super.initState();
-    _controllers = [
-      YoutubePlayerController(
-        initialVideoId: YoutubePlayer.convertUrlToId('https://youtu.be/GVBamXXVD30?si=z372HWYAIIR8u1eh')!,
-        flags: const YoutubePlayerFlags(
-          autoPlay: false,
-          loop: false,
+    _controllers = _videos.map((video) {
+      final videoId = extractVideoId(video["url"]!);
+      return YoutubePlayerController.fromVideoId(
+        videoId: videoId,
+        autoPlay: false,
+        params: const YoutubePlayerParams(
+          showFullscreenButton: true,
         ),
-      ),
-      YoutubePlayerController(
-        initialVideoId: YoutubePlayer.convertUrlToId('https://youtu.be/UbLEO_cgEGg?si=B3dldJu5X0QrGP4j')!,
-        flags: const YoutubePlayerFlags(
-          autoPlay: false,
-          loop: false,
-        ),
-      ),
-      YoutubePlayerController(
-        initialVideoId: YoutubePlayer.convertUrlToId('https://youtu.be/uMpZee9-n10?si=OGcY_pG2Yoe6oRqf')!,
-        flags: const YoutubePlayerFlags(
-          autoPlay: false,
-          loop: false,
-        ),
-      ),
-      YoutubePlayerController(
-        initialVideoId: YoutubePlayer.convertUrlToId('https://youtu.be/Vc7ZqtGNmTY?si=rR4UkPg45d2qjntZ')!,
-        flags: const YoutubePlayerFlags(
-          autoPlay: false,
-          loop: false,
-        ),
-      ),
-    ];
+      );
+    }).toList();
   }
 
   @override
   void dispose() {
     for (var controller in _controllers) {
-      controller.dispose();
+      controller.close();
     }
     super.dispose();
-  }
-
-  void _playVideo(int index) {
-    _controllers[index].play();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Help Video Training'),
-      ),
+      appBar: AppBar(title: const Text('Help Video Training')),
       body: ListView.builder(
+        padding: const EdgeInsets.all(20),
         itemCount: _controllers.length,
         itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(left: 20,right: 20,top: 30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 15),
-                  child: Text(
-                    _videoTitles[index],
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                _videos[index]["title"]!,
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              Card(
+                elevation: 4,
+                child: YoutubePlayer(
+                  controller: _controllers[index],
+                  aspectRatio: 16 / 9,
                 ),
-                Card(
-                  elevation: 4,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        YoutubePlayer(
-                          controller: _controllers[index],
-                          showVideoProgressIndicator: false,
-                        ),
-                        ElevatedButton(
-                          onPressed: () => _playVideo(index),
-                          style: ElevatedButton.styleFrom(
-                            shape: const CircleBorder(),
-                            padding: const EdgeInsets.all(20),
-                            backgroundColor: Colors.white.withOpacity(0.7), // Button color
-                          ),
-                          child: const Icon(
-                            Icons.play_arrow,
-                            size: 48,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 20),
+            ],
           );
         },
       ),

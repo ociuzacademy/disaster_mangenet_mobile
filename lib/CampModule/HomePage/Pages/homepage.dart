@@ -84,7 +84,7 @@ class _UserListPageState extends State<UserListPage> {
                     margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     child: ListTile(
                       leading: CachedNetworkImage(
-                        imageUrl: ImageUrl + user.image!,
+                        imageUrl: ImageUrl + user.image,
                         imageBuilder: (context, imageProvider) => CircleAvatar(
                           backgroundImage: imageProvider,
                           radius: 25,
@@ -94,7 +94,7 @@ class _UserListPageState extends State<UserListPage> {
                         errorWidget: (context, url, error) => Icon(Icons.error),
                       ),
                       title: Text(
-                        user.name!,
+                        user.name,
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),

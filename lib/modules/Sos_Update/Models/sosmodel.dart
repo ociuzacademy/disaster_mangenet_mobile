@@ -2,7 +2,6 @@
 //
 //     final sosupdate = sosupdateFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 Sosupdate sosupdateFromJson(String str) => Sosupdate.fromJson(json.decode(str));

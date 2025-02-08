@@ -2,7 +2,6 @@
 //
 //     final collectionCenterModel = collectionCenterModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 CollectionCenterModel collectionCenterModelFromJson(String str) => CollectionCenterModel.fromJson(json.decode(str));

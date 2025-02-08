@@ -2,7 +2,6 @@
 //
 //     final campsModel = campsModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 CampsModel campsModelFromJson(String str) => CampsModel.fromJson(json.decode(str));

@@ -1,5 +1,4 @@
 // widgets/saftey_requests_wid.dart
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../usermainpage/saftey_documentation.dart';
@@ -82,7 +81,7 @@ class _SafteyRequestsWidState extends State<SafteyRequestsWid> {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const SafteyVideotraining(),
+                          builder: (context) => const SafetyVideoTraining(),
                         ),
                       );
                     },

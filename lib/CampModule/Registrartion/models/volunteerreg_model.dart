@@ -2,7 +2,6 @@
 //
 //     final volunteerModel = volunteerModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 VolunteerModel volunteerModelFromJson(String str) =>

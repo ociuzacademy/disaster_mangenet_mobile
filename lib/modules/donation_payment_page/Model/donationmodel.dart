@@ -2,7 +2,6 @@
 //
 //     final donationModel = donationModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 DonationModel donationModelFromJson(String str) => DonationModel.fromJson(json.decode(str));

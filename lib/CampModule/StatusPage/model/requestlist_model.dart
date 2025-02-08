@@ -2,7 +2,6 @@
 //
 //     final requestListModel = requestListModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 RequestListModel requestListModelFromJson(String str) =>
