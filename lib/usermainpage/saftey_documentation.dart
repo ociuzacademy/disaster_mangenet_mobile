@@ -8,8 +8,8 @@ class SafteyDocumentation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Help Documentation'),
-      ),
+          // title: const Text('Documentations'),
+          ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(

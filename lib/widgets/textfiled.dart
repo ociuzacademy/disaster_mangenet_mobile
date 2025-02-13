@@ -1,4 +1,3 @@
-// widgets/textfiled.dart
 import 'package:flutter/material.dart';
 
 class TextFiledWidget extends StatefulWidget {
@@ -8,6 +7,7 @@ class TextFiledWidget extends StatefulWidget {
   final Color backgroundColor;
   final Color? textcolor;
   final TextEditingController? controller;
+  final String? Function(String?)? validator;
 
   const TextFiledWidget({
     required this.obscureText,
@@ -15,6 +15,7 @@ class TextFiledWidget extends StatefulWidget {
     this.controller,
     this.textcolor,
     this.suffix,
+    this.validator,
     this.backgroundColor = Colors.white,
     super.key,
   });
@@ -30,6 +31,7 @@ class _TextFiledWidgetState extends State<TextFiledWidget> {
       width: double.infinity,
       child: TextFormField(
         controller: widget.controller,
+        validator: widget.validator,
         decoration: InputDecoration(
           hintText: widget.labelText,
           hintStyle: TextStyle(
@@ -41,15 +43,15 @@ class _TextFiledWidgetState extends State<TextFiledWidget> {
           fillColor: widget.backgroundColor,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.grey,
               width: 0.3,
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(
-              color: const Color.fromARGB(255, 228, 12, 12),
+            borderSide: const BorderSide(
+              color: Color.fromARGB(255, 228, 12, 12),
               width: 1.5,
             ),
           ),

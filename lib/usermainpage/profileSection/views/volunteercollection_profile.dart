@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:disaster_management/app_functions/local_storage_function.dart';
 import 'package:disaster_management/constants/urls.dart';
 import 'package:disaster_management/modules/login/pages/login_page.dart';
 import 'package:disaster_management/usermainpage/profileSection/bloc/profile_bloc.dart';
@@ -108,8 +109,7 @@ class _volunteerCollectionnProfileState
                     const SizedBox(height: 10),
                     InkWell(
                       onTap: () async {
-                        final prefs = await SharedPreferences.getInstance();
-                        await prefs.clear();
+                        await SharedPrefHelper.clearUserData();
 
                         Navigator.pushAndRemoveUntil(
                           context,
@@ -155,7 +155,7 @@ class _volunteerCollectionnProfileState
   void userRegAPI(context) {
     final profileBloc = BlocProvider.of<ProfileBloc>(context);
     profileBloc.add(
-      ProfileEvent.profileFetch(utype: 'user'),
+      ProfileEvent.profileFetch(utype: 'volcc'),
     );
   }
 }

@@ -13,7 +13,9 @@ class SessionBloc extends Bloc<SessionEvent, SessionState> {
       try {
         emit(const SessionState.loding());
         if (event is _$SessionListImpl) {
-          final response = await SessionService();
+          final response = await SessionService(
+            sectionId: event.sectionId,
+          );
 
           emit(SessionState.success(response: response));
         }

@@ -13,7 +13,6 @@ Future<LoginModel> Login({
     Map param = {
       "email": email,
       "password": password,
-     
     };
     final resp = await http.post(
       Uri.parse(Urls.Login),

@@ -17,6 +17,12 @@ class _StockEntryPageState extends State<StockEntryPage> {
   Map<int, bool> cardLoadingStates = {};
 
   @override
+  void initState() {
+    FoodListAPI();
+    super.initState();
+  }
+
+  @override
   void dispose() {
     clearControllers();
     super.dispose();
@@ -44,8 +50,7 @@ class _StockEntryPageState extends State<StockEntryPage> {
               builder: (context, state) {
                 return state.when(
                   initial: () {
-                    return const Center(
-                        child: Text('Welcome! Please load the stock.'));
+                    return SizedBox();
                   },
                   loding: () {
                     return const Center(child: CircularProgressIndicator());
@@ -60,7 +65,8 @@ class _StockEntryPageState extends State<StockEntryPage> {
                     clearControllers();
 
                     List<Datum> stockItems = response.data;
-                    return ListView.builder(
+                    return
+                     ListView.builder(
                       padding: const EdgeInsets.all(16),
                       itemCount: stockItems.length,
                       itemBuilder: (context, index) {

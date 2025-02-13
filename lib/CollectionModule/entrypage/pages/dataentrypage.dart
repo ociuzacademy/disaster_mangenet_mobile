@@ -1,3 +1,4 @@
+import 'package:disaster_management/CollectionModule/entrypage/widget/stock_enterycard.dart';
 import 'package:disaster_management/CollectionModule/medicineentrymodule/pages/medicineentrypage.dart';
 import 'package:disaster_management/CollectionModule/other_entery_page/views/others_enter_page.dart';
 import 'package:flutter/material.dart';
@@ -9,22 +10,22 @@ class EntryPage extends StatelessWidget {
   final List<Map<String, dynamic>> categories = [
     {
       'title': 'Food',
-      'stock': 'Available',
+      'stock': 'Add New Food Stock',
       'icon': Icons.fastfood,
     },
     {
       'title': 'Dress',
-      'stock': 'Limited',
+      'stock': 'Add New Dress Stock',
       'icon': Icons.shopping_bag,
     },
     {
       'title': 'Medicine',
-      'stock': 'In Stock',
+      'stock': 'Add New Medicine Stock',
       'icon': Icons.local_hospital,
     },
     {
       'title': 'Other',
-      'stock': 'Out of Stock',
+      'stock': 'Add New Others Stock',
       'icon': Icons.category,
     },
   ];
@@ -42,16 +43,12 @@ class EntryPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         // title: Text('Home Page'),
+        backgroundColor: Colors.grey[200],
         elevation: 2,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 10),
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-          ),
+      body: Scaffold(
+        backgroundColor: Colors.grey[200],
+        body: ListView.builder(
           itemCount: categories.length,
           itemBuilder: (context, index) {
             final category = categories[index];
@@ -62,40 +59,21 @@ class EntryPage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => pages[index]),
                 );
               },
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                elevation: 5,
-                shadowColor: Colors.grey,
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        category['icon'],
-                        size: 50,
-                        color: Colors.blue,
-                      ),
-                      SizedBox(height: 10),
-                      Text(
-                        category['title'],
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 5),
-                      Text(
-                        category['stock'],
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey[700],
-                        ),
-                      ),
-                    ],
-                  ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CouponCard(
+                  backgroundColor: const Color.fromARGB(255, 251, 219, 219),
+                  brand: category['title'],
+                  details: category['stock'],
+                  title: category['title'],
+                  validUntil: '',
+                  icon: category['icon'],
+                  ontap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => pages[index]),
+                    );
+                  },
                 ),
               ),
             );

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:disaster_management/app_functions/local_storage_function.dart';
 import 'package:disaster_management/constants/urls.dart';
 import 'package:disaster_management/modules/login/pages/login_page.dart';
 import 'package:disaster_management/usermainpage/profileSection/bloc/profile_bloc.dart';
@@ -109,14 +110,13 @@ class _volunteerProfileState extends State<volunteerProfile> {
                     const SizedBox(height: 10),
                     InkWell(
                       onTap: () async {
-                        final prefs = await SharedPreferences.getInstance();
-                        await prefs.clear();
+                        await SharedPrefHelper.clearUserData();
 
+                        // Navigate to Login Page and clear navigation stack
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => LoginPage(),
-                          ),
+                              builder: (context) => const LoginPage()),
                           (Route<dynamic> route) => false,
                         );
                       },

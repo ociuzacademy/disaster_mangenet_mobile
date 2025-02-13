@@ -6,7 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SessionsPage extends StatefulWidget {
-  const SessionsPage({Key? key}) : super(key: key);
+  final String? sectionId;
+  const SessionsPage({
+    Key? key,
+    required this.sectionId,
+  }) : super(key: key);
 
   @override
   State<SessionsPage> createState() => _SessionsPageState();
@@ -23,21 +27,22 @@ class _SessionsPageState extends State<SessionsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
+      appBar: AppBar(
+        title: Text(
+          'Sections',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Sessions',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-              const SizedBox(height: 20),
               Expanded(
                 child: BlocConsumer<AssignSectionToVolunteerBloc,
                     AssignSectionToVolunteerState>(
@@ -147,7 +152,9 @@ class _SessionsPageState extends State<SessionsPage> {
 
   void fetchSessionData() {
     final sessionBloc = context.read<SessionBloc>();
-    sessionBloc.add(SessionEvent.sessionList());
+    sessionBloc.add(SessionEvent.sessionList(
+      sectionId: widget.sectionId.toString(),
+    ));
   }
 
   void SessionSelectionAPI(String sectionName, int id) {

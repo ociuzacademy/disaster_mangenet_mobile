@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:disaster_management/app_functions/app_functions.dart';
+import 'package:disaster_management/app_functions/local_storage_function.dart';
 import 'package:disaster_management/constants/urls.dart';
 import 'package:disaster_management/modules/Sos_Update/Models/sosmodel.dart';
 import 'package:http/http.dart' as http;
@@ -10,7 +11,7 @@ Future<Sosupdate> SOSupdate({
   required String email,
   required String secondaryemail,
 }) async {
-  int? id = await fun().getId();
+  int? id = await SharedPrefHelper.getId();
   String? user = id.toString();
   print('Retrieved ID: $id');
   try {

@@ -15,7 +15,7 @@ class _SafteyGuidlinesState extends State<SafteyGuidlines> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Help Requests'),
+        title: const Text('precautions'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -43,10 +43,7 @@ class _SafteyGuidlinesState extends State<SafteyGuidlines> {
                 helptext: 'Cyclone',
                 helpicon: Icons.ac_unit,
               ),
-              const SafteyRequestsWid(
-                helptext: 'Medical Emergency',
-                helpicon: Icons.medical_services,
-              ),
+
               // You can add more widgets here if needed
             ],
           ),
