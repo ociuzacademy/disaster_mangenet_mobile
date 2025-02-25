@@ -11,6 +11,8 @@ class CollectionListPage extends StatefulWidget {
 class _CollectionListPageState extends State<CollectionListPage> {
   String? selectedDistrict;
   List<String> districts = [];
+  TextEditingController searchController = TextEditingController();
+  String _searchQuery = "";
 
   @override
   void initState() {
@@ -75,30 +77,54 @@ class _CollectionListPageState extends State<CollectionListPage> {
           ),
         ],
       ),
-      body: FutureBuilder<CollectionCenterModel>(
-        future: Collectiodetails(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text("An error occurred: ${snapshot.error}"));
-          } else if (!snapshot.hasData || snapshot.data!.data.isEmpty) {
-            return Center(child: Text("No data available."));
-          }
+      body: Column(
+        children: [
+          // 🔍 Search Bar
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: searchController,
+              decoration: InputDecoration(
+                hintText: "Search by name...",
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              onChanged: (value) {
+                setState(() {
+                  _searchQuery = value.toLowerCase();
+                });
+              },
+            ),
+          ),
 
-          final allCenters = snapshot.data!.data;
+          Expanded(
+            child: FutureBuilder<CollectionCenterModel>(
+              future: Collectiodetails(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(
+                      child: Text("An error occurred: ${snapshot.error}"));
+                } else if (!snapshot.hasData || snapshot.data!.data.isEmpty) {
+                  return Center(child: Text("No data available."));
+                }
 
-          // ✅ Filter list based on selected district
-          final filteredCenters = selectedDistrict == null
-              ? allCenters
-              : allCenters
-                  .where((center) => center.district == selectedDistrict)
-                  .toList();
+                final allCenters = snapshot.data!.data;
 
-          return Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
+                // ✅ Filter list based on selected district and search query
+                final filteredCenters = allCenters.where((center) {
+                  final matchesDistrict = selectedDistrict == null ||
+                      center.district == selectedDistrict;
+                  final matchesSearch =
+                      center.name?.toLowerCase().contains(_searchQuery) ??
+                          false;
+                  return matchesDistrict && matchesSearch;
+                }).toList();
+
+                return ListView.builder(
                   itemCount: filteredCenters.length,
                   itemBuilder: (context, index) {
                     final item = filteredCenters[index];
@@ -174,11 +200,11 @@ class _CollectionListPageState extends State<CollectionListPage> {
                       ),
                     );
                   },
-                ),
-              ),
-            ],
-          );
-        },
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
