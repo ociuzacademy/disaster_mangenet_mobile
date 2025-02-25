@@ -4,9 +4,6 @@ import 'package:disaster_management/modules/campListPage/services/campservice.da
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-<<<<<<< Updated upstream
-class CampPage extends StatelessWidget {
-=======
 class CampPage extends StatefulWidget {
   @override
   _CampPageState createState() => _CampPageState();
@@ -33,7 +30,6 @@ class _CampPageState extends State<CampPage> {
     return data;
   }
 
->>>>>>> Stashed changes
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,35 +123,6 @@ class _CampPageState extends State<CampPage> {
                         Text("Description: ${item.description}",
                             style: TextStyle(color: Colors.grey[700])),
                       SizedBox(height: 8),
-<<<<<<< Updated upstream
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Image.network(
-                              ImageUrl + item.profilePic,
-                              height: 100,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) {
-                                return Text("Image not available");
-                              },
-                            ),
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.location_city, color: Colors.blue),
-                            onPressed: () async {
-                              final Uri mapUri = Uri.parse(
-                                  "https://www.google.com/maps/search/?api=1&query=${item.latitude},${item.longitude}");
-                              if (await canLaunchUrl(mapUri)) {
-                                await launchUrl(mapUri);
-                              } else {
-                                throw 'Could not launch $mapUri';
-                              }
-                            },
-                          ),
-                        ],
-=======
                       Image.network(
                         ImageUrl + item.profilePic,
                         height: 100,
@@ -164,7 +131,6 @@ class _CampPageState extends State<CampPage> {
                         errorBuilder: (context, error, stackTrace) {
                           return Text("Image not available");
                         },
->>>>>>> Stashed changes
                       ),
                     ],
                   ),
