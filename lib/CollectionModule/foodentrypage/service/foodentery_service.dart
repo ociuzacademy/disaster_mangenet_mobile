@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:disaster_management/CollectionModule/dressentrypage/model/stock_enter_model.dart';
 import 'package:disaster_management/app_functions/app_functions.dart';
+import 'package:disaster_management/app_functions/local_storage_function.dart';
 import 'package:disaster_management/constants/urls.dart';
 import 'package:http/http.dart' as http;
 
@@ -16,10 +17,10 @@ Future<StockEnterModel> foodStockService({
   try {
     // Construct the URL (no query parameters here for POST)
     final url = Uri.parse(Urls.stocks);
-    String? collid = await fun().getCollectionid();
-    print('Retrieved ID: $collid');
-    String? sectionid = await fun().getSectionId();
-    print('Retrieved ID: $sectionid');
+    String? collid = await SharedPrefHelper.getCollectionid();
+    print('Retrieved Collection ID: $collid');
+    String? sectionid = await SharedPrefHelper.getSectionId();
+    print('Retrieved Section ID: $sectionid');
     // Create the body as a JSON-encoded string
     final body = jsonEncode({
       'item_name': item_name,

@@ -11,7 +11,7 @@ class Urls {
   static const String EmailUpdate = "${baseUrl}emergency-emails/create/";
   static const String SosMessage = "${baseUrl}sos/create/";
   static const String GetCollection = "${baseUrl}collection-centers/";
-  static const String GetCampList = "${baseUrl}camps/";
+  static const String GetCampList = "${baseUrl}camps/";  
   static const String VoluntercampRegister =
       "${baseUrl}register/volunteer-camp/";
   // comp section urls

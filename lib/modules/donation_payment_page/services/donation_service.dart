@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:disaster_management/app_functions/app_functions.dart';
+import 'package:disaster_management/app_functions/local_storage_function.dart';
 import 'package:disaster_management/constants/urls.dart';
 import 'package:disaster_management/modules/donation_payment_page/Model/donationmodel.dart';
 import 'package:http/http.dart' as http;
 
 Future<DonationModel> Donation({required String amount}) async {
   try {
-    int? id = await fun().getId();
+    int? id = await SharedPrefHelper.getId();
     print('Retrieved ID: $id');
     Map param = {
       "user": id,

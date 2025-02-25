@@ -2,47 +2,9 @@ import 'package:disaster_management/constants/urls.dart';
 import 'package:disaster_management/modules/campListPage/models/campmodel.dart';
 import 'package:disaster_management/modules/campListPage/services/campservice.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CampPage extends StatelessWidget {
-  // Simulate fetching data asynchronously
-  Future<List<Map<String, dynamic>>> fetchData() async {
-    await Future.delayed(Duration(seconds: 2)); // Simulate network delay
-    return [
-      {
-        "id": 4,
-        "name": "dd",
-        "district": "Pathanamthitta",
-        "address": "aa",
-        "gmap_link":
-            "https://www.google.com/maps/dir//G6C3%2BX8Q,+IIIrd+Floor,+Bhuhari+Tower,+Sankarayya+Jn,+M+G+Road,+Kuttipuzha+Nagar,+Poothole,+MG+Road,+Sreenagar+Colony,+Thrissur,+Kerala+680004/@10.5224394,76.1210491,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3ba7ee418e6ef7d7:0x5da64b3c153db364!2m2!1d76.203451!2d10.52245?entry=ttu&g_ep=EgoyMDI0MTAwNy4xIKXMDSoASAFQAw%3D%3D",
-        "latitude": 76.203451,
-        "longitude": 10.52245,
-        "capacity": 8,
-        "contact_person": "x",
-        "contact_phone": "234",
-        "contact_email": "a@gmail.com",
-        "description": "zxx",
-        "profile_pic": "https://via.placeholder.com/150", // Sample image URL
-      },
-      {
-        "id": 7,
-        "name": "a",
-        "district": "Pathanamthitta",
-        "address": "vgvs",
-        "gmap_link":
-            "https://www.google.com/maps/dir//G6C3%2BX8Q,+IIIrd+Floor,+Bhuhari+Tower,+Sankarayya+Jn,+M+G+Road,+Kuttipuzha+Nagar,+Poothole,+MG+Road,+Sreenagar+Colony,+Thrissur,+Kerala+680004/@10.5224394,76.1210491,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3ba7ee418e6ef7d7:0x5da64b3c153db364!2m2!1d76.203451!2d10.52245?entry=ttu&g_ep=EgoyMDI0MTAwNy4xIKXMDSoASAFQAw%3D%3D",
-        "latitude": 76.203451,
-        "longitude": 10.52245,
-        "capacity": 1,
-        "contact_person": "ss",
-        "contact_phone": "1",
-        "contact_email": "a@gmail.com",
-        "description": "",
-        "profile_pic": null,
-      },
-    ];
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,20 +59,33 @@ class CampPage extends StatelessWidget {
                           style: TextStyle(color: Colors.grey[700]),
                         ),
                       SizedBox(height: 8),
-                      // TextButton(
-                      //   onPressed: () {
-                      //     print("Opening map link: ${item['gmap_link']}");
-                      //   },
-                      //   child: Text("View on Map"),
-                      // ),
-                      Image.network(
-                        ImageUrl + item.profilePic,
-                        height: 100,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Text("Image not available");
-                        },
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Image.network(
+                              ImageUrl + item.profilePic,
+                              height: 100,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Text("Image not available");
+                              },
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.location_city, color: Colors.blue),
+                            onPressed: () async {
+                              final Uri mapUri = Uri.parse(
+                                  "https://www.google.com/maps/search/?api=1&query=${item.latitude},${item.longitude}");
+                              if (await canLaunchUrl(mapUri)) {
+                                await launchUrl(mapUri);
+                              } else {
+                                throw 'Could not launch $mapUri';
+                              }
+                            },
+                          ),
+                        ],
                       ),
                     ],
                   ),

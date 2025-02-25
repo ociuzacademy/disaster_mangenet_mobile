@@ -38,15 +38,15 @@ Future<UserRegModel> Registration({
     // Handle the response
     if (resp.statusCode == 200) {
       // Decode the response
-      var responseBody = await resp.stream.bytesToString(); // Read stream once
+      var responseBody = await resp.stream.bytesToString();
       final Map<String, dynamic> decoded = jsonDecode(responseBody);
       final response = UserRegModel.fromJson(decoded);
       return response;
     } else {
       // Read error response if needed
-      var errorResponseBody =
-          await resp.stream.bytesToString(); // Read error stream
-      throw Exception('Failed to register user: $errorResponseBody');
+      // var errorResponseBody =
+      //     await resp.stream.bytesToString();
+      throw Exception('Failed to register user');
     }
   } on SocketException {
     throw Exception('Server error');

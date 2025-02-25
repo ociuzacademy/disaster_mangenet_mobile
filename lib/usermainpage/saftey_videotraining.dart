@@ -1,28 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
-class SafetyVideoTraining extends StatefulWidget {
-  const SafetyVideoTraining({super.key});
+class SafetyVideoPage extends StatefulWidget {
+  final String title;
+  final List<Map<String, String>> videos;
+
+  const SafetyVideoPage({super.key, required this.title, required this.videos});
 
   @override
-  _SafetyVideoTrainingState createState() => _SafetyVideoTrainingState();
+  _SafetyVideoPageState createState() => _SafetyVideoPageState();
 }
 
-class _SafetyVideoTrainingState extends State<SafetyVideoTraining> {
+class _SafetyVideoPageState extends State<SafetyVideoPage> {
   late List<YoutubePlayerController> _controllers;
-
-  final List<Map<String, String>> _videos = [
-    {"title": "Training Video 1", "url": "https://youtu.be/GVBamXXVD30"},
-    {"title": "Training Video 2", "url": "https://youtu.be/UbLEO_cgEGg"},
-    {"title": "Training Video 3", "url": "https://youtu.be/uMpZee9-n10"},
-    {"title": "Training Video 4", "url": "https://youtu.be/Vc7ZqtGNmTY"},
-  ];
 
   String extractVideoId(String url) {
     Uri uri = Uri.parse(url);
     if (uri.host.contains("youtu.be")) {
       return uri.pathSegments.first;
-    } else if (uri.host.contains("youtube.com") && uri.queryParameters.containsKey("v")) {
+    } else if (uri.host.contains("youtube.com") &&
+        uri.queryParameters.containsKey("v")) {
       return uri.queryParameters["v"]!;
     }
     throw Exception("Invalid YouTube URL: $url");
@@ -31,7 +28,7 @@ class _SafetyVideoTrainingState extends State<SafetyVideoTraining> {
   @override
   void initState() {
     super.initState();
-    _controllers = _videos.map((video) {
+    _controllers = widget.videos.map((video) {
       final videoId = extractVideoId(video["url"]!);
       return YoutubePlayerController.fromVideoId(
         videoId: videoId,
@@ -54,7 +51,7 @@ class _SafetyVideoTrainingState extends State<SafetyVideoTraining> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Help Video Training')),
+      appBar: AppBar(title: Text(widget.title)),
       body: ListView.builder(
         padding: const EdgeInsets.all(20),
         itemCount: _controllers.length,
@@ -63,8 +60,9 @@ class _SafetyVideoTrainingState extends State<SafetyVideoTraining> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                _videos[index]["title"]!,
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                widget.videos[index]["title"]!,
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
               Card(

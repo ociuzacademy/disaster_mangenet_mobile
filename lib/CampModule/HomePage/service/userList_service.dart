@@ -3,12 +3,13 @@ import 'dart:io';
 
 import 'package:disaster_management/CampModule/HomePage/model/userList_model.dart';
 import 'package:disaster_management/app_functions/app_functions.dart';
+import 'package:disaster_management/app_functions/local_storage_function.dart';
 import 'package:disaster_management/constants/urls.dart';
 import 'package:http/http.dart' as http;
 
 Future<UserlistModel> UserListSer() async {
   try {
-    String? cmpid = await fun().getCampid();
+    String? cmpid = await SharedPrefHelper.getCampid();
     print('Retrieved ID: $cmpid');
     final url = Uri.parse(Urls.refugees).replace(
       queryParameters: {

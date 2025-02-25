@@ -8,7 +8,7 @@ class fun {
 
   Future<String?> getCampid() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('campid');
+    return prefs.getString('campid'); 
   }
 
   Future<String?> getCollectionid() async {

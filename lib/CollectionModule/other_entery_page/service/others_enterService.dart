@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:disaster_management/CollectionModule/other_entery_page/model/others_entery_model.dart';
 import 'package:disaster_management/app_functions/app_functions.dart';
+import 'package:disaster_management/app_functions/local_storage_function.dart';
 import 'package:disaster_management/constants/urls.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,9 +14,9 @@ Future<OthersEnteryModel> OthersEnteryService({
   required String unit_type,
 }) async {
   try {
-    String? collid = await fun().getCollectionid();
+    String? collid = await SharedPrefHelper.getCollectionid();
     print('Retrieved Collection ID: $collid');
-    String? sectionid = await fun().getSectionId();
+    String? sectionid = await SharedPrefHelper.getSectionId();
     print('Retrieved Section ID: $sectionid');
 
     // Construct the JSON payload
@@ -33,7 +34,7 @@ Future<OthersEnteryModel> OthersEnteryService({
       headers: <String, String>{
         'Content-Type': 'application/json',
       },
-      body: jsonEncode(payload), 
+      body: jsonEncode(payload),
     );
 
     final Map<String, dynamic> decoded = jsonDecode(resp.body);

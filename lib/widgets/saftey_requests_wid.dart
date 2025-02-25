@@ -7,11 +7,16 @@ import '../usermainpage/saftey_videotraining.dart';
 class SafteyRequestsWid extends StatefulWidget {
   final String helptext;
   final IconData helpicon; // Changed from String to IconData
-
+  final List<Map<String, String>> videos;
+  final String title;
+  final String subcontent;
   const SafteyRequestsWid({
     super.key,
     required this.helptext,
-    required this.helpicon, // Change to IconData
+    required this.helpicon,
+    required this.videos,
+    required this.title,
+    required this.subcontent, // Change to IconData
   });
 
   @override
@@ -81,7 +86,10 @@ class _SafteyRequestsWidState extends State<SafteyRequestsWid> {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const SafetyVideoTraining(),
+                          builder: (context) => SafetyVideoPage(
+                            videos: widget.videos,
+                            title: '',
+                          ),
                         ),
                       );
                     },
@@ -94,7 +102,7 @@ class _SafteyRequestsWidState extends State<SafteyRequestsWid> {
                             BorderRadius.circular(12), // Rounded corners
                       ),
                     ),
-                     child: Row(
+                    child: Row(
                       mainAxisAlignment:
                           MainAxisAlignment.center, // Center the content
                       children: [
@@ -103,9 +111,11 @@ class _SafteyRequestsWidState extends State<SafteyRequestsWid> {
                           style: TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
                         ),
-                        const SizedBox(width: 8), // Spacing between text and icon
+                        const SizedBox(
+                            width: 8), // Spacing between text and icon
                         const Icon(
-                          Icons.arrow_forward_ios,size: 15, // You can choose any arrow icon
+                          Icons.arrow_forward_ios,
+                          size: 15, // You can choose any arrow icon
                           color: Colors.white, // Icon color
                         ),
                       ],
@@ -117,7 +127,10 @@ class _SafteyRequestsWidState extends State<SafteyRequestsWid> {
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const SafteyDocumentation(),
+                          builder: (context) => TextDisplayPage(
+                            title: widget.title,
+                            content: widget.subcontent,
+                          ),
                         ),
                       );
                     },
@@ -129,7 +142,7 @@ class _SafteyRequestsWidState extends State<SafteyRequestsWid> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                     child: Row(
+                    child: Row(
                       mainAxisAlignment:
                           MainAxisAlignment.center, // Center the content
                       children: [
@@ -138,9 +151,11 @@ class _SafteyRequestsWidState extends State<SafteyRequestsWid> {
                           style: TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
                         ),
-                        const SizedBox(width: 8), // Spacing between text and icon
+                        const SizedBox(
+                            width: 8), // Spacing between text and icon
                         const Icon(
-                          Icons.arrow_forward_ios,size: 15, // You can choose any arrow icon
+                          Icons.arrow_forward_ios,
+                          size: 15, // You can choose any arrow icon
                           color: Colors.white, // Icon color
                         ),
                       ],

@@ -16,6 +16,8 @@ class UserRegPage extends StatefulWidget {
 }
 
 class _UserRegPageState extends State<UserRegPage> {
+  final _formKey = GlobalKey<FormState>();
+
   // Text Controllers
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -29,10 +31,10 @@ class _UserRegPageState extends State<UserRegPage> {
   File? _pickedImage;
 
   final ImagePicker _picker = ImagePicker();
+  bool _imageError = false;
 
   @override
   void dispose() {
-    // Dispose controllers to prevent memory leaks
     nameController.dispose();
     emailController.dispose();
     passwordController.dispose();
@@ -50,145 +52,185 @@ class _UserRegPageState extends State<UserRegPage> {
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 20.h),
-            child: Column(
-              children: [
-                // CircleAvatar for profile image
-                GestureDetector(
-                  onTap: () async {
-                    final pickedFile =
-                        await _picker.pickImage(source: ImageSource.gallery);
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  GestureDetector(
+                    onTap: () async {
+                      final pickedFile =
+                          await _picker.pickImage(source: ImageSource.gallery);
 
-                    if (pickedFile != null) {
-                      setState(() {
-                        _pickedImage = File(pickedFile.path);
-                      });
-                    }
-                  },
-                  child: CircleAvatar(
-                    radius: 60.r,
-                    backgroundColor: Colors.grey[200],
-                    backgroundImage:
-                        _pickedImage != null ? FileImage(_pickedImage!) : null,
-                    child: _pickedImage == null
-                        ? Icon(
-                            Icons.camera_alt,
-                            size: 40.sp,
-                            color: Colors.white,
-                          )
-                        : null,
-                  ),
-                ),
-                SizedBox(height: 20.h),
-                Text(
-                  "User Registration",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 25.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 20.h),
-                TextFiledWidget(
-                  labelText: 'Name',
-                  suffix: Icon(Icons.person, size: 20.sp),
-                  obscureText: false,
-                  controller: nameController,
-                ),
-                SizedBox(height: 20.h),
-                TextFiledWidget(
-                  labelText: 'Email',
-                  suffix: Icon(Icons.email, size: 20.sp),
-                  obscureText: false,
-                  controller: emailController,
-                ),
-                SizedBox(height: 20.h),
-                TextFiledWidget(
-                  labelText: 'Password',
-                  suffix: togglePassword(),
-                  obscureText: _isSecurePassword,
-                  controller: passwordController,
-                ),
-                SizedBox(height: 20.h),
-                TextFiledWidget(
-                  labelText: 'Address',
-                  suffix: Icon(Icons.home, size: 20.sp),
-                  obscureText: false,
-                  controller: addressController,
-                ),
-                SizedBox(height: 20.h),
-                TextFiledWidget(
-                  labelText: 'Location',
-                  suffix: Icon(Icons.location_on, size: 20.sp),
-                  obscureText: false,
-                  controller: locationController,
-                ),
-                SizedBox(height: 20.h),
-                TextFiledWidget(
-                  labelText: 'Phone Number',
-                  suffix: Icon(Icons.phone, size: 20.sp),
-                  obscureText: false,
-                  controller: phoneNumberController,
-                ),
-                SizedBox(height: 30.h),
-                BlocListener<UserRegBloc, UserRegState>(
-                  listener: (context, state) {
-                    state.when(
-                      initial: () {},
-                      loading: () {
+                      if (pickedFile != null) {
                         setState(() {
-                          _isLoading = true;
+                          _pickedImage = File(pickedFile.path);
+                          _imageError = false;
                         });
-                      },
-                      error: (error) {
-                        setState(() {
-                          _isLoading = false;
-                        });
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(error)),
-                        );
-                      },
-                      success: (response) {
-                        setState(() {
-                          _isLoading = false;
-                        });
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('Registration Successful')),
-                        );
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => LoginPage()),
-                        );
-                      },
-                    );
-                  },
-                  child: SizedBox(
-                    width: 1.sw * 0.8,
-                    child: ElevatedButton(
-                      onPressed: _isLoading
-                          ? null
-                          : () {
-                              setState(() {
-                                _isLoading = true;
-                              });
-                              userRegAPI();
-                            },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 228, 12, 12),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 20.w, vertical: 20.h),
-                        textStyle: TextStyle(fontSize: 16.sp),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50.r),
-                        ),
-                      ),
-                      child: _isLoading
-                          ? SpinKitRotatingCircle(
-                              color: Colors.white, size: 24.sp)
-                          : Text('Complete Profile',
-                              style: TextStyle(color: Colors.white)),
+                      }
+                    },
+                    child: CircleAvatar(
+                      radius: 60.r,
+                      backgroundColor: Colors.grey[200],
+                      backgroundImage: _pickedImage != null
+                          ? FileImage(_pickedImage!)
+                          : null,
+                      child: _pickedImage == null
+                          ? Icon(
+                              Icons.camera_alt,
+                              size: 40.sp,
+                              color: _imageError ? Colors.red : Colors.white,
+                            )
+                          : null,
+                      foregroundColor: _imageError ? Colors.red : null,
                     ),
                   ),
-                ),
-              ],
+                  SizedBox(height: 10.h),
+                  if (_imageError)
+                    Text(
+                      "Please select a profile image",
+                      style: TextStyle(color: Colors.red, fontSize: 14.sp),
+                    ),
+                  SizedBox(height: 20.h),
+                  Text(
+                    "User Registration",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 25.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 20.h),
+                  TextFiledWidget(
+                    labelText: 'Name',
+                    suffix: Icon(Icons.person, size: 20.sp),
+                    obscureText: false,
+                    controller: nameController,
+                  ),
+                  SizedBox(height: 20.h),
+                  TextFiledWidget(
+                    labelText: 'Email',
+                    suffix: Icon(Icons.email, size: 20.sp),
+                    obscureText: false,
+                    controller: emailController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Email is required";
+                      } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+$')
+                          .hasMatch(value)) {
+                        return "Enter a valid email";
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: 20.h),
+                  TextFiledWidget(
+                    labelText: 'Password',
+                    suffix: togglePassword(),
+                    obscureText: _isSecurePassword,
+                    controller: passwordController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Password is required";
+                      } else if (value.length < 6) {
+                        return "Password must be at least 6 characters";
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: 20.h),
+                  TextFiledWidget(
+                    labelText: 'Address',
+                    suffix: Icon(Icons.home, size: 20.sp),
+                    obscureText: false,
+                    controller: addressController,
+                  ),
+                  SizedBox(height: 20.h),
+                  TextFiledWidget(
+                    labelText: 'Location',
+                    suffix: Icon(Icons.location_on, size: 20.sp),
+                    obscureText: false,
+                    controller: locationController,
+                  ),
+                  SizedBox(height: 20.h),
+                  TextFiledWidget(
+                    labelText: 'Phone Number',
+                    suffix: Icon(Icons.phone, size: 20.sp),
+                    obscureText: false,
+                    controller: phoneNumberController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Phone number is required";
+                      } else if (!RegExp(r'^[0-9]{10,15}$').hasMatch(value)) {
+                        return "Enter a valid phone number (10-15 digits)";
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: 30.h),
+                  BlocListener<UserRegBloc, UserRegState>(
+                    listener: (context, state) {
+                      state.when(
+                        initial: () {},
+                        loading: () {
+                          setState(() {
+                            _isLoading = true;
+                          });
+                        },
+                        error: (error) {
+                          print(error);
+                          setState(() {
+                            _isLoading = false;
+                          });
+                        
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(error)),
+                          );
+                        },
+                        success: (response) {
+                          setState(() {
+                            _isLoading = false;
+                          });
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Registration Successful')),
+                          );
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                                builder: (context) => const LoginPage()),
+                          );
+                        },
+                      );
+                    },
+                    child: SizedBox(
+                      width: 1.sw * 0.8,
+                      child: ElevatedButton(
+                        onPressed: _isLoading
+                            ? null
+                            : () {
+                                if (_formKey.currentState!.validate()) {
+                                  userRegAPI();
+                                }
+                              },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              const Color.fromARGB(255, 228, 12, 12),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 20.w, vertical: 20.h),
+                          textStyle: TextStyle(fontSize: 16.sp),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50.r),
+                          ),
+                        ),
+                        child: _isLoading
+                            ? SpinKitRotatingCircle(
+                                color: Colors.white, size: 24.sp)
+                            : const Text('Complete Profile',
+                                style: TextStyle(color: Colors.white)),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -211,17 +253,26 @@ class _UserRegPageState extends State<UserRegPage> {
   }
 
   void userRegAPI() {
-    final imagePath = _pickedImage != null ? _pickedImage!.path : '';
+    if (_pickedImage == null) {
+      setState(() {
+        _imageError = true;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please select a profile image')),
+      );
+      return;
+    }
+
     final userRegBloc = BlocProvider.of<UserRegBloc>(context);
     userRegBloc.add(
       UserRegEvent.userReg(
-        Password: passwordController.text,
-        address: addressController.text,
-        email: emailController.text,
-        location: locationController.text,
-        name: nameController.text,
-        phonenumber: phoneNumberController.text,
-        image: imagePath,
+        Password: passwordController.text.trim(),
+        address: addressController.text.trim(),
+        email: emailController.text.trim(),
+        location: locationController.text.trim(),
+        name: nameController.text.trim(),
+        phonenumber: phoneNumberController.text.trim(),
+        image: _pickedImage!.path,
       ),
     );
   }

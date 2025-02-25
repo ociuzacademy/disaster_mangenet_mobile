@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:disaster_management/CampModule/RefugeeaddPage/model/refugeesregModel.dart';
 import 'package:disaster_management/app_functions/app_functions.dart';
+import 'package:disaster_management/app_functions/local_storage_function.dart';
 import 'package:disaster_management/constants/urls.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
@@ -23,9 +24,9 @@ Future<RefugeesregModel> refugeeserv({
   required String date_of_entry,
 }) async {
   try {
-    String? cmpid = await fun().getCampid();
+    String? cmpid = await SharedPrefHelper.getCampid();
     print('Retrieved ID: $cmpid');
-    int? id = await fun().getId();
+    int? id = await SharedPrefHelper.getId();
     String? userid = id.toString();
     print('Retrieved ID: $id');
     // Create a multipart request

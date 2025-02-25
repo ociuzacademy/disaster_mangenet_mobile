@@ -1,3 +1,4 @@
+import 'package:disaster_management/app_functions/local_storage_function.dart';
 import 'package:disaster_management/modules/login/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -138,9 +139,7 @@ class _ProfileState extends State<Profile> {
                     const SizedBox(height: 10),
                     InkWell(
                       onTap: () async {
-                        // Perform logout by clearing the SharedPreferences
-                        final prefs = await SharedPreferences.getInstance();
-                        await prefs.clear(); 
+                        await SharedPrefHelper.clearUserData();
 
                         Navigator.pushAndRemoveUntil(
                           context,

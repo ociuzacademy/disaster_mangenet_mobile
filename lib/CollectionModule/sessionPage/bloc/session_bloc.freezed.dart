@@ -19,19 +19,19 @@ mixin _$SessionEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() sessionList,
+    required TResult Function(String sectionId) sessionList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? sessionList,
+    TResult? Function(String sectionId)? sessionList,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? sessionList,
+    TResult Function(String sectionId)? sessionList,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -119,7 +119,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() sessionList,
+    required TResult Function(String sectionId) sessionList,
   }) {
     return started();
   }
@@ -128,7 +128,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? sessionList,
+    TResult? Function(String sectionId)? sessionList,
   }) {
     return started?.call();
   }
@@ -137,7 +137,7 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? sessionList,
+    TResult Function(String sectionId)? sessionList,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -187,6 +187,8 @@ abstract class _$$SessionListImplCopyWith<$Res> {
   factory _$$SessionListImplCopyWith(
           _$SessionListImpl value, $Res Function(_$SessionListImpl) then) =
       __$$SessionListImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String sectionId});
 }
 
 /// @nodoc
@@ -199,54 +201,80 @@ class __$$SessionListImplCopyWithImpl<$Res>
 
   /// Create a copy of SessionEvent
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? sectionId = null,
+  }) {
+    return _then(_$SessionListImpl(
+      sectionId: null == sectionId
+          ? _value.sectionId
+          : sectionId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$SessionListImpl implements _SessionList {
-  const _$SessionListImpl();
+  const _$SessionListImpl({required this.sectionId});
+
+  @override
+  final String sectionId;
 
   @override
   String toString() {
-    return 'SessionEvent.sessionList()';
+    return 'SessionEvent.sessionList(sectionId: $sectionId)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SessionListImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$SessionListImpl &&
+            (identical(other.sectionId, sectionId) ||
+                other.sectionId == sectionId));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, sectionId);
+
+  /// Create a copy of SessionEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SessionListImplCopyWith<_$SessionListImpl> get copyWith =>
+      __$$SessionListImplCopyWithImpl<_$SessionListImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function() sessionList,
+    required TResult Function(String sectionId) sessionList,
   }) {
-    return sessionList();
+    return sessionList(sectionId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function()? sessionList,
+    TResult? Function(String sectionId)? sessionList,
   }) {
-    return sessionList?.call();
+    return sessionList?.call(sectionId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function()? sessionList,
+    TResult Function(String sectionId)? sessionList,
     required TResult orElse(),
   }) {
     if (sessionList != null) {
-      return sessionList();
+      return sessionList(sectionId);
     }
     return orElse();
   }
@@ -284,7 +312,16 @@ class _$SessionListImpl implements _SessionList {
 }
 
 abstract class _SessionList implements SessionEvent {
-  const factory _SessionList() = _$SessionListImpl;
+  const factory _SessionList({required final String sectionId}) =
+      _$SessionListImpl;
+
+  String get sectionId;
+
+  /// Create a copy of SessionEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SessionListImplCopyWith<_$SessionListImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

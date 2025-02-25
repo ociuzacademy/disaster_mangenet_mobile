@@ -2,15 +2,24 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:disaster_management/CollectionModule/sessionPage/model/session_model.dart';
+import 'package:disaster_management/app_functions/app_functions.dart';
+import 'package:disaster_management/app_functions/local_storage_function.dart';
 import 'package:disaster_management/constants/urls.dart';
 import 'package:http/http.dart' as http;
 
-Future<CollectionCenterSectionsModel> SessionService() async {
+Future<CollectionCenterSectionsModel> SessionService({
+  required String sectionId,
+}) async {
   try {
+    String? sectionid = await SharedPrefHelper.getSectionId();
+    String? cltid = await SharedPrefHelper.getCollectionid();
+
+    print('sectionId: $sectionid');
+    print('cltid: $cltid');
     // Construct the URL with query parameters
     final url = Uri.parse(Urls.CollectionCenterSections).replace(
       queryParameters: {
-        'collection_center': '19',
+        'collection_center': cltid,
       },
     );
 

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:disaster_management/CollectionModule/HomePage/model/foodlist_model.dart';
 import 'package:disaster_management/app_functions/app_functions.dart';
+import 'package:disaster_management/app_functions/local_storage_function.dart';
 import 'package:disaster_management/constants/urls.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,10 +11,10 @@ Future<StockListsModel> FoodListService({
   required String item_category,
 }) async {
   try {
-    String? collid = await fun().getCollectionid();
-    print('Retrieved ID: $collid');
-    String? sectionid = await fun().getSectionId();
-    print('Retrieved ID: $sectionid');
+    String? collid = await SharedPrefHelper.getCollectionid();
+    print('Retrieved Collection ID: $collid');
+    String? sectionid = await SharedPrefHelper.getSectionId();
+    print('Retrieved Section ID: $sectionid');
     // Construct the URL with query parameters for GET request
     final url = Uri.parse(Urls.stocks).replace(queryParameters: {
       'collection_id': collid,
