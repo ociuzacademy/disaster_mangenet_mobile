@@ -45,7 +45,10 @@ class _CollectionHomePageState extends State<CollectionHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Collection Home'),
+        title: Text(
+          'Collection Home',
+          style: TextStyle(fontSize: 16),
+        ),
         elevation: 2,
       ),
       body: Padding(

@@ -28,7 +28,10 @@ class _volunteerCollectionnProfileState
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: const Text(
+          'Profile',
+          style: TextStyle(fontSize: 16),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -76,8 +79,10 @@ class _volunteerCollectionnProfileState
                           ),
                           placeholder: (context, url) =>
                               const CircularProgressIndicator(),
-                          errorWidget: (context, url, error) =>
-                              const Icon(Icons.person),
+                          errorWidget: (context, url, error) => const Icon(
+                            Icons.person,
+                            size: 60,
+                          ),
                         ),
                         const SizedBox(width: 16),
                         Expanded(

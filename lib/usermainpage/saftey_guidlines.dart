@@ -15,7 +15,10 @@ class _SafteyGuidlinesState extends State<SafteyGuidlines> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('precautions'),
+        title: const Text(
+          'precautions',
+          style: TextStyle(fontSize: 16),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

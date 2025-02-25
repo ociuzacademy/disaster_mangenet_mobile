@@ -26,7 +26,10 @@ class _volunteerProfileState extends State<volunteerProfile> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Profile '),
+        title: const Text(
+          'Profile ',
+          style: TextStyle(fontSize: 16),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -77,7 +80,7 @@ class _volunteerProfileState extends State<volunteerProfile> {
                           errorWidget: (context, url, error) => Center(
                               child: const Icon(
                             Icons.person,
-                            size: 19,
+                            size: 60,
                           )),
                         ),
                         const SizedBox(width: 16),

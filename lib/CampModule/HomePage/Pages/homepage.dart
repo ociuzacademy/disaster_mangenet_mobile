@@ -23,7 +23,10 @@ class _UserListPageState extends State<UserListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Camp Refugee List'),
+        title: Text(
+          'Camp Refugee List',
+          style: TextStyle(fontSize: 16),
+        ),
       ),
       body: BlocBuilder<UserListBloc, UserListState>(
         builder: (context, state) {
