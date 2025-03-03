@@ -1,5 +1,6 @@
 import 'package:disaster_management/app_functions/local_storage_function.dart';
 import 'package:disaster_management/modules/login/pages/login_page.dart';
+import 'package:disaster_management/widgets/popup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -141,17 +142,7 @@ class _ProfileState extends State<Profile> {
                     const Divider(color: Colors.grey, thickness: 0.5),
                     const SizedBox(height: 10),
                     InkWell(
-                      onTap: () async {
-                        await SharedPrefHelper.clearUserData();
-
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => LoginPage(),
-                          ),
-                          (Route<dynamic> route) => false,
-                        );
-                      },
+                      onTap: () => _showDialog(context),
                       child: Row(
                         children: const [
                           Icon(Icons.logout, size: 30),
@@ -182,6 +173,32 @@ class _ProfileState extends State<Profile> {
           },
         ),
       ),
+    );
+  }
+
+  void _showDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CustomDialog(
+          title: "Log Out",
+          content: "Do you want to Log Out",
+          onYesPressed: () async {
+            await SharedPrefHelper.clearUserData();
+
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => LoginPage(),
+              ),
+              (Route<dynamic> route) => false,
+            );
+          },
+          onNoPressed: () {
+            Navigator.pop(context);
+          },
+        );
+      },
     );
   }
 
