@@ -40,12 +40,13 @@ Future<StockEnterModel> foodStockService({
         'Content-Type': 'application/json',
       },
       body: body,
+      
     );
 
     final Map<String, dynamic> decoded = jsonDecode(resp.body);
     print(resp.body);
 
-    if (resp.statusCode == 200) {
+    if (resp.statusCode == 200) {  
       final response = StockEnterModel.fromJson(decoded);
       return response;
     } else {

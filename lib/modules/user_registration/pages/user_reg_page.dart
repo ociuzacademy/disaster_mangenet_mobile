@@ -12,7 +12,7 @@ class UserRegPage extends StatefulWidget {
   const UserRegPage({super.key});
 
   @override
-  State<UserRegPage> createState() => _UserRegPageState();
+  State<UserRegPage> createState() => _UserRegPageState(); 
 }
 
 class _UserRegPageState extends State<UserRegPage> {

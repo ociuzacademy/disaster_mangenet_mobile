@@ -46,8 +46,14 @@ class _MainHomePageState extends State<MainHomePage>
         latitude: position.latitude.toString(),
         longitude: position.longitude.toString());
     if (response == "SOS message sent successfully!") {
+      print('SOS email completed');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("SOS email completed")),
+      );
+    } else {
+      print('Somthing Went Rong');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Somthing Went Rong")),
       );
     }
   }
